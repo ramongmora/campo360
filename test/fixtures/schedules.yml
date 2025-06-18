@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schedulable: one
+  schedulable_type: Schedulable
+  location: one
+  activity: one
+  start_date: 2025-06-18
+  end_date: 2025-06-18
+
+two:
+  schedulable: two
+  schedulable_type: Schedulable
+  location: two
+  activity: two
+  start_date: 2025-06-18
+  end_date: 2025-06-18
