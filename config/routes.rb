@@ -8,12 +8,12 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "pages#home"
-  get 'pages#dashboard'
+  root 'pages#home'
+  get 'dashboard', to: 'pages#dashboard'
   resources :locations do
-    resources :schedules # locations/:id/schedules
-    resources :animals # locations/:id/animals
-    resources :crops # locations/:id/crops
-    resources :employees # locations/:id/employees
+    resources :schedules
+    resources :animals
+    resources :crops
+    resources :employees
   end
 end
