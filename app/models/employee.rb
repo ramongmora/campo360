@@ -1,5 +1,5 @@
 class Employee < ApplicationRecord
-  belong_to :location
+  belongs_to :location
 
   validates :first_name, :last_name, :citizen_register, :salary, presence: true
   validates :citizen_register, uniqueness: true
