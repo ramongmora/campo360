@@ -2,9 +2,9 @@ class Schedule < ApplicationRecord
   belongs_to :schedulable, polymorphic: true
   belongs_to :location
   belongs_to :activity
+  has_one :user, through: :location
 
   validates :start_date, :schedulable, :end_date, :activity, presence: true
-
   validate :start_date_before_end_date
 
   private
