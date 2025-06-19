@@ -1,12 +1,15 @@
 class Location < ApplicationRecord
   belongs_to :user
+
   has_many :employees
   has_many :crops
   has_many :animals
   has_many :schedules
 
-  validates :name, :surface, :address, :latitude, :longitude, presence: true
-  validates :name, uniqueness: true
+  validates :user, presence: true
+  validates :name, presence: true
   validates :surface, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
-
+  validates :address, presence: true
+  validates :latitude, numericality: true, allow_nil: true
+  validates :longitude, numericality: true, allow_nil: true
 end

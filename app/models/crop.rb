@@ -1,9 +1,11 @@
 class Crop < ApplicationRecord
   belongs_to :location
-  has_many :schedules, as: :schedulable
+  has_many :schedules, as: :schedulable, dependent: :destroy
+
   has_one :user, through: :location
 
-  validates :sowing_date, :location, :harvest_date, :surface, :kind, presence: true
+  validates :location, presence: true
+  validates :sowing_date, :harvest_date, :surface, :kind, presence: true
   validates :surface, numericality: { greater_than: 0 }
   validates :follow, inclusion: { in: [true, false] }
 
