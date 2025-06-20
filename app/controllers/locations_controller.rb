@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   def index
+    @locations = Location.find_by(user_id: current_user)
   end
 
   def show
