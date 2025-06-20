@@ -1,2 +1,26 @@
-<h1>Animals#index</h1>
-<p>Find me in app/views/animals/index.html.erb</p>
+<turbo-frame id="dashboard-content">
+  <div class="container">
+    <h1 class="mb-4">Animales en <%= @location.name %></h1>
+
+    <%= form_with url: location_animals_path(@location), method: :get, local: false, data: { turbo_frame: "dashboard-content" } do |f| %>
+      <div class="mb-3">
+        <%= f.text_field :query, placeholder: "Buscar por alias...", class: "form-control" %>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= link_to "➕ Agregar Animal",
+                  new_location_animal_path(@location),
+                  data: { turbo_frame: "dashboard-content" },
+                  class: "btn btn-success" %>
+    </div>
+
+    <turbo-frame id="animals_list">
+      <div class="list-group">
+        <% @animals.each do |animal| %>
+          <%= render partial: "animal", locals: { animal: animal, location: @location } %>
+        <% end %>
+      </div>
+    </turbo-frame>
+  </div>
+</turbo-frame>

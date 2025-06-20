@@ -1,2 +1,7 @@
 <h1>Pages#dashboard</h1>
 <p>Find me in app/views/pages/dashboard.html.erb</p>
+<turbo-frame id="dashboard-content">
+  <p>Bienvenido a tu panel de control de Campo360</p>
+</turbo-frame>
+
+<%= link_to "Animales", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-primary" %>

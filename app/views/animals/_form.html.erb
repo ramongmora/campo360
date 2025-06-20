@@ -1,0 +1,44 @@
+<%= form_with model: [@location, @animal], data: { turbo_frame: "dashboard-content" } do |f| %>
+  <% if @animal.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @animal.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :alias, "Alias" %>
+    <%= f.text_field :alias, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :breed, "Raza" %>
+    <%= f.text_field :breed, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :birth_date, "Fecha de nacimiento" %>
+    <%= f.date_field :birth_date, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :gender, "Género" %>
+    <%= f.select :gender, [['Macho', 'male'], ['Hembra', 'female']], {}, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 form-check">
+    <%= f.hidden_field :follow, value: false %>
+    <%= f.check_box :follow, class: "form-check-input" %>
+    <%= f.label :follow, "En seguimiento", class: "form-check-label" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :animal_group_id, "Grupo de animales" %>
+    <%= f.collection_select :animal_group_id, AnimalGroup.all, :id, :name, { prompt: "Seleccionar grupo" }, class: "form-control" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

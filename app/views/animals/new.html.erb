@@ -1,2 +1,6 @@
-<h1>Animals#new</h1>
-<p>Find me in app/views/animals/new.html.erb</p>
+<turbo-frame id="dashboard-content">
+  <div class="container">
+    <h2>Nuevo Animal</h2>
+    <%= render "form", animal: @animal %>
+  </div>
+</turbo-frame>
