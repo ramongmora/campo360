@@ -1,2 +1,62 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="dashboard-container">
+
+  <!-- Navbar superior -->
+  <header class="dashboard-header">
+  <div class="left-section">
+    <h2>Mi rancho</h2>
+    <select class="rancho-selector">
+      <option>Hacienda Napolés</option>
+      <option>Rancho Los Sauces</option>
+    </select>
+  </div>
+
+  <nav class="navbar-links">
+    <%= link_to "Inicio", root_path, class: "nav-link" %>
+    <%= link_to "Actividad", actividad_path, class: "nav-link" %>
+    <%= link_to "Ajustes", settings_path, class: "nav-link" %>
+  </nav>
+</header>
+
+
+  <!-- Buscador -->
+  <div class="search-bar">
+    <input type="text" placeholder="Buscar animal, cultivo o actividad..." />
+  </div>
+
+  <!-- Banner de notificación -->
+  <div class="notification-banner">
+    🌽 Tu cultivo de maíz debe ser regado en menos de 5 horas.
+  </div>
+
+  <!-- Cards principales -->
+  <div class="main-cards">
+    <div class="card" onclick="window.location='/animals'">
+      <%= image_tag("iconos/animals_icon.png", alt: "Ganado", class: "icono-section") %>
+      <h3>Ganado</h3>
+      <p>Controla baños, vacunas, pesos y salud.</p>
+    </div>
+
+    <div class="card" onclick="window.location='/crops'">
+      <%= image_tag("iconos/crops_icon.png", alt: "Siembra", class: "icono-section") %>
+      <h3>Siembras</h3>
+      <p>Gestiona tus cultivos, riegos y fumigaciones.</p>
+    </div>
+
+    <div class="card" onclick="window.location='/admin'">
+      <%= image_tag("iconos/admins_icon.png", alt: "Admin", class: "icono-section") %>
+      <h3>Administración</h3>
+      <p>Control de finanzas y pagos de empleados.</p>
+    </div>
+  </div>
+
+  <!-- Actividad reciente -->
+  <section class="recent-activity">
+    <h3>Actividad reciente</h3>
+    <ul>
+      <li>🐄 Vacunación aplicada a Toro #004 - 18 de junio</li>
+      <li>🌱 Fumigación en cultivo de maíz - 17 de junio</li>
+      <li>💰 Pago a Juan Pérez - 16 de junio</li>
+    </ul>
+  </section>
+
+</div>
