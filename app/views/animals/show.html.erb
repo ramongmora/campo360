@@ -1,2 +1,20 @@
 <h1>Animals#show</h1>
-<p>Find me in app/views/animals/show.html.erb</p>
+<turbo-frame id="dashboard-content">
+  <div class="container">
+    <h1 class="mb-4">Detalles del Animal</h1>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= @animal.alias %></h5>
+        <p class="card-text">ID: <%= @animal.id %></p>
+        <p class="card-text">Raza: <%= @animal.breed %></p>
+        <p class="card-text">Fecha de Nacimiento: <%= @animal.birth_date %></p>
+        <p class="card-text">Ubicación: <%= @location.name %></p>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= link_to "Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
+      <%= link_to "Volver a la lista", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+    </div>
+  </div>

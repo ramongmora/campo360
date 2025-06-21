@@ -1,0 +1,16 @@
+<div id="<%= dom_id(animal) %>" class="list-group-item d-flex justify-content-between align-items-center">
+  <div>
+    <strong><%= animal.alias %></strong> - <%= animal.breed %> - <%= animal.gender %>
+    <% if animal.birth_date %>
+      <br><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small>
+    <% end %>
+  </div>
+  <div>
+    <%= link_to "👁 Ver", location_animal_path(location, animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-sm btn-outline-info me-1" %>
+    <%= link_to "✏️ Editar", edit_location_animal_path(location, animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-sm btn-outline-warning me-1" %>
+    <%= button_to "🗑 Eliminar", location_animal_path(location, animal),
+        method: :delete,
+        data: { turbo_confirm: "¿Estás seguro?" },
+        class: "btn btn-sm btn-outline-danger" %>
+  </div>
+</div>
