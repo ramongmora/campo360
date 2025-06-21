@@ -1,2 +1,33 @@
-<h1>Crops#new</h1>
-<p>Find me in app/views/crops/new.html.erb</p>
+<h1 class="mb-4 text-success">🌱 New Crop</h1>
+<div class="card shadow-sm border-success" style="background: #f6fff4;">
+  <div class="card-body">
+    <%= simple_form_for [@location, @crop], html: { class: "needs-validation" } do |f| %>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.input :kind, label: "Crop Type", input_html: { class: "form-control border-success bg-light" }, label_html: { class: "form-label text-success" } %>
+        </div>
+        <div class="col-md-6 mb-3">
+          <%= f.input :surface, label: "Surface", input_html: { class: "form-control border-success bg-light" }, label_html: { class: "form-label text-success" } %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <%= f.input :sowing_date, as: :string, label: "Sowing Date", input_html: { type: "date", class: "form-control border-success bg-light" }, label_html: { class: "form-label fw-semibold text-success" }, wrapper_html: { class: "mb-2" } %>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <%= f.input :harvest_date, as: :string, label: "Harvest Date", input_html: { type: "date", class: "form-control border-success bg-light" }, label_html: { class: "form-label fw-semibold text-success" }, wrapper_html: { class: "mb-2" } %>
+          </div>
+        </div>
+        <div class="col-12 mb-3 d-flex align-items-center">
+          <div class="form-check form-switch ms-auto">
+            <%= f.input :follow, as: :boolean, label: "Follow Crop", wrapper_html: { class: "form-check form-switch mb-0" }, input_html: { class: "form-check-input", role: "switch" }, label_html: { class: "form-check-label fw-semibold text-success" } %>
+          </div>
+        </div>
+      </div>
+      <%= f.button :submit, "🌾 Create Crop", class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>
