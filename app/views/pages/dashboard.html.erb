@@ -1,7 +1,41 @@
 <h1>Pages#dashboard</h1>
 <p>Find me in app/views/pages/dashboard.html.erb</p>
 <turbo-frame id="dashboard-content">
-  <p>Bienvenido a tu panel de control de Campo360</p>
+  <h2>My Locations</h2>
 </turbo-frame>
 
-<%= link_to "Animales", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-primary" %>
+<div class="container">
+  <%@locations.each do |location| %>
+    <h3><%= location.name %></h3>
+    <ul>
+    <%= link_to "Animals", location_animals_path(location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-success" %>
+    <%= link_to "Crops", location_crops_path(location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-success" %>
+    <%= link_to "Employees", location_employees_path(location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-success" %>
+    <%= link_to "Activities", location_schedules_path(location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-success" %>
+    </ul>
+    <div>
+      <h5>  Upcoming Acitvities</h5>
+      <% location.upcoming_schedules.each do |schedule| %>
+        <%=schedule.activity.name %>
+      <% end %>
+    </div>
+    <div>
+      <h5>Last Activities</h5>
+      <% location.last_schedules.each do |schedule| %>
+        <%=schedule.activity.name %>
+      <% end %>
+    </div>
+    <div>
+      <h5>Recent Activities</h5>
+      <% location.recent_schedules.each do |schedule| %>
+        <%=schedule.activity.name %>
+      <% end %>
+    </div>
+    <div>
+      <h5>Today's Employees</h5>
+      <% location.employees.each do |employee| %>
+      <%employee.first_name%> <% employee.last_name%>
+      <% end %>
+    </div>
+  <% end %>
+</div>

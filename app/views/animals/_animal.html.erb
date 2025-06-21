@@ -1,6 +1,6 @@
 <div id="<%= dom_id(animal) %>" class="list-group-item d-flex justify-content-between align-items-center">
   <div>
-    <strong><%= animal.alias %></strong> - <%= animal.breed %> - <%= animal.gender %>
+    <strong><%= animal.animal_group.name %></strong> - <%= animal.breed %> - <%= animal.gender.capitalize %>
     <% if animal.birth_date %>
       <br><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small>
     <% end %>
