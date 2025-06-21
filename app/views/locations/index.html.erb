@@ -1,16 +1,23 @@
-<h1>Yours Locations</h1>
+<h1 class="mb-4">Your Locations</h1>
 <% if @locations.present? %>
-  <% @locations.each do |location| %>
-  <div class="location">
-    <h2><%= link_to location.name, location %></h2>
-    <p><%= location.description %></p>
-    <p>Latitude: <%= location.latitude %>, Longitude: <%= location.longitude %></p>
-    <p>Created at: <%= location.created_at.strftime("%B %d, %Y") %></p>
+  <div class="row">
+    <% @locations.each do |location| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to location.name, location, class: "stretched-link" %></h5>
+            <p class="card-text"><strong>Address:</strong> <%= location.address %></p>
+            <p class="card-text"><strong>Surface:</strong> <%= location.surface %></p>
+            <p class="card-text"><strong>Latitude:</strong> <%= location.latitude %>, <strong>Longitude:</strong> <%= location.longitude %></p>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
-  <% else %>
-  <div class="no-locations">
+  <%= link_to 'Add a new location', new_location_path, class: 'btn btn-primary mt-3' %>
+<% else %>
+  <div class="alert alert-info">
     <p>No locations found.</p>
-    <%= link_to 'Add a new location', new_location_path, class: 'btn btn-primary' %>
+    <%= link_to 'Add a new location', new_location_path, class: 'btn btn-primary mt-2' %>
   </div>
-  <% end %>
+<% end %>
