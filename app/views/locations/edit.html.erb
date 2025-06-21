@@ -1,2 +1,18 @@
-<h1>Locations#edit</h1>
-<p>Find me in app/views/locations/edit.html.erb</p>
+<h1>Edit Location</h1>
+<div class="card mx-auto" style="max-width: 500px;">
+  <div class="card-body">
+    <h2><%= @location.name %></h2>
+    <%= simple_form_for @location do |f| %>
+      <%= f.input :name, input_html: { class: "form-control" } %>
+      <%= f.input :address, input_html: { class: "form-control" } %>
+      <%= f.input :surface, input_html: { class: "form-control" } %>
+      <%= f.input :latitude, input_html: { class: "form-control" } %>
+      <%= f.input :longitude, input_html: { class: "form-control" } %>
+      <%= f.button :submit, "Update Location", class: "btn btn-primary w-100 mt-3" %>
+    <% end %>
+  </div>
+  <div class="card-footer text-center">
+    <%= link_to 'Back to Locations', locations_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Delete', location_path(@location), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+  </div>
+</div>
