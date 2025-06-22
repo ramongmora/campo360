@@ -11,6 +11,10 @@ class AnimalsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: "show", locals: { animal: @animal, location: @location } }
+    end
   end
 
   def new
