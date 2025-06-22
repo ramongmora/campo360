@@ -1,2 +1,69 @@
-<h1>Crops#index</h1>
-<p>Find me in app/views/crops/index.html.erb</p>
+<div class="container py-4">
+  <h1 class="mb-4 text-center text-success">Crops</h1>
+
+  <% if @crops.any? %>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% @crops.each do |crop| %>
+        <div class="col">
+          <div class="card h-100 shadow border-success">
+            <div class="card-body">
+              <h5 class="card-title text-primary"><%= crop.kind %></h5>
+              <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item"><strong>Location:</strong> <%= crop.location&.name || "N/A" %></li>
+                <li class="list-group-item"><strong>Harvest Date:</strong> <%= crop.harvest_date&.strftime("%Y-%m-%d") if crop.harvest_date %></li>
+                <li class="list-group-item"><strong>Sowing Date:</strong> <%= crop.sowing_date&.strftime("%Y-%m-%d") if crop.sowing_date %></li>
+                <li class="list-group-item"><strong>Surface:</strong> <%= crop.surface %> m²</li>
+                <li class="list-group-item">
+                  <strong>Follow:</strong>
+                  <span class="badge <%= crop.follow ? 'bg-success' : 'bg-secondary' %>">
+                    <%= crop.follow ? "Yes" : "No" %>
+                  </span>
+                </li>
+              </ul>
+              <div class="d-grid gap-2">
+                <%= link_to location_crop_path(crop.location, crop), class: 'btn btn-success btn-sm mb-2' do %>
+                  <i class="bi bi-eye"></i> Show Crop
+                <% end %>
+                <%= link_to edit_location_crop_path(crop.location, crop), class: 'btn btn-primary btn-sm' do %>
+                  <i class="bi bi-pencil"></i> Edit Crop
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-4 text-center">
+      <%= link_to 'Add a new crop', new_location_crop_path(@crops.first&.location_id), class: 'btn btn-success btn-lg' %>
+    </div>
+
+    <div class="mt-5">
+      <div class="card mb-3 border-success">
+        <div class="card-header bg-success text-white">
+          Crop Statistics
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Total number of crops:
+            <span class="badge bg-primary"><%= @crops.count %></span>
+          </p>
+          <p class="card-text">
+            Total surface area:
+            <span class="badge bg-info text-dark"><%= @crops.sum(:surface) %> m²</span>
+          </p>
+          <p class="card-text">
+            Average surface area per crop:
+            <span class="badge bg-warning text-dark">
+              <%= (@crops.sum(:surface) / @crops.count).round(2) %> m²
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="alert alert-info text-center mt-5">
+      No crops found. <%= link_to 'Add a new crop', new_location_crop_path, class: 'btn btn-success ms-2' %>
+    </div>
+  <% end %>
+</div>

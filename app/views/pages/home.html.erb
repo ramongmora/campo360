@@ -23,6 +23,7 @@
 </header>
 
 
+
   <!-- Buscador -->
   <div class="search-bar">
     <input type="text" placeholder="Buscar animal, cultivo o actividad..." />
@@ -34,25 +35,33 @@
   </div>
 
   <!-- Cards principales -->
-  <div class="main-cards">
-    <div class="card" onclick="window.location='/animals'">
+  <!-- Cards principales -->
+<div class="main-cards">
+  <div class="card" onclick="window.location='<%= location_animals_path(@location) %>'">
+    <div class="card-content">
       <%= image_tag("iconos/animals_icon.png", alt: "Ganado", class: "icono-section") %>
       <h3>Ganado</h3>
       <p>Controla baños, vacunas, pesos y salud.</p>
     </div>
+  </div>
 
-    <div class="card" onclick="window.location='/crops'">
+  <div class="card" onclick="window.location='<%= location_crops_path(@location) %>'">
+    <div class="card-content">
       <%= image_tag("iconos/crops_icon.png", alt: "Siembra", class: "icono-section") %>
       <h3>Siembras</h3>
       <p>Gestiona tus cultivos, riegos y fumigaciones.</p>
     </div>
+  </div>
 
-    <div class="card" onclick="window.location='/admin'">
+  <div class="card" onclick="window.location='/admin'">
+    <div class="card-content">
       <%= image_tag("iconos/admins_icon.png", alt: "Admin", class: "icono-section") %>
       <h3>Administración</h3>
       <p>Control de finanzas y pagos de empleados.</p>
     </div>
   </div>
+</div>
+
 
   <!-- Actividad reciente -->
   <section class="recent-activity">

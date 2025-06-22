@@ -1,20 +1,22 @@
-<h1>Animals#show</h1>
 <turbo-frame id="dashboard-content">
-  <div class="container">
-    <h1 class="mb-4">Detalles del Animal</h1>
+  <div class="container mt-4">
+    <h2>🐄 <%= @animal.alias %></h2>
 
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title"><%= @animal.alias %></h5>
-        <p class="card-text">ID: <%= @animal.id %></p>
-        <p class="card-text">Raza: <%= @animal.breed %></p>
-        <p class="card-text">Fecha de Nacimiento: <%= @animal.birth_date %></p>
-        <p class="card-text">Ubicación: <%= @location.name %></p>
-      </div>
-    </div>
+    <ul class="list-group mb-4">
+      <li class="list-group-item"><strong>Raza:</strong> <%= @animal.breed %></li>
+      <li class="list-group-item"><strong>Género:</strong> <%= @animal.gender %></li>
+      <li class="list-group-item"><strong>Fecha de nacimiento:</strong> <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %></li>
+    </ul>
 
-    <div class="mb-3">
-      <%= link_to "Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
-      <%= link_to "Volver a la lista", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+    <div class="d-flex gap-2">
+      <%= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
+
+      <%= button_to "🗑 Eliminar", location_animal_path(@location, @animal),
+          method: :delete,
+          data: { turbo_confirm: "¿Estás seguro de eliminar este animal?" },
+          class: "btn btn-danger" %>
+
+      <%= link_to "🔙 Volver", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
     </div>
   </div>
+</turbo-frame>

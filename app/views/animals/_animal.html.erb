@@ -1,10 +1,18 @@
-<div id="<%= dom_id(animal) %>" class="list-group-item d-flex justify-content-between align-items-center">
+<div
+  id="<%= dom_id(animal) %>"
+  class="animal-item"
+  role="button"
+  tabindex="0"
+  data-controller="animal-line"
+  data-animal-line-url-value="<%= location_animal_path(location, animal) %>">
+
   <div>
     <strong><%= animal.animal_group.name %></strong> - <%= animal.breed %> - <%= animal.gender.capitalize %>
     <% if animal.birth_date %>
       <br><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small>
     <% end %>
   </div>
+
   <div>
     <%= link_to "👁", location_animal_path(location, animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-sm btn-outline-info me-1" %>
     <%= link_to "✏️", edit_location_animal_path(location, animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-sm btn-outline-warning me-1" %>
@@ -13,4 +21,6 @@
         data: { turbo_confirm: "¿Estás seguro?" },
         class: "btn btn-sm btn-outline-danger" %>
   </div>
+
+
 </div>
