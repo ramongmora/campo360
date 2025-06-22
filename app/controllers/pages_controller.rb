@@ -1,11 +1,12 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!, only: :home
   def home
     @location = Location.first
     @animals = Animal.all
   end
 
   def dashboard
-    @location = Location.first
+    @locations = current_user.locations
   end
 
   def actividad
