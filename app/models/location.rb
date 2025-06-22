@@ -12,4 +12,16 @@ class Location < ApplicationRecord
   validates :address, presence: true
   validates :latitude, numericality: true, allow_nil: true
   validates :longitude, numericality: true, allow_nil: true
+
+  def last_schedules
+    schedules.last(5)
+  end
+
+  def upcoming_schedules
+    schedules.where('end_date > ?', Date.today).order(end_date: :desc).limit(5)
+  end
+
+  def recent_schedules
+    schedules.where('end_date < ?', Date.today).order(end_date: :asc).limit(5)
+  end
 end

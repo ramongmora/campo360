@@ -1,7 +1,14 @@
-<h1>Pages#dashboard</h1>
-<p>Find me in app/views/pages/dashboard.html.erb</p>
+<h1>Dashboard</h1>
+  <h2>My Locations</h2>
+  <%= link_to "New", new_location_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-success" %>
 <turbo-frame id="dashboard-content">
-  <p>Bienvenido a tu panel de control de Campo360</p>
 </turbo-frame>
 
-<%= link_to "Animales", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-primary" %>
+<div class="container">
+<turbo-frame id='locations'>
+  <%#@locations.each do |location| %>
+    <%#= render 'locations/location', location: location %>
+  <%# end %>
+  <%= render @locations %>
+</turbo-frame>
+</div>
