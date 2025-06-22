@@ -1,22 +1,30 @@
 <turbo-frame id="dashboard-content">
-  <div class="container mt-4">
-    <h2>🐄 <%= @animal.alias %></h2>
+  <div class="container mt-4 d-flex justify-content-center mb-5">
+    <div class="animal-item animal-detail-card w-100" style="max-width: 450px;">
 
-    <ul class="list-group mb-4">
-      <li class="list-group-item"><strong>Raza:</strong> <%= @animal.breed %></li>
-      <li class="list-group-item"><strong>Género:</strong> <%= @animal.gender %></li>
-      <li class="list-group-item"><strong>Fecha de nacimiento:</strong> <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %></li>
-    </ul>
+      <!-- Icono o futura imagen -->
+      <div class="animal-photo-placeholder">🐄</div>
 
-    <div class="d-flex gap-2">
-      <%= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
+      <!-- Alias del animal -->
+      <h2 class="animal-alias"><%= @animal.alias %></h2>
 
-      <%= button_to "🗑 Eliminar", location_animal_path(@location, @animal),
-          method: :delete,
-          data: { turbo_confirm: "¿Estás seguro de eliminar este animal?" },
-          class: "btn btn-danger" %>
+      <!-- Datos -->
+      <div class="animal-meta"><strong>Raza:</strong> <%= @animal.breed %></div>
+      <div class="animal-meta"><strong>Género:</strong> <%= @animal.gender %></div>
+      <div class="animal-meta"><strong>Nacimiento:</strong> <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %></div>
 
-      <%= link_to "🔙 Volver", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+      <!-- Botones (DENTRO de la tarjeta) -->
+      <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
+        <%= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
+
+        <%= button_to "🗑 Eliminar", location_animal_path(@location, @animal),
+            method: :delete,
+            data: { turbo_confirm: "¿Estás seguro de eliminar este animal?" },
+            class: "btn btn-danger" %>
+
+        <%= link_to "🔙 Volver", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+      </div>
+
     </div>
   </div>
 </turbo-frame>

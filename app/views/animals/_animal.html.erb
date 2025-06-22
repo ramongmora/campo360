@@ -6,10 +6,22 @@
   data-controller="animal-line"
   data-animal-line-url-value="<%= location_animal_path(location, animal) %>">
 
-  <div>
-    <strong><%= animal.alias %></strong> - <%= animal.breed %> - <%= animal.gender %>
+  <!-- Imagen o ícono del animal -->
+  <div class="animal-photo-placeholder">
+    🐄
+  </div>
+
+  <!-- Información -->
+  <div class="animal-info">
+    <strong class="animal-alias"><%= animal.alias %></strong>
+    <div class="animal-meta"><%= animal.breed %> - <%= animal.gender %></div>
     <% if animal.birth_date %>
-      <br><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small>
+      <div class="animal-meta"><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small></div>
     <% end %>
+  </div>
+
+  <!-- Botón visual -->
+  <div class="animal-button">
+    👁 Ver más
   </div>
 </div>
