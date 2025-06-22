@@ -16,7 +16,10 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     @location.user = current_user
     if @location.save
-      redirect_to @location, notice: 'Location was successfully created.'
+      respond_to do |format|
+        format.html {redirect_to @location, notice: 'Location was successfully created.'}
+        format.turbo_stream
+      end
     else
       render :new
     end

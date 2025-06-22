@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
   def index
-    @schedules= Schedule.
+    @schedules= Schedule.all
   end
 end

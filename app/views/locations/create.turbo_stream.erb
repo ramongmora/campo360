@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend('locations',partial: 'locations/location', locals:{location: @location})%>
+<%= turbo_stream.remove 'dashboard-content' %>
