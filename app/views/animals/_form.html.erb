@@ -1,6 +1,6 @@
-<%= form_with model: [@location, @animal], data: { turbo_frame: "dashboard-content" } do |f| %>
+<%= form_with model: [@location, @animal], data: { turbo_frame: "dashboard-content" }, class: "animal-form d-flex flex-column align-items-center" do |f| %>
   <% if @animal.errors.any? %>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger w-100">
       <ul>
         <% @animal.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -9,36 +9,47 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
-    <%= f.label :alias, "Alias" %>
-    <%= f.text_field :alias, class: "form-control" %>
-  </div>
+  <div class="form-card p-4 rounded shadow-sm" style="max-width: 400px; width: 100%; background-color: #f9f9f9;">
+    <div class="mb-3">
+      <%= f.label :alias, "Alias" %>
+      <%= f.text_field :alias, class: "form-control" %>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :breed, "Raza" %>
-    <%= f.text_field :breed, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :breed, "Raza" %>
+      <%= f.text_field :breed, class: "form-control" %>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :birth_date, "Fecha de nacimiento" %>
-    <%= f.date_field :birth_date, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :birth_date, "Fecha de nacimiento" %>
+      <%= f.date_field :birth_date, class: "form-control" %>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :gender, "Género" %>
-    <%= f.select :gender, [['Macho', 'male'], ['Hembra', 'female']], {}, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :gender, "Género" %>
+      <%= f.select :gender, [['Macho', 'male'], ['Hembra', 'female']], {}, class: "form-control" %>
+    </div>
 
-  <div class="mb-3 form-check">
-    <%= f.hidden_field :follow, value: false %>
-    <%= f.check_box :follow, class: "form-check-input" %>
-    <%= f.label :follow, "En seguimiento", class: "form-check-label" %>
-  </div>
+    <div class="mb-3 form-check">
+      <%= f.hidden_field :follow, value: false %>
+      <%= f.check_box :follow, class: "form-check-input toggle-switch", id: "followToggle" %>
+      <%= f.label :follow, "En seguimiento", class: "form-check-label toggle-label" %>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :animal_group_id, "Grupo de animales" %>
-    <%= f.collection_select :animal_group_id, AnimalGroup.all, :id, :name, { prompt: "Seleccionar grupo" }, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :animal_group_id, "Grupo de animales" %>
+      <%= f.collection_select :animal_group_id, AnimalGroup.all, :id, :name, { prompt: "Seleccionar grupo" }, class: "form-control" %>
+    </div>
 
-  <%= f.submit class: "btn btn-primary" %>
+    <!-- ✅ Botones -->
+    <div class="d-flex justify-content-center gap-2 mt-4">
+      <%= f.submit "💾 Guardar cambios", class: "btn btn-success" %>
+      <% if @animal.persisted? %>
+        <%= link_to "🔙 Cancelar", location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+      <% else %>
+        <%= link_to "🔙 Cancelar", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+      <% end %>
+    </div>
+
+  </div>
 <% end %>

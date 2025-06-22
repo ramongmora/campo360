@@ -1,6 +1,5 @@
 <turbo-frame id="dashboard-content">
   <div class="dashboard-container">
-
     <div class="container">
       <h1 class="mb-4">Animales en <%= @location.name %></h1>
 
@@ -18,7 +17,8 @@
       </div>
 
       <turbo-frame id="animals_list">
-        <div class="list-group">
+        <!-- Cambio: de list-group a grid de tarjetas -->
+        <div class="animal-cards-grid">
           <% @animals.each do |animal| %>
             <%= render partial: "animal", locals: { animal: animal, location: @location } %>
           <% end %>

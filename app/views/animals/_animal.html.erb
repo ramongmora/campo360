@@ -6,21 +6,22 @@
   data-controller="animal-line"
   data-animal-line-url-value="<%= location_animal_path(location, animal) %>">
 
-  <div>
-    <strong><%= animal.animal_group.name %></strong> - <%= animal.breed %> - <%= animal.gender.capitalize %>
+  <!-- Imagen o ícono del animal -->
+  <div class="animal-photo-placeholder">
+    🐄
+  </div>
+
+  <!-- Información -->
+  <div class="animal-info">
+    <strong class="animal-alias"><%= animal.alias %></strong>
+    <div class="animal-meta"><%= animal.breed %> - <%= animal.gender %></div>
     <% if animal.birth_date %>
-      <br><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small>
+      <div class="animal-meta"><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small></div>
     <% end %>
   </div>
 
-  <div>
-    <%= link_to "👁", location_animal_path(location, animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-sm btn-outline-info me-1" %>
-    <%= link_to "✏️", edit_location_animal_path(location, animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-sm btn-outline-warning me-1" %>
-    <%= button_to "🗑", location_animal_path(location, animal),
-        method: :delete,
-        data: { turbo_confirm: "¿Estás seguro?" },
-        class: "btn btn-sm btn-outline-danger" %>
+  <!-- Botón visual -->
+  <div class="animal-button">
+    👁 Ver más
   </div>
-
-
 </div>
