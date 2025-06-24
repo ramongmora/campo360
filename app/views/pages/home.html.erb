@@ -1,26 +1,6 @@
 <div class="dashboard-container">
 
-  <!-- Navbar superior -->
-  <header class="dashboard-header">
-  <div class="left-section">
-    <h2>Mi rancho</h2>
-    <select class="rancho-selector">
-      <option>Hacienda Napolés</option>
-      <option>Rancho Los Sauces</option>
-    </select>
-  </div>
 
-  <nav class="navbar-links">
-    <%= link_to "Inicio", root_path, class: "nav-link" %>
-    <%= link_to "Actividad", actividad_path, class: "nav-link" %>
-    <%= link_to "Ajustes", settings_path, class: "nav-link" %>
-    <% if user_signed_in? %>
-    <%= link_to "Log out", destroy_user_session_path, class: "nav-link", data:{turbo_method: :delete}%>
-    <% else %>
-    <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
-    <% end %>
-  </nav>
-</header>
 
 
 

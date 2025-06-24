@@ -1,0 +1,35 @@
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-logo">
+      <%= image_tag "iconos/logo360_icon.png", alt: "Campo360", class: "login-icon" %>
+      <h2>Iniciar sesión</h2>
+    </div>
+
+    <%= form_with scope: :user, url: session_path(:user), class: "login-form", local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :email, "Correo electrónico" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "Contraseña" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <div class="form-check">
+        <%= f.check_box :remember_me, class: "form-check-input" %>
+        <%= f.label :remember_me, "Recuérdame", class: "form-check-label" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "Iniciar sesión", class: "btn btn-success w-100 mt-3" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <%= link_to "¿Olvidaste tu contraseña?", new_password_path(resource_name), class: "text-muted small d-block mb-2" %>
+      <span class="text-muted small">¿No tienes cuenta?</span><br>
+      <%= link_to "Registrarme", new_user_registration_path, class: "btn btn-outline-success mt-2" %>
+    </div>
+  </div>
+</div>
