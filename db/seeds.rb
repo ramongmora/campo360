@@ -94,7 +94,7 @@ puts "Creating 50 animals..."
     alias: Faker::Creature::Animal.name,
     breed: breed_options.sample,
     birth_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
-    gender: %w[male female].sample.upcase,
+    gender: %w[Male Female].sample.capitalize,
     follow: [true, false].sample,
     location: Location.all.sample,
     animal_group: group
