@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   # Actividad y Ajustes con rutas limpias
   get '/actividad', to: 'activities#index', as: :actividad
+  get "activities", to: "activities#index", as: :activities
+
   get '/ajustes', to: 'users#settings', as: :ajustes
 
   # Otros recursos
