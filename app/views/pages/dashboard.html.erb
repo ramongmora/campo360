@@ -1,14 +1,18 @@
-<h1>Dashboard</h1>
-  <h2>My Locations</h2>
-  <%= link_to "New", new_location_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-success" %>
-<turbo-frame id="dashboard-content">
-</turbo-frame>
+<div class="container mt-5">
+  <h1 class="mb-5 text-center fw-bold display-4">Dashboard</h1>
+</div>
 
 <div class="container">
-<turbo-frame id='locations'>
-  <%#@locations.each do |location| %>
-    <%#= render 'locations/location', location: location %>
-  <%# end %>
-  <%= render @locations %>
-</turbo-frame>
+  <div class="card shadow-sm mb-5 border-0">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0 h5 fw-semibold">My Locations</h2>
+      <%= link_to "New", new_location_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-light btn-sm fw-bold shadow-sm" %>
+    </div>
+    <div class="card-body bg-light">
+      <turbo-frame id="dashboard-content"></turbo-frame>
+      <turbo-frame id="locations">
+        <%= render @locations %>
+      </turbo-frame>
+    </div>
+  </div>
 </div>
