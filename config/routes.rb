@@ -2,24 +2,23 @@ Rails.application.routes.draw do
   devise_for :employees
   devise_for :users
 
-  # Home y dashboard
+  # Home pública y dashboard privado
   root 'pages#home'
-  get '/inicio', to: 'pages#home'
   get 'dashboard', to: 'pages#dashboard'
 
-  # Actividad y Ajustes con rutas limpias
+  # Actividad y Ajustes
   get '/actividad', to: 'activities#index', as: :actividad
-  get "activities", to: "activities#index", as: :activities
-
   get '/ajustes', to: 'users#settings', as: :ajustes
+  get '/settings', to: 'users#settings', as: :settings
 
-  # Otros recursos
+  # Admin y crops externos
   get '/crops', to: 'crops#index'
   get '/admin', to: 'admin#index'
-  get '/settings', to: 'users#settings', as: :settings
+
+  # Health check
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  # Recursos anidados
+  # Recursos anidados por location
   resources :locations do
     resources :schedules
     resources :animals
