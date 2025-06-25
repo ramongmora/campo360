@@ -1,55 +1,84 @@
-<div class="dashboard-container">
-
-
-
-
-
-  <!-- Buscador -->
-  <div class="search-bar">
-    <input type="text" placeholder="Buscar animal, cultivo o actividad..." />
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4">Bienvenido a Campo360 🌱</h1>
+    <p class="lead">La plataforma integral para gestionar tu producción agrícola con eficiencia e inteligencia.</p>
   </div>
 
-  <!-- Banner de notificación -->
-  <div class="notification-banner">
-    🌽 Tu cultivo de maíz debe ser regado en menos de 5 horas.
-  </div>
+  <hr class="my-5">
 
-  <!-- Cards principales -->
-<div class="main-cards">
-  <div class="card" onclick="window.location='<%= location_animals_path(@location) %>'">
-    <div class="card-content">
-      <%= image_tag("iconos/animals_icon.png", alt: "Ganado", class: "icono-section") %>
-      <h3>Ganado</h3>
-      <p>Controla baños, vacunas, pesos y salud.</p>
-    </div>
-  </div>
-
-  <div class="card" onclick="window.location='<%= location_crops_path(@location) %>'">
-    <div class="card-content">
-      <%= image_tag("iconos/crops_icon.png", alt: "Siembra", class: "icono-section") %>
-      <h3>Siembras</h3>
-      <p>Gestiona tus cultivos, riegos y fumigaciones.</p>
-    </div>
-  </div>
-
-  <div class="card" onclick="window.location='/admin'">
-    <div class="card-content">
-      <%= image_tag("iconos/admins_icon.png", alt: "Admin", class: "icono-section") %>
-      <h3>Administración</h3>
-      <p>Control de finanzas y pagos de empleados.</p>
-    </div>
-  </div>
-</div>
-
-
-  <!-- Actividad reciente -->
-  <section class="recent-activity">
-    <h3>Actividad reciente</h3>
-    <ul>
-      <li>🐄 Vacunación aplicada a Toro #004 - 18 de junio</li>
-      <li>🌱 Fumigación en cultivo de maíz - 17 de junio</li>
-      <li>💰 Pago a Juan Pérez - 16 de junio</li>
+  <section class="mb-5">
+    <h2>🚜 ¿Cómo funciona?</h2>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">🔍 Visualiza todos tus animales, cultivos y personal desde un solo lugar.</li>
+      <li class="list-group-item">📅 Administra actividades y programaciones por ubicación.</li>
+      <li class="list-group-item">📊 Obtén reportes claros y toma decisiones con confianza.</li>
     </ul>
   </section>
 
+  <section class="mb-5">
+    <h2>💡 Beneficios de usar Campo360</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Ahorra tiempo</h5>
+            <p class="card-text">Automatiza tareas y lleva el control de tus fincas sin esfuerzo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Mejora tu producción</h5>
+            <p class="card-text">Toma mejores decisiones con datos en tiempo real.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Control total</h5>
+            <p class="card-text">Todo en un solo lugar: animales, cultivos, personal y más.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-5">
+    <h2>📦 Planes</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card border-primary">
+          <div class="card-header bg-primary text-white">Básico</div>
+          <div class="card-body">
+            <h5 class="card-title">$0 / mes</h5>
+            <p class="card-text">Hasta 1 finca, 50 animales y soporte limitado.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-success">
+          <div class="card-header bg-success text-white">Profesional</div>
+          <div class="card-body">
+            <h5 class="card-title">$29 / mes</h5>
+            <p class="card-text">Hasta 5 fincas, 500 animales y soporte completo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-dark">
+          <div class="card-header bg-dark text-white">Empresarial</div>
+          <div class="card-body">
+            <h5 class="card-title">A medida</h5>
+            <p class="card-text">Soluciones personalizadas para grandes operaciones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center mt-5">
+    <%= link_to "Contáctanos", "#", class: "btn btn-outline-secondary btn-lg" %>
+  </div>
 </div>

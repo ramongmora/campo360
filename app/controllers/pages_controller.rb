@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
+  # Permitir acceso público a la landing
   skip_before_action :authenticate_user!, only: :home
+
   def home
     @location = Location.first
     @animals = Animal.all
@@ -7,13 +9,14 @@ class PagesController < ApplicationController
 
   def dashboard
     @locations = current_user.locations
+    @location = current_location
   end
 
   def actividad
-    # Puedes agregar lógica si lo necesitas
+    # Lógica opcional para vista de actividad
   end
 
   def ajustes
-    # Puedes agregar lógica si lo necesitas
+    # Lógica opcional para ajustes de usuario
   end
 end
