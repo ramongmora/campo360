@@ -9,7 +9,7 @@ class PagesController < ApplicationController
 
   def dashboard
     @locations = current_user.locations
-    @location = current_location
+    @location = @locations.find_by(id: params[:location_id]) || @locations.first
   end
 
   def actividad
