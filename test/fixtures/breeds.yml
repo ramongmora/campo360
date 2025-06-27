@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  breed_type: MyString
+  AnimalGroup: one
+
+two:
+  breed_type: MyString
+  AnimalGroup: two

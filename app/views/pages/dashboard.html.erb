@@ -9,9 +9,14 @@
       <%= link_to "New", new_location_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-light btn-sm fw-bold shadow-sm" %>
     </div>
     <div class="card-body bg-light">
-      <turbo-frame id="dashboard-content"></turbo-frame>
+      <%= form_with url: dashboard_path, method: :get, data: { turbo_frame: "locations" }, local: true do %>
+        <div class="mb-3">
+          <label for="location_select" class="form-label">Selecciona una ubicación:</label>
+          <%= select_tag :location_id, options_from_collection_for_select(@locations, :id, :name, @location&.id), id: "location_select", class: "form-select", onchange: "this.form.submit();" %>
+        </div>
+      <% end %>
       <turbo-frame id="locations">
-        <%= render @locations %>
+        <%= render @location if @location %>
       </turbo-frame>
     </div>
   </div>
