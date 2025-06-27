@@ -1,6 +1,6 @@
 require 'faker'
 
-puts "Cleaning database..."
+puts "Limpiando base de datos..."
 Schedule.delete_all
 Animal.delete_all
 Crop.delete_all
@@ -10,50 +10,45 @@ User.delete_all
 Activity.delete_all
 AnimalGroup.delete_all
 
-puts "Creating user..."
+puts "Creando usuario principal..."
 user = User.create!(
   email: "farmer@example.com",
   password: "password"
 )
 
-puts "Creating 2 locations..."
-2.times do
-  Location.create!(
-    name: Faker::Address.community,
-    address: Faker::Address.full_address,
-    user: user
-  )
-end
+puts "Creando ubicaciones..."
+location1 = Location.create!(
+  name: "Granja Norte",
+  surface: 50.0,
+  address: Faker::Address.full_address,
+  latitude: Faker::Address.latitude,
+  longitude: Faker::Address.longitude,
+  user: user
+)
 
-puts "Creating 10 activities..."
-activity_names = [
-  "Vaccination", "Feeding", "Cleaning", "Milking", "Shearing",
-  "Breeding", "Hoof Trimming", "Health Check", "Weighing", "Grazing"
-]
+location2 = Location.create!(
+  name: "Granja Sur",
+  surface: 75.0,
+  address: Faker::Address.full_address,
+  latitude: Faker::Address.latitude,
+  longitude: Faker::Address.longitude,
+  user: user
+)
+
+puts "Creando actividades..."
+activity_names = ["Feeding", "Milking", "Vaccination", "Cleaning", "Breeding"]
 activities = activity_names.map { |name| Activity.create!(name: name) }
 
-puts "Creating animal groups..."
-animal_group_names = {
-  "Cattle" => ["Holstein", "Jersey", "Angus", "Hereford"],
-  "Horses" => ["Quarter Horse", "Arabian", "Thoroughbred", "Clydesdale"],
-  "Pigs" => ["Yorkshire", "Duroc", "Berkshire", "Hampshire"],
-  "Chickens" => ["Leghorn", "Rhode Island Red", "Plymouth Rock", "Silkie"],
-  "Rabbits" => ["Flemish Giant", "New Zealand", "Californian", "Dutch"],
-  "Goats" => ["Boer", "Nubian", "Alpine", "LaMancha"],
-  "Sheep" => ["Merino", "Suffolk", "Dorset", "Hampshire"],
-  "Turkeys" => ["Broad Breasted White", "Bourbon Red", "Narragansett", "Royal Palm"],
-  "Ducks" => ["Pekin", "Mallard", "Khaki Campbell", "Rouen"],
-  "Guinea Fowls" => ["Helmeted", "White", "Lavender", "Pearl"]
-}
-animal_groups = []
+puts "Creando grupos de animales..."
+animal_groups = [
+  AnimalGroup.create!(name: "Cattle"),
+  AnimalGroup.create!(name: "Caballos"),
+  AnimalGroup.create!(name: "Cerdos")
+]
 
-animal_group_names.each do |group_name, _|
-  animal_groups << AnimalGroup.create!(name: group_name)
-end
-
-puts "Creating 5 employees per location..."
-Location.all.each do |location|
-  5.times do
+puts "Creando empleados..."
+[location1, location2].each do |loc|
+  3.times do
     Employee.create!(
       email: Faker::Internet.unique.email,
       password: "password",
@@ -61,56 +56,58 @@ Location.all.each do |location|
       last_name: Faker::Name.last_name,
       citizen_register: Faker::IdNumber.valid,
       salary: rand(1000..2000),
-      location: location
+      location: loc
     )
   end
 end
 
-puts "Creating crops..."
-crop_types = [
-  "Wheat", "Corn", "Rice", "Soy", "Barley", "Oats", "Sorghum", "Sunflower",
-  "Alfalfa", "Rye", "Cotton", "Canola", "Peanuts", "Sugarcane", "Potatoes"
-]
-
+puts "Creando cultivos..."
 4.times do
   sowing = Faker::Date.between(from: 6.months.ago, to: Date.today)
-  harvest = Faker::Date.between(from: sowing + 30, to: sowing + 180)
-
+  harvest = Faker::Date.between(from: sowing + 30, to: sowing + 120)
   Crop.create!(
-    location: Location.all.sample,
+    location: [location1, location2].sample,
     sowing_date: sowing,
     harvest_date: harvest,
-    surface: rand(0.5..10.0).round(2),
-    kind: crop_types.sample,
+    surface: rand(1.0..10.0).round(2),
+    kind: ["Wheat", "Corn", "Rice", "Soy"].sample,
     follow: [true, false].sample
   )
 end
 
-puts "Creating 50 animals..."
-50.times do
+puts "Creando 10 animales reales..."
+10.times do
   group = animal_groups.sample
-  breed_options = animal_group_names[group.name]
-  Animal.create!(
-    alias: Faker::Creature::Animal.name,
-    breed: breed_options.sample,
-    birth_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
-    gender: %w[Male Female].sample.capitalize,
-    follow: [true, false].sample,
-    location: Location.all.sample,
-    animal_group: group
-  )
+  breed = case group.name
+          when "Cattle" then ["Holstein", "Angus", "Jersey"].sample
+          when "Caballos" then ["Arabian", "Quarter Horse", "Thoroughbred"].sample
+          when "Cerdos" then ["Duroc", "Yorkshire", "Hampshire"].sample
+          end
+
+gender_value = ["male", "female"].sample.to_s.strip.downcase
+puts "Creando animal con gender: #{gender_value}"
+
+Animal.create!(
+  alias: Faker::Creature::Animal.name,
+  breed: "prueba",
+  birth_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
+  gender: gender_value,
+  follow: [true, false].sample,
+  location: [location1, location2].sample,
+  animal_group: group
+)
 end
 
-puts "Creating 50 schedules (randomly assigned to crops or animals)..."
-50.times do
-  schedulable = (rand < 0.5 ? Crop.all.sample : Animal.all.sample)
+puts "Creando programaciones (schedules)..."
+10.times do
+  schedulable = [Crop.all.sample, Animal.all.sample].sample
   Schedule.create!(
     schedulable: schedulable,
     activity: activities.sample,
     location: schedulable.location,
-    start_date: Faker::Date.between(from: 1.month.ago, to: Date.today),
-    end_date: Faker::Date.forward(days: 30)
+    start_date: Faker::Date.between(from: 10.days.ago, to: Date.today),
+    end_date: Faker::Date.forward(days: 20)
   )
 end
 
-puts "✅ Seeds completed successfully!"
+puts "¡Seeds completados con datos consistentes!"

@@ -9,6 +9,6 @@ class Animal < ApplicationRecord
   validates :alias, presence: true
   validates :breed, presence: true
   validates :birth_date, presence: true
-  validates :gender, inclusion: { in: %w[Male Female] }, allow_nil: true
+  validates :gender, presence: true
   validates :follow, inclusion: { in: [true, false] }
 end
