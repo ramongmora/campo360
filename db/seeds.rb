@@ -1,115 +1,101 @@
-require 'faker'
+puts "🧹 Cleaning database..."
 
-puts "Cleaning database..."
 Schedule.delete_all
-Animal.delete_all
 Crop.delete_all
+Animal.delete_all
+Breed.delete_all
+AnimalGroup.delete_all
+Activity.delete_all
 Employee.delete_all
 Location.delete_all
 User.delete_all
-Activity.delete_all
-Breed.delete_all
-AnimalGroup.delete_all
 
-# Usuarios
-user1 = User.create!(email: 'maria.campo@agrovida.com', password: '12345678')
-user2 = User.create!(email: 'jose.mendez@cultivonatural.com', password: '12345678')
+puts "👤 Creating user..."
+user = User.create!(email: "admin@campo360.com", password: "password123")
 
-# Ubicaciones (granjas)
-locations_user1 = [
-  Location.create!(user: user1, name: 'Granja La Esperanza', surface: 52.3, address: 'Ruta 5 Km 103, Durazno, Uruguay', latitude: -33.3833, longitude: -56.5167),
-  Location.create!(user: user1, name: 'Finca El Amanecer', surface: 34.8, address: 'Camino Los Aromos 234, Canelones, Uruguay', latitude: -34.5167, longitude: -56.2667),
-  Location.create!(user: user1, name: 'Estancia Santa María', surface: 89.2, address: 'Paraje Sauce Solo, Lavalleja, Uruguay', latitude: -33.5, longitude: -54.9)
-]
+puts "📍 Creating locations..."
+location1 = Location.create!(
+  name: "Estancia La Pampa",
+  surface: 1200.5,
+  address: "Ruta 33, Km 55, La Pampa",
+  latitude: -36.6167,
+  longitude: -64.2833,
+  user: user
+)
 
-locations_user2 = [
-  Location.create!(user: user2, name: 'Granja Los Sauces', surface: 61.5, address: 'Camino Vecinal 222, Colonia, Uruguay', latitude: -34.3, longitude: -57.4),
-  Location.create!(user: user2, name: 'Chacra Monte Verde', surface: 40.1, address: 'Ruta 8 Km 49, Maldonado, Uruguay', latitude: -34.8, longitude: -55.3),
-  Location.create!(user: user2, name: 'Finca Las Piedras', surface: 77.6, address: 'Camino Rural s/n, Paysandú, Uruguay', latitude: -32.3, longitude: -58.0)
-]
+location2 = Location.create!(
+  name: "Finca Los Álamos",
+  surface: 850.0,
+  address: "Camino Rural S/N, Mendoza",
+  latitude: -32.8908,
+  longitude: -68.8272,
+  user: user
+)
 
-# Grupos de animales
-grupo_bovinos   = AnimalGroup.create!(name: 'Bovinos')
-grupo_ovinos    = AnimalGroup.create!(name: 'Ovinos')
-grupo_avicolas  = AnimalGroup.create!(name: 'Aves')
-grupo_porcinoss = AnimalGroup.create!(name: 'Porcinos')  # se deja como está, pero abajo corregimos la referencia
-grupo_equinos   = AnimalGroup.create!(name: 'Equinos')
-puts grupo_bovinos.id
-# Razas por grupo (5 por grupo)
-razas_bovinos   = %w[Hereford Angus Holando Brahman Jersey].map { |r| Breed.create!(breed_type: r, animal_group_id: grupo_bovinos.id) }
-razas_ovinos    = %w[Merino Corriedale Texel Romney Dorper].map { |r| Breed.create!(breed_type: r, animal_group: grupo_ovinos) }
-razas_aves      = %w[Leghorn Plymouth Araucana RhodeIsland Cornish].map { |r| Breed.create!(breed_type: r, animal_group: grupo_avicolas) }
-razas_porcinos  = %w[Landrace Duroc Yorkshire Pietrain Hampshire].map { |r| Breed.create!(breed_type: r, animal_group: grupo_porcinoss) }
-razas_equinos   = %w[Criollo Árabe Appaloosa CuartoDeMilla Frisón].map { |r| Breed.create!(breed_type: r, animal_group: grupo_equinos) }
+puts "🐄 Creating animal groups and breeds..."
+cattle = AnimalGroup.create!(name: "Bovinos")
+sheep = AnimalGroup.create!(name: "Ovino")
 
-# Animales
-def crear_animales(location, razas)
-  2.times do
-    razas.each do |raza|
-      2.times do
-        Animal.create!(
-          alias: Faker::Creature::Animal.name,
-          birth_date: rand(3..7).years.ago,
-          gender: %w[Macho Hembra].sample,
-          follow: [true, false].sample,
-          location: location,
-          breed: raza
-        )
-      end
-    end
-  end
-end
+breed1 = Breed.create!(breed_type: "Aberdeen Angus", animal_group: cattle)
+breed2 = Breed.create!(breed_type: "Hereford", animal_group: cattle)
+breed3 = Breed.create!(breed_type: "Merino", animal_group: sheep)
 
-(locations_user1 + locations_user2).each do |loc|
-  crear_animales(loc, razas_bovinos)
-  crear_animales(loc, razas_ovinos)
-end
+puts "🐮 Creating animals..."
+Animal.create!([
+  { alias: "Toro Negro", birth_date: "2021-04-10", gender: "Macho", follow: true, location: location1, breed: breed1 },
+  { alias: "Vaca Blanca", birth_date: "2020-09-23", gender: "Hembra", follow: false, location: location1, breed: breed2 },
+  { alias: "Carnero Uno", birth_date: "2022-01-05", gender: "Hembra", follow: true, location: location2, breed: breed3 }
+])
 
-# Cultivos
-kinds = %w[Aguacate Macadamia Maíz Marihuana Chiles Cebada]
-(locations_user1 + locations_user2).each do |loc|
-  10.times do
-    Crop.create!(
-      location: loc,
-      sowing_date: Date.today - rand(30..100),
-      harvest_date: Date.today + rand(60..120),
-      surface: rand(1.0..10.0).round(2),
-      kind: kinds.sample,
-      follow: [true, false].sample
-    )
-  end
-end
+puts "🌱 Creating crops..."
+Crop.create!([
+  { kind: "Soja", sowing_date: "2024-10-01", harvest_date: "2025-03-15", surface: 200.0, follow: true, location: location1 },
+  { kind: "Maíz", sowing_date: "2024-09-15", harvest_date: "2025-02-28", surface: 150.0, follow: false, location: location2 }
+])
 
-# Actividades
-actividades = %w[
-  Riego
-  Abonado
-  Poda
-  Desparasitación
-  Inseminación
-  Cosecha
-  Siembra
-  Vacunación
-  Alimentación
-  Limpieza
-].map { |a| Activity.create!(name: a) }
+puts "⚙️ Creating activities..."
+pasture = Activity.create!(name: "Pastoreo")
+vaccination = Activity.create!(name: "Vacunación")
+irrigation = Activity.create!(name: "Riego")
 
-# Schedules
-def crear_schedules_para(location)
-  5.times do
-    schedulable = [location.animals.sample, location.crops.sample].compact.sample
-    Schedule.create!(
-      schedulable: schedulable,
-      location: location,
-      activity: Activity.all.sample,
-      start_date: Date.today + rand(1..30),
-      end_date: Date.today + rand(31..60)
-    )
-  end
-end
+puts "🗓️ Creating schedules..."
+Schedule.create!([
+  {
+    schedulable: Animal.first,
+    location: location1,
+    activity: pasture,
+    start_date: Date.today,
+    end_date: Date.today + 7
+  },
+  {
+    schedulable: Crop.first,
+    location: location1,
+    activity: irrigation,
+    start_date: Date.today,
+    end_date: Date.today + 5
+  }
+])
 
-(locations_user1 + locations_user2).each do |loc|
-  crear_schedules_para(loc)
-end
+puts "👷 Creating employees..."
+Employee.create!([
+  {
+    email: "jose@campo360.com",
+    password: "empleado123",
+    first_name: "José",
+    last_name: "Pérez",
+    citizen_register: "20345678",
+    salary: 50000,
+    location: location1
+  },
+  {
+    email: "maria@campo360.com",
+    password: "empleado456",
+    first_name: "María",
+    last_name: "Gómez",
+    citizen_register: "27345678",
+    salary: 55000,
+    location: location2
+  }
+])
 
-puts "✅ Seeds completed successfully!"
+puts "✅ Seeding completed successfully!"
