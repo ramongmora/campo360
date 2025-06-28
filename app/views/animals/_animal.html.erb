@@ -22,7 +22,7 @@
 
   <!-- Botón visual -->
   <div class="animal-button">
-    👁 Ver más
+    <%= link_to '👁 Más', location_animal_path(@location, animal)%>
   </div>
-  <%= link_to 'Agregar Actividad', new_location_schedule_path(animal.location_id) %>
+  <%= link_to 'Agregar Actividad', new_location_schedule_path(@location, animal_id: animal.id) %>
 </div>
