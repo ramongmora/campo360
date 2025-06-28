@@ -7,29 +7,29 @@
     <%= simple_form_for @location do |f| %>
       <div class="mb-3 input-group">
       <span class="input-group-text"><i class="bi bi-type"></i></span>
-      <%= f.input :name, input_html: { class: "form-control w-100", placeholder: "Name", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
+      <%= f.input :name, input_html: { class: "form-control w-100", placeholder: "Nombre", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
       </div>
       <div class="mb-3 input-group">
       <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-      <%= f.input :address, input_html: { class: "form-control w-100", placeholder: "Address", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
+      <%= f.input :address, input_html: { class: "form-control w-100", placeholder: "Dirección", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
       </div>
       <div class="mb-3 input-group">
       <span class="input-group-text"><i class="bi bi-aspect-ratio"></i></span>
-      <%= f.input :surface, input_html: { class: "form-control w-100", placeholder: "Surface", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
+      <%= f.input :surface, input_html: { class: "form-control w-100", placeholder: "Superficie", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
       </div>
       <div class="mb-3 input-group">
       <span class="input-group-text"><i class="bi bi-compass"></i></span>
-      <%= f.input :latitude, input_html: { class: "form-control w-100", placeholder: "Latitude", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
+      <%= f.input :latitude, input_html: { class: "form-control w-100", placeholder: "Latitud", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
       </div>
       <div class="mb-3 input-group">
       <span class="input-group-text"><i class="bi bi-compass"></i></span>
-      <%= f.input :longitude, input_html: { class: "form-control w-100", placeholder: "Longitude", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
+      <%= f.input :longitude, input_html: { class: "form-control w-100", placeholder: "Longitud", style: "flex: 1 1 auto;" }, label_html: { class: "form-label visually-hidden" }, label: false, wrapper_html: { class: "flex-grow-1" } %>
       </div>
-      <%= f.button :submit, "Update Location", class: "btn btn-success w-100 mt-3" %>
+      <%= f.button :submit, "Actualizar Ubicación", class: "btn btn-success w-100 mt-3" %>
     <% end %>
       <div class="card-footer text-center">
-        <%= link_to 'Back to Locations', locations_path, class: 'btn btn-secondary me-2' %>
-        <%= link_to 'Delete', location_path(@location), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+        <%= link_to 'Volver a Ubicaciones', locations_path, class: 'btn btn-secondary me-2' %>
+        <%= link_to 'Eliminar', location_path(@location), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' }, class: "btn btn-danger" %>
       </div>
   </div>
 </div>
