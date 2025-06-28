@@ -1,5 +1,5 @@
 <div class="container py-4">
-  <h1 class="mb-4 text-center text-success">Crops</h1>
+  <h1 class="mb-4 text-center display-4 fw-bold">🌱Cultivos</h1>
 
   <% if @crops.any? %>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -7,25 +7,37 @@
         <div class="col">
           <div class="card h-100 shadow border-success">
             <div class="card-body">
-              <h5 class="card-title text-primary"><%= crop.kind %></h5>
+              <h5 class="card-title fw-bold text-success">
+                <i class="bi bi-leaf text-success"></i> <%= crop.kind %>
+              </h5>
               <ul class="list-group list-group-flush mb-3">
-                <li class="list-group-item"><strong>Location:</strong> <%= crop.location&.name || "N/A" %></li>
-                <li class="list-group-item"><strong>Harvest Date:</strong> <%= crop.harvest_date&.strftime("%Y-%m-%d") if crop.harvest_date %></li>
-                <li class="list-group-item"><strong>Sowing Date:</strong> <%= crop.sowing_date&.strftime("%Y-%m-%d") if crop.sowing_date %></li>
-                <li class="list-group-item"><strong>Surface:</strong> <%= crop.surface %> m²</li>
                 <li class="list-group-item">
-                  <strong>Follow:</strong>
-                  <span class="badge <%= crop.follow ? 'bg-success' : 'bg-secondary' %>">
-                    <%= crop.follow ? "Yes" : "No" %>
-                  </span>
+                  <strong><i class="bi bi-geo-alt-fill text-success"></i> Ubicación:</strong>
+                  <%= crop.location&.name || "N/D" %>
+                </li>
+                <li class="list-group-item">
+                  <strong><i class="bi bi-aspect-ratio text-success"></i> Superficie:</strong>
+                  <%= crop.surface %> m²
+                </li>
+                <li class="list-group-item">
+                  <strong><i class="bi bi-calendar-check text-success"></i> Fecha de cosecha:</strong>
+                  <%= crop.harvest_date&.strftime("%Y-%m-%d") if crop.harvest_date %>
+                </li>
+                <li class="list-group-item">
+                  <strong><i class="bi bi-calendar-plus text-success"></i> Fecha de siembra:</strong>
+                  <%= crop.sowing_date&.strftime("%Y-%m-%d") if crop.sowing_date %>
+                </li>
+                <li class="list-group-item">
+                  <strong><i class="bi bi-eye-fill text-success"></i> Seguimiento:</strong>
+                    <i class="bi <%= crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
                 </li>
               </ul>
               <div class="d-grid gap-2">
                 <%= link_to location_crop_path(crop.location, crop), class: 'btn btn-success btn-sm mb-2' do %>
-                  <i class="bi bi-eye"></i> Show Crop
+                  <i class="bi bi-eye"></i> Ver cultivo
                 <% end %>
                 <%= link_to edit_location_crop_path(crop.location, crop), class: 'btn btn-primary btn-sm' do %>
-                  <i class="bi bi-pencil"></i> Edit Crop
+                  <i class="bi bi-pencil"></i> Editar cultivo
                 <% end %>
               </div>
             </div>
@@ -35,25 +47,27 @@
     </div>
 
     <div class="mt-4 text-center">
-      <%= link_to 'Add a new crop', new_location_crop_path(@crops.first&.location_id), class: 'btn btn-success btn-lg' %>
+      <%= link_to new_location_crop_path(@crops.first&.location_id), class: 'btn btn-success btn-lg' do %>
+        <i class="bi bi-plus-circle"></i> Agregar un nuevo cultivo
+      <% end %>
     </div>
 
     <div class="mt-5">
       <div class="card mb-3 border-success">
         <div class="card-header bg-success text-white">
-          Crop Statistics
+          <i class="bi bi-bar-chart-line"></i> Estadísticas de cultivos
         </div>
         <div class="card-body">
           <p class="card-text">
-            Total number of crops:
+            <i class="bi bi-list-ol"></i> Número total de cultivos:
             <span class="badge bg-primary"><%= @crops.count %></span>
           </p>
           <p class="card-text">
-            Total surface area:
+            <i class="bi bi-rulers"></i> Superficie total:
             <span class="badge bg-info text-dark"><%= @crops.sum(:surface) %> m²</span>
           </p>
           <p class="card-text">
-            Average surface area per crop:
+            <i class="bi bi-calculator"></i> Superficie promedio por cultivo:
             <span class="badge bg-warning text-dark">
               <%= (@crops.sum(:surface) / @crops.count).round(2) %> m²
             </span>
@@ -63,7 +77,10 @@
     </div>
   <% else %>
     <div class="alert alert-info text-center mt-5">
-      No crops found. <%= link_to 'Add a new crop', new_location_crop_path, class: 'btn btn-success ms-2' %>
+      <i class="bi bi-exclamation-circle"></i> No se encontraron cultivos.
+      <%= link_to new_location_crop_path, class: 'btn btn-success ms-2' do %>
+        <i class="bi bi-plus-circle"></i> Agregar un nuevo cultivo
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -1,43 +1,49 @@
-<h1 class="mb-4 text-center text-success">Crop Details</h1>
-
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    <div class="card shadow-sm mb-4 border-success" style="background: #f9fbe7;">
-      <div class="card-header bg-success text-white" style="background: linear-gradient(90deg, #388e3c 60%, #aed581 100%);">
-        <h5 class="mb-0"><i class="bi bi-flower1 me-2"></i>Crop Information</h5>
+<div class="container mt-5 pt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg mb-5 border-success rounded-4">
+        <div class="card-header bg-success text-white bg-gradient rounded-top-4 d-flex align-items-center">
+          <h4 class="mb-0 fw-bold"><i class="bi bi-flower2 me-2"></i>Detalles del Cultivo</h4>
+        </div>
+        <div class="card-body p-4 bg-white rounded-bottom-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-light border-0 d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-flower2 me-2 text-success"></i><strong>Tipo:</strong></span>
+              <span class="fw-semibold "><%= @crop.kind %></span>
+            </li>
+            <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-aspect-ratio text-success me-2"></i><strong>Superficie:</strong></span>
+              <span class="fw-semibold"><%= @crop.surface %></span>
+            </li>
+            <li class="list-group-item bg-light border-0 d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-calendar-check text-success me-2"></i><strong>Fecha de cosecha:</strong></span>
+              <span class="fw-semibold"><%= @crop.harvest_date %></span>
+            </li>
+            <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-calendar-plus text-success me-2"></i><strong>Fecha de siembra:</strong></span>
+              <span class="fw-semibold"><%= @crop.sowing_date %></span>
+            </li>
+            <li class="list-group-item bg-light border-0 d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-eye-fill text-success me-2"></i><strong>Seguimiento:</strong></span>
+              <span>
+                <i class="bi <%= @crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %> fs-5"></i>
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item" style="background: #f1f8e9;">
-            <strong>Kind:</strong>
-            <span class="float-end"><%= @crop.kind %></span>
-          </li>
-          <li class="list-group-item" style="background: #f9fbe7;">
-            <strong>Surface:</strong>
-            <span class="float-end"><%= @crop.surface %></span>
-          </li>
-          <li class="list-group-item" style="background: #f1f8e9;">
-            <strong>Harvest date:</strong>
-            <span class="float-end"><%= @crop.harvest_date %></span>
-          </li>
-          <li class="list-group-item" style="background: #f9fbe7;">
-            <strong>Sowing date:</strong>
-            <span class="float-end"><%= @crop.sowing_date %></span>
-          </li>
-          <li class="list-group-item" style="background: #f1f8e9;">
-            <strong>Follow:</strong>
-            <span class="float-end">
-              <i class="bi <%= @crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
-            </span>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="d-flex justify-content-between">
-      <%= link_to 'Edit', edit_location_crop_path(@location, @crop), class: "btn btn-success px-4 fw-semibold shadow-sm border-2 text-white", style: "background: #388e3c;" %>
-      <%= link_to 'Back', location_crops_path, class: "btn btn-secondary px-4 fw-semibold shadow-sm border-2 text-white", style: "background: #757575;" %>
-      <%= link_to "Delete Crop", [@location, @crop], data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this crop?" }, class: "btn btn-danger px-4 fw-semibold shadow-sm border-2" %>
+      <div class="d-flex justify-content-between gap-2 mt-3">
+        <%= link_to edit_location_crop_path(@location, @crop), class: "btn btn-outline-success px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
+          <i class="bi bi-pencil-square me-2"></i>Editar
+        <% end %>
+        <%= link_to location_crops_path, class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
+          <i class="bi bi-arrow-left me-2"></i>Volver
+        <% end %>
+        <%= link_to [@location, @crop], data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar este cultivo?" }, class: "btn btn-outline-danger px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
+          <i class="bi bi-trash3 me-2"></i>Eliminar Cultivo
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
