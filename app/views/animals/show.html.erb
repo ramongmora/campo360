@@ -22,14 +22,14 @@
 
       <!-- Botones -->
       <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
-        <%= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
+        <%#= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
 
-        <%= button_to "🗑 Eliminar", location_animal_path(@location, @animal),
+        <%#= button_to "🗑 Eliminar", location_animal_path(@location, @animal),
             method: :delete,
             data: { turbo_confirm: "¿Estás seguro de eliminar este animal?" },
             class: "btn btn-danger" %>
 
-        <%= link_to "🔙 Volver", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
+        <%#= link_to "🔙 Volver", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
       </div>
 
     </div>

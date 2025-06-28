@@ -1,5 +1,5 @@
 class AnimalsController < ApplicationController
-  before_action :set_location
+  before_action :set_location, only: [:index]
   before_action :set_animal, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -11,18 +11,18 @@ class AnimalsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html
-      format.turbo_stream { render partial: "show", locals: { animal: @animal, location: @location } }
-    end
+    # respond_to do |format|
+    #   format.html
+    #   format.turbo_stream { render partial: "show", locals: { animal: @animal, location: @location } }
+    # end
   end
 
   def new
-    @animal = @location.animals.new
+    @animal = Animal.new
   end
 
   def create
-    @animal = @location.animals.new(animal_params)
+    @animal = Animal.new(animal_params)
     if @animal.save
       redirect_to location_animals_path(@location), notice: "Animal creado exitosamente."
     else
@@ -53,7 +53,7 @@ class AnimalsController < ApplicationController
   end
 
   def set_animal
-    @animal = @location.animals.find(params[:id])
+    @animal = Animal.find(params[:id])
   end
 
   def animal_params

@@ -13,27 +13,34 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    Schedule.create(schedule_params)
+    @location = Location.find(params[:location_id])
+    @schedule = Schedule.new(schedule_params)
+    @schedule.location = @location
+    if @schedule.save!
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
-    # @schedulable = Schedule.find(params[:schedulable_id])
+    # @schedule = Schedule.find(params[:schedulable_id])
 
   end
 
   def update
-    # @schdedulable Schedule.find(params[:schedulable_id])
+    # @schedule Schedule.find(params[:schedulable_id])
 
   end
 
   def destroy
     # Schedule.find(params[:schedulable_id])
-    # @schdulable.destroy {turbo_method, "delete"},
+    # @schedule.destroy {turbo_method, "delete"},
   end
 
   private
 
   def schedule_params
-    params.require(:schedule).permit(:start_date, :end_date, :schedulable_type, :activity)
+    params.require(:schedule).permit(:start_date, :end_date, :schedulable_type, :activity_id, :schedulable_id)
   end
 end
