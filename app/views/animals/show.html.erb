@@ -5,7 +5,8 @@
       <!-- Foto del animal o ícono por defecto -->
       <div class="animal-photo-placeholder mb-4 d-flex justify-content-center">
         <% if @animal.photo.attached? %>
-          <%= image_tag @animal.photo.variant(resize_to_limit: [300, 300]), class: "img-fluid rounded-circle shadow" %>
+          <%= cl_image_tag @animal.photo.key, size: "300x300", class: "img-fluid rounded-circle shadow" %>
+          <%#= cl_image_tag @animal.photo.key, size: "100x200" %>
         <% else %>
           <div class="text-center" style="font-size: 5rem;">🐄</div>
         <% end %>
