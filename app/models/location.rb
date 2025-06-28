@@ -1,10 +1,10 @@
 class Location < ApplicationRecord
   belongs_to :user
 
-  has_many :employees
-  has_many :crops
-  has_many :animals
-  has_many :schedules
+  has_many :employees, dependent: :destroy
+  has_many :crops, dependent: :destroy
+  has_many :animals, dependent: :destroy
+  has_many :schedules, dependent: :destroy
 
   validates :user, presence: true
   validates :name, presence: true

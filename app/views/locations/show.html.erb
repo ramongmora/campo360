@@ -1,57 +1,74 @@
-<h1 class="mb-4">
-  <%= @location.name %>
-</h1>
 
-<div class="card mb-4">
-  <div class="card-body">
-    <p><strong>Address:</strong> <%= @location.address %></p>
-    <p><strong>Surface:</strong> <%= @location.surface %></p>
-    <p><strong>Latitude:</strong> <%= @location.latitude %></p>
-    <p><strong>Longitude:</strong> <%= @location.longitude %></p>
+<div class="container">
+  <div class="card mb-4 mt-4 shadow-sm">
+    <h1 class="m-4 text-center fw-bold text-success">
+      <i class="bi bi-geo-alt-fill me-2"></i><%= @location.name %>
+    </h1>
+    <div class="card-body">
+      <p>
+        <strong><i class="bi bi-geo-alt me-1"></i>Dirección:</strong>
+        <span class="text-muted text-success"><%= @location.address %></span>
+      </p>
+      <p>
+        <strong><i class="bi bi-aspect-ratio me-1"></i>Superficie:</strong>
+        <span class="text-muted text-success"><%= @location.surface %></span>
+      </p>
+      <p>
+        <strong><i class="bi bi-compass me-1"></i>Latitud:</strong>
+        <span class="text-muted text-success"><%= @location.latitude %></span>
+      </p>
+      <p>
+        <strong><i class="bi bi-compass me-1"></i>Longitud:</strong>
+        <span class="text-muted text-success"><%= @location.longitude %></span>
+      </p>
+      <div class="mt-4 d-flex justify-content-end">
+        <div class="d-flex flex-wrap gap-2">
+          <%= link_to 'Editar', edit_location_path(@location), class: "btn btn-success" %>
+          <%= link_to 'Volver a Ubicaciones', locations_path, class: "btn btn-secondary" %>
+          <%= link_to 'Eliminar', location_path(@location), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' }, class: "btn btn-danger" %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="main-cards">
+    <div class="card" onclick="window.location='<%= location_animals_path(@location) %>'">
+      <div class="card-content">
+        <%= image_tag("iconos/animals_icon.png", alt: "Ganado", class: "icono-section") %>
+        <h3 class="text-success">Ganado</h3>
+        <p>Controla baños, vacunas, pesos y salud.</p>
+      </div>
+    </div>
 
-<div class="row mb-4">
-  <div class="col-md-3 mb-3">
-    <div class="card h-100">
-      <div class="card-body">
-        <h5 class="card-title">Animals</h5>
-        <p class="card-text">View and manage the animals associated with this location.</p>
-        <%= link_to 'View Animals', location_animals_path(@location), class: "btn btn-primary" %>
+    <div class="card" onclick="window.location='<%= location_crops_path(@location) %>'">
+      <div class="card-content">
+        <%= image_tag("iconos/crops_icon.png", alt: "Siembra", class: "icono-section") %>
+        <h3 class="text-success">Siembras</h3>
+        <p>Gestiona tus cultivos, riegos y fumigaciones.</p>
       </div>
     </div>
-  </div>
-  <div class="col-md-3 mb-3">
-    <div class="card h-100">
-      <div class="card-body">
-        <h5 class="card-title">Crops</h5>
-        <p class="card-text">Explore and manage the crops at this location.</p>
-        <%= link_to 'View Crops', location_crops_path(@location), class: "btn btn-success" %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 mb-3">
-    <div class="card h-100">
-      <div class="card-body">
-        <h5 class="card-title">Employees</h5>
-        <p class="card-text">View and manage the employees assigned here.</p>
-        <%= link_to 'View Employees', location_employees_path(@location), class: "btn btn-info" %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 mb-3">
-    <div class="card h-100">
-      <div class="card-body">
-        <h5 class="card-title">Schedules</h5>
-        <p class="card-text">View and manage the schedules for this location.</p>
-        <%= link_to 'View Schedules', location_schedules_path(@location), class: "btn btn-warning" %>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="d-flex gap-2">
-  <%= link_to 'Edit', edit_location_path(@location), class: "btn btn-warning" %>
-  <%= link_to 'Back to Locations', locations_path, class: "btn btn-secondary" %>
-  <%= link_to 'Delete', location_path(@location), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <div class="card" onclick="window.location='/admin'">
+      <div class="card-content">
+        <%= image_tag("iconos/admins_icon.png", alt: "Admin", class: "icono-section") %>
+        <h3 class="text-success">Administración</h3>
+        <p>Control de finanzas y pagos de empleados.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="window.location='<%= location_employees_path(@location) %>'">
+      <div class="card-content">
+        <%= image_tag("iconos/employees_icon.png", alt: "Empleados", class: "icono-section") %>
+        <h3 class="text-success">Empleados</h3>
+        <p>Gestiona los empleados de la ubicación.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="window.location='<%= location_schedules_path(@location) %>'">
+      <div class="card-content">
+        <%= image_tag("iconos/activities_icon.png", alt: "Actividades", class: "icono-section") %>
+        <h3 class="text-success">Actividades</h3>
+        <p>Consulta y administra las actividades programadas.</p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -16,10 +16,7 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     @location.user = current_user
     if @location.save
-      respond_to do |format|
-        format.html {redirect_to @location, notice: 'Location was successfully created.'}
-        format.turbo_stream
-      end
+      redirect_to @location, notice: 'Location was successfully created.'
     else
       render :new
     end
@@ -44,10 +41,10 @@ class LocationsController < ApplicationController
   private
 
   def set_location
-    @location = Location.find(params[:id])
+    @location = Location.where(user_id: current_user.id).find(params[:id])
   end
 
   def location_params
-    params.require(:location).permit(:name, :address, :latitude, :longitude)
+    params.require(:location).permit(:name, :address, :surface, :latitude, :longitude)
   end
 end
