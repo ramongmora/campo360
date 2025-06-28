@@ -1,33 +1,66 @@
-<h1 class="mb-4 text-success">🌱 New Crop</h1>
-<div class="card shadow-sm border-success" style="background: #f6fff4;">
-  <div class="card-body">
-    <%= simple_form_for [@location, @crop], html: { class: "needs-validation" } do |f| %>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <%= f.input :kind, label: "Crop Type", input_html: { class: "form-control border-success bg-light" }, label_html: { class: "form-label text-success" } %>
+<div class="container py-4">
+  <h1 class="mb-4 text-center display-4 fw-bold">
+    <i class="bi bi-pencil-square me-2"></i>Nuevo Cultivo
+  </h1>
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-lg mb-5 border-0 rounded-5">
+        <div class="card-header bg-success bg-gradient text-white rounded-top-5 py-3">
+          <h5 class="mb-0 fw-bold">
+            <i class="bi bi-flower2 me-2"></i>Editar Información del Cultivo
+          </h5>
         </div>
-        <div class="col-md-6 mb-3">
-          <%= f.input :surface, label: "Surface", input_html: { class: "form-control border-success bg-light" }, label_html: { class: "form-label text-success" } %>
+        <div class="card-body p-5 bg-light rounded-bottom-5">
+          <%= simple_form_for [@location, @crop], html: { class: "needs-validation" }, method: :patch do |f| %>
+            <div class="row g-4">
+              <div class="col-md-6">
+              <%= f.input :kind,
+                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+                label_html: { class: "form-label fw-semibold text-success" },
+                label: raw('<i class="bi bi-flower2 me-2 text-success"></i>Tipo de Cultivo') %>
+              </div>
+              <div class="col-md-6">
+              <%= f.input :surface,
+                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+                label_html: { class: "form-label fw-semibold text-success" },
+                label: raw('<i class="bi bi-aspect-ratio me-2 text-success"></i>Superficie') %>
+              </div>
+              <div class="col-md-6">
+              <%= f.input :sowing_date, as: :string,
+                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.sowing_date&.strftime("%Y-%m-%d") },
+                label_html: { class: "form-label fw-semibold text-success" },
+                label: raw('<i class="bi bi-calendar-plus me-2 text-success"></i>Fecha de Siembra') %>
+              </div>
+              <div class="col-md-6">
+              <%= f.input :harvest_date, as: :string,
+                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.harvest_date&.strftime("%Y-%m-%d") },
+                label_html: { class: "form-label fw-semibold text-success" },
+                label: raw('<i class="bi bi-calendar-check me-2 text-success"></i>Fecha de Cosecha') %>
+              </div>
+              <div class="col-12 d-flex justify-content-end align-items-center mt-3 mb-4">
+              <div class="form-check form-switch ps-0">
+                <%= f.input :follow, as: :boolean,
+                label: raw('<i class="bi bi-eye-fill me-2 text-secondary"></i>Seguir'),
+                wrapper_html: { class: "form-check mb-0 d-flex align-items-center" },
+                input_html: { class: "form-check-input border-success shadow-sm", role: "switch" },
+                label_html: { class: "form-check-label fw-semibold text-secondary ms-3" }
+                %>
+              </div>
+              </div>
+              <div class="col-12 d-flex justify-content-between gap-3 mt-3">
+                <div class="d-flex gap-2">
+                  <%= link_to raw('<i class="bi bi-trash-fill me-2"></i>Eliminar'), [@location, @crop],
+                    method: :delete,
+                    data: { turbo_confirm: "¿Estás seguro de que deseas eliminar este cultivo?" },
+                    class: "btn btn-outline-danger px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+                  <%= link_to raw('<i class="bi bi-arrow-left-circle-fill me-2"></i>Volver'), location_crops_path(@location), class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+                </div>
+                <%= f.button :submit, "Crear Cultivo", class: "btn btn-success px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <div class="form-group">
-            <%= f.input :sowing_date, as: :string, label: "Sowing Date", input_html: { type: "date", class: "form-control border-success bg-light" }, label_html: { class: "form-label fw-semibold text-success" }, wrapper_html: { class: "mb-2" } %>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <div class="form-group">
-            <%= f.input :harvest_date, as: :string, label: "Harvest Date", input_html: { type: "date", class: "form-control border-success bg-light" }, label_html: { class: "form-label fw-semibold text-success" }, wrapper_html: { class: "mb-2" } %>
-          </div>
-        </div>
-        <div class="col-12 mb-3 d-flex align-items-center">
-          <div class="form-check form-switch ms-auto">
-            <%= f.input :follow, as: :boolean, label: "Follow Crop", wrapper_html: { class: "form-check form-switch mb-0" }, input_html: { class: "form-check-input", role: "switch" }, label_html: { class: "form-check-label fw-semibold text-success" } %>
-          </div>
-        </div>
-      </div>
-      <%= f.button :submit, "🌾 Create Crop", class: "btn btn-success" %>
-    <% end %>
+    </div>
   </div>
 </div>
