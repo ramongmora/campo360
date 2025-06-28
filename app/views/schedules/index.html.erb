@@ -5,16 +5,14 @@
     <li>
       <% if schedule.schedulable_type == "Crop" %>
         <% crop = Crop.find(schedule.schedulable_id) %>
-        <%= crop.kind %>
+        <%= schedule.activity.name %>, <%= crop.kind %>. Fecha de inicio: <%= schedule.start_date %> Debe terminarse antes de: <%=  schedule.end_date  %>
         <% else %>
         <% schedule.schedulable_type == "Animal" %>
         <% animal = Animal.find(schedule.schedulable_id) %>
-        <%= animal.breed.breed_type %>
+        <%= schedule.activity.name %>, <%= animal.breed.breed_type %>. Fecha de inicio: <%= schedule.start_date %> Debe terminarse antes de: <%= schedule.end_date %>
       <% end %>
-      <%= schedule.start_date %>
-      <%= schedule.end_date %>
-      <%= schedule.activity.name %>
     </li>
   <% end %>
   </ul>
+  
 </div>

@@ -8,12 +8,12 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    # @schdedule = Schedule.new(schedule_params)
+    @schedule = Schedule.new
+    @location = Location.find(params[:location_id])
   end
 
   def create
-    # @schedule.create(schedule_params)
-
+    Schedule.create(schedule_params)
   end
 
   def edit
@@ -31,8 +31,9 @@ class SchedulesController < ApplicationController
     # @schdulable.destroy {turbo_method, "delete"},
   end
 
-private
-# def schedule_params
+  private
 
-
+  def schedule_params
+    params.require(:schedule).permit(:start_date, :end_date, :schedulable_type, :activity)
+  end
 end
