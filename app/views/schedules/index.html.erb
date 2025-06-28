@@ -1,10 +1,18 @@
-<h1>Schedules#index</h1>
+<h1>Actividades</h1>
 <div class="container">
 <ul>
   <% @schedules.each do |schedule| %>
-  <li><%= schedule.schedulable_type %>
- <%= schedule.start_date %>
- <%= schedule.end_date %></li>
+    <li>
+      <% if schedule.schedulable_type == "Crop" %>
+        <% crop = Crop.find(schedule.schedulable_id) %>
+        <%= schedule.activity.name %>, <%= crop.kind %>. Fecha de inicio: <%= schedule.start_date %> Debe terminarse antes de: <%=  schedule.end_date  %>
+        <% else %>
+        <% schedule.schedulable_type == "Animal" %>
+        <% animal = Animal.find(schedule.schedulable_id) %>
+        <%= schedule.activity.name %>, <%= animal.breed.breed_type %>. Fecha de inicio: <%= schedule.start_date %> Debe terminarse antes de: <%= schedule.end_date %>
+      <% end %>
+    </li>
   <% end %>
   </ul>
+  
 </div>
