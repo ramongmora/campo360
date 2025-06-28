@@ -1,4 +1,4 @@
-puts "🧹 Cleaning database..."
+puts "Limpiando base de datos..."
 
 Schedule.delete_all
 Crop.delete_all
@@ -97,5 +97,4 @@ Employee.create!([
     location: location2
   }
 ])
-
-puts "✅ Seeding completed successfully!"
+puts "¡Seeds completados con datos consistentes!"

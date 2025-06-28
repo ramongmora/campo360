@@ -2,18 +2,25 @@
   <div class="container mt-4 d-flex justify-content-center mb-5">
     <div class="animal-item animal-detail-card w-100" style="max-width: 450px;">
 
-      <!-- Icono o futura imagen -->
-      <div class="animal-photo-placeholder">🐄</div>
+      <!-- Foto del animal o ícono por defecto -->
+      <div class="animal-photo-placeholder mb-4 d-flex justify-content-center">
+        <% if @animal.photo.attached? %>
+          <%= cl_image_tag @animal.photo.key, size: "300x300", class: "img-fluid rounded-circle shadow" %>
+          <%#= cl_image_tag @animal.photo.key, size: "100x200" %>
+        <% else %>
+          <div class="text-center" style="font-size: 5rem;">🐄</div>
+        <% end %>
+      </div>
 
       <!-- Alias del animal -->
-      <h2 class="animal-alias"><%= @animal.alias %></h2>
+      <h2 class="animal-alias text-center"><%= @animal.alias %></h2>
 
       <!-- Datos -->
       <div class="animal-meta"><strong>Raza:</strong> <%= @animal.breed %></div>
       <div class="animal-meta"><strong>Género:</strong> <%= @animal.gender %></div>
       <div class="animal-meta"><strong>Nacimiento:</strong> <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %></div>
 
-      <!-- Botones (DENTRO de la tarjeta) -->
+      <!-- Botones -->
       <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
         <%= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
 

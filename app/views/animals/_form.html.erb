@@ -16,8 +16,8 @@
     </div>
 
     <div class="mb-3">
-      <%= f.label :breed, "Raza" %>
-      <%= f.text_field :breed, class: "form-control" %>
+      <%= f.label :breed_id, "Raza" %>
+      <%= f.collection_select :breed_id, Breed.all, :id, :breed_type, { prompt: "Seleccionar raza" }, class: "form-control" %>
     </div>
 
     <div class="mb-3">
@@ -27,7 +27,7 @@
 
     <div class="mb-3">
       <%= f.label :gender, "Género" %>
-      <%= f.select :gender, [['Macho', 'male'], ['Hembra', 'female']], {}, class: "form-control" %>
+      <%= f.select :gender, [['Macho', 'Macho'], ['Hembra', 'Hembra']], {}, class: "form-control" %>
     </div>
 
     <div class="mb-3 form-check">
@@ -37,8 +37,8 @@
     </div>
 
     <div class="mb-3">
-      <%= f.label :animal_group_id, "Grupo de animales" %>
-      <%= f.collection_select :animal_group_id, AnimalGroup.all, :id, :name, { prompt: "Seleccionar grupo" }, class: "form-control" %>
+      <%= f.label :photo, "Foto del animal" %>
+      <%= f.file_field :photo, class: "form-control" %>
     </div>
 
     <!-- ✅ Botones -->
@@ -50,6 +50,5 @@
         <%= link_to "🔙 Cancelar", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
       <% end %>
     </div>
-
   </div>
 <% end %>
