@@ -1,21 +1,36 @@
-<nav class="custom-navbar">
-  <div class="navbar-container">
-    <div class="navbar-left">
-      <%= link_to image_tag("iconos/logo360_icon.png", height: 32) %>
-    </div>
-
-    <% if user_signed_in? && current_location.present? %>
-      <div class="navbar-center">
-      </div>
-
-      <div class="navbar-right">
-        <%= link_to "⚙️ Ajustes", ajustes_path, class: "navbar-link" %>
-        <%= link_to "🚪 Cerrar sesión", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "navbar-link logout" %>
-      </div>
-    <% else %>
-      <div class="navbar-right">
-        <%= link_to "🔐 Iniciar sesión", new_user_session_path, class: "navbar-link" %>
-      </div>
+<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container">
+    <%= link_to (user_signed_in? ? dashboard_path : root_path), class: "navbar-brand" do %>
+      <%= image_tag "iconos/logo360_icon.png", height: 40 %>
     <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "🌾 Mi Rancho", dashboard_path, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item dropdown">
+            <% avatar_url = current_user.avatar.attached? ? url_for(current_user.avatar) : asset_path("iconos/employees_icon.png") %>
+            <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><%= link_to "⚙️ Ajustes", ajustes_path, class: "dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "🚪 Cerrar sesión", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "dropdown-item" %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "🔐 Iniciar sesión", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </nav>
+ 

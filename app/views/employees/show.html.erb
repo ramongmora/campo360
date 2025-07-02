@@ -1,2 +1,12 @@
-<h1>Employees#show</h1>
-<p>Find me in app/views/employees/show.html.erb</p>
+<div class="container mt-4">
+  <div class="employee-card">
+    <h2><%= @employee.first_name %> <%= @employee.last_name %></h2>
+    <p>📄 CURP: <%= @employee.citizen_register %></p>
+    <p>💵 Sueldo: $<%= number_with_precision(@employee.salary, precision: 2) %></p>
+
+    <div class="employee-actions">
+      <%= link_to "Editar", edit_location_employee_path(@location, @employee), class: "btn btn-primary" %>
+      <%= link_to "Regresar", location_employees_path(@location), class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+</div>

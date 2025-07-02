@@ -1,0 +1,40 @@
+.employee-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.employee-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+.employee-actions {
+  margin-top: 12px;
+
+  .btn {
+    margin-right: 8px;
+  }
+}
+
+.employee-form {
+  max-width: 600px;
+  margin: 0 auto;
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  label {
+    font-weight: 600;
+    color: #555;
+  }
+
+  input, select {
+    width: 100%;
+  }
+}

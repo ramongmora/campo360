@@ -1,2 +1,10 @@
-<h1>Employees#new</h1>
-<p>Find me in app/views/employees/new.html.erb</p>
+<% if @employee.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>Errores al crear el empleado:</h4>
+    <ul>
+      <% @employee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

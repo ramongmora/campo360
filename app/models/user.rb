@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :crops, through: :locations
   has_many :animals, through: :locations
   has_many :schedules, through: :locations
+
+  has_one_attached :avatar
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
