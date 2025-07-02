@@ -1,2 +1,4 @@
-<h1>Employees#edit</h1>
-<p>Find me in app/views/employees/edit.html.erb</p>
+<div class="container mt-4">
+  <h1 class="employee-header"><%= action_name == "new" ? "Nuevo Empleado" : "Editar Empleado" %></h1>
+  <%= render "form", location: @location, employee: @employee %>
+</div>
