@@ -1,18 +1,26 @@
-<h1>Actividades</h1>
-<div class="container">
-<ul>
-  <% @schedules.each do |schedule| %>
-    <li>
-      <% if schedule.schedulable_type == "Crop" %>
-        <% crop = Crop.find(schedule.schedulable_id) %>
-        <%= schedule.activity.name %>, <%= crop.kind %>. Fecha de inicio: <%= schedule.start_date %> Debe terminarse antes de: <%=  schedule.end_date  %>
-        <% else %>
-        <% schedule.schedulable_type == "Animal" %>
-        <% animal = Animal.find(schedule.schedulable_id) %>
-        <%= schedule.activity.name %>, <%= animal.breed.breed_type %>. Fecha de inicio: <%= schedule.start_date %> Debe terminarse antes de: <%= schedule.end_date %>
-      <% end %>
-    </li>
-  <% end %>
+<div class="container mt-4">
+  <h1 class="mb-4">Actividades</h1>
+  <ul class="list-group">
+    <% @schedules.each do |schedule| %>
+      <li class="list-group-item d-flex flex-column align-items-start mb-3 shadow-sm rounded">
+        <% if schedule.schedulable_type == "Crop" %>
+          <% crop = Crop.find(schedule.schedulable_id) %>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><strong><%= schedule.activity.name %></strong></h5>
+            <small class="text-muted"><i class="bi bi-calendar-event"></i> <%= schedule.start_date %> - <%= schedule.end_date %></small>
+          </div>
+          <p class="mb-1 text-success">Cultivo: <%= crop.kind %></p>
+          <%= link_to "Ver Cultivo", location_crop_path(crop.location_id, crop.id), class: "btn btn-outline-success btn-sm mt-2" %>
+        <% elsif schedule.schedulable_type == "Animal" %>
+          <% animal = Animal.find(schedule.schedulable_id) %>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><strong><%= schedule.activity.name %></strong></h5>
+            <small class="text-muted"><i class="bi bi-calendar-event"></i> <%= schedule.start_date %> - <%= schedule.end_date %></small>
+          </div>
+          <p class="mb-1 text-primary">Animal: <%= animal.breed.breed_type %></p>
+          <%= link_to "Ver Animal", location_animal_path(animal.location_id, animal.id), class: "btn btn-outline-primary btn-sm mt-2" %>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
-  
 </div>
