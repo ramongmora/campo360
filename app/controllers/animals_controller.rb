@@ -18,11 +18,15 @@ class AnimalsController < ApplicationController
   end
 
   def new
-    @animal = Animal.new
+    @location = Location.find(params[:location_id])
+    @animal = @location.animals.new
   end
 
+
   def create
-    @animal = Animal.new(animal_params)
+    @location = Location.find(params[:location_id]) # ✅ Añadir esto
+    @animal = @location.animals.new(animal_params)
+
     if @animal.save
       redirect_to location_animals_path(@location), notice: "Animal creado exitosamente."
     else
