@@ -1,19 +1,20 @@
-<div class="container mt-4">
-  <h1 class="employee-header mb-4">Empleados en <%= @location.name %></h1>
-
-  <%= link_to "➕ Agregar empleado", new_location_employee_path(@location), class: "btn btn-success mb-3" %>
-
-  <% @employees.each do |employee| %>
-    <div class="employee-card">
-      <h5><%= employee.first_name %> <%= employee.last_name %></h5>
-      <p>📄 CURP: <%= employee.citizen_register %></p>
-      <p>💵 Sueldo: $<%= number_with_precision(employee.salary, precision: 2) %></p>
-
-      <div class="employee-actions">
-        <%= link_to "Ver", location_employee_path(@location, employee), class: "btn btn-outline-secondary btn-sm" %>
-        <%= link_to "Editar", edit_location_employee_path(@location, employee), class: "btn btn-outline-primary btn-sm" %>
-        <%= link_to "Eliminar", location_employee_path(@location, employee), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
+<div class="container mt-5">
+  <div class="justify-content-between d-flex align-items-center mb-4">
+    <h1 class="employee-header mb-3">Empleados en <%= @location.name %></h1>
+    <%= link_to "➕ Agregar empleado", new_location_employee_path(@location), class: "btn btn-success mb-3" %>
+  </div>
+    <% @employees.each do |employee| %>
+    <%= link_to location_employee_path(@location, employee), class: "text-decoration-none text-dark" do %>
+      <div class="employee-card">
+        <h2><%= employee.first_name %> <%= employee.last_name %></h2>
+        <p>📄 CURP: <%= employee.citizen_register %></p>
+        <p>📧 Correo electrónico: <%= employee.email %></p>
+        <p>💵 Sueldo: $<%= number_with_precision(employee.salary, precision: 2) %></p>
+        <div class="employee-actions">
+          <%= link_to "Editar", edit_location_employee_path(@location, employee), class: "btn btn-outline-primary btn-sm" %>
+          <%= link_to "Eliminar", location_employee_path(@location, employee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
+        </div>
       </div>
-    </div>
-  <% end %>
+      <% end %>
+    <% end %>
 </div>
