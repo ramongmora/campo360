@@ -1,4 +1,14 @@
-<div class="container mt-4">
-  <h1 class="employee-header"><%= action_name == "new" ? "Nuevo Empleado" : "Editar Empleado" %></h1>
-  <%= render "form", location: @location, employee: @employee %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h1 class="h4 mb-0">Editar Empleado</h1>
+        </div>
+        <div class="card-body">
+          <%= render partial: 'form', locals: { form: @form } %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

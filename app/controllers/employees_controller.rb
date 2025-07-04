@@ -19,12 +19,11 @@ class EmployeesController < ApplicationController
     @employee = @location.employees.build(employee_params)
 
     if @employee.save
-      redirect_to location_employees_path(@location), notice: "Empleado creado exitosamente."
+      redirect_to location_employees_path(@location), notice: 'Empleado creado exitosamente.'
     else
       render :new, status: :unprocessable_entity
     end
   end
-
 
   def edit
   end

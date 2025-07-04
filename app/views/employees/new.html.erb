@@ -1,10 +1,15 @@
-<% if @employee.errors.any? %>
-  <div class="alert alert-danger">
-    <h4>Errores al crear el empleado:</h4>
-    <ul>
-      <% @employee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h1 class="h4 mb-0">Nuevo Empleado</h1>
+        </div>
+        <div class="card-body">
+          <%= render partial: 'form', locals: { form: @form } %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
+
