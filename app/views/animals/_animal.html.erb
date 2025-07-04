@@ -12,7 +12,8 @@
   </div>
   <!-- Información -->
   <div class="animal-info">
-    <strong class="animal-alias"><%= animal.breed.breed_type %></strong>
+    <strong class="animal-alias"><%= animal.alias %></strong>
+    <p class="animal-breed"><%= animal.breed.breed_type %></p>
     <div class="animal-meta"><%= "🚨" if animal.follow %> - <%= animal.gender %></div>
     <% if animal.birth_date %>
       <div class="animal-meta"><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small></div>
