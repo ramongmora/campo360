@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="landing-container">
   <div class="text-center mb-5">
     <h1 class="display-4">Bienvenido a Campo360 🌱</h1>
     <p class="lead">La plataforma integral para gestionar tu producción agrícola con eficiencia e inteligencia.</p>
@@ -15,28 +15,30 @@
     </ul>
   </section>
 
+  <hr class="my-5">
+
   <section class="mb-5">
     <h2>💡 Beneficios de usar Campo360</h2>
     <div class="row">
-      <div class="col-md-4">
-        <div class="card shadow-sm">
-          <div class="card-body">
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm w-100">
+          <div class="card-body text-center">
             <h5 class="card-title">Ahorra tiempo</h5>
             <p class="card-text">Automatiza tareas y lleva el control de tus fincas sin esfuerzo.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm">
-          <div class="card-body">
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm w-100">
+          <div class="card-body text-center">
             <h5 class="card-title">Mejora tu producción</h5>
             <p class="card-text">Toma mejores decisiones con datos en tiempo real.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm">
-          <div class="card-body">
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm w-100">
+          <div class="card-body text-center">
             <h5 class="card-title">Control total</h5>
             <p class="card-text">Todo en un solo lugar: animales, cultivos, personal y más.</p>
           </div>
@@ -45,31 +47,33 @@
     </div>
   </section>
 
+  <hr class="my-5">
+
   <section class="mb-5">
     <h2>📦 Planes</h2>
     <div class="row">
-      <div class="col-md-4">
-        <div class="card border-primary">
-          <div class="card-header bg-primary text-white">Básico</div>
-          <div class="card-body">
+      <div class="col-md-4 d-flex">
+        <div class="card border-primary w-100">
+          <div class="card-header bg-primary text-white text-center">Básico</div>
+          <div class="card-body text-center">
             <h5 class="card-title">$0 / mes</h5>
             <p class="card-text">Hasta 1 finca, 50 animales y soporte limitado.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card border-success">
-          <div class="card-header bg-success text-white">Profesional</div>
-          <div class="card-body">
+      <div class="col-md-4 d-flex">
+        <div class="card border-success w-100">
+          <div class="card-header bg-success text-white text-center">Profesional</div>
+          <div class="card-body text-center">
             <h5 class="card-title">$29 / mes</h5>
             <p class="card-text">Hasta 5 fincas, 500 animales y soporte completo.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card border-dark">
-          <div class="card-header bg-dark text-white">Empresarial</div>
-          <div class="card-body">
+      <div class="col-md-4 d-flex">
+        <div class="card border-dark w-100">
+          <div class="card-header bg-dark text-white text-center">Empresarial</div>
+          <div class="card-body text-center">
             <h5 class="card-title">A medida</h5>
             <p class="card-text">Soluciones personalizadas para grandes operaciones.</p>
           </div>
@@ -79,6 +83,6 @@
   </section>
 
   <div class="text-center mt-5">
-    <%= link_to "Contáctanos", "#", class: "btn btn-outline-secondary btn-lg" %>
+    <%= link_to "Empieza ahora", new_user_session_path, class: "btn btn-success btn-lg" %>
   </div>
 </div>
