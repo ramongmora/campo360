@@ -17,11 +17,8 @@
             <%= select_tag :location_id, options_from_collection_for_select(@locations, :id, :name, @location&.id), id: "location_select", class: "form-select", onchange: "this.form.submit();" %>
           </div>
         <% end %>
-        <turbo-frame id="locations">
-          <%= render @location if @location %>
-        </turbo-frame>
+        <%= render @location if @location %>
       </div>
     </div>
   </div>
-
 </div>

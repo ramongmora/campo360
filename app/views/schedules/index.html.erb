@@ -1,5 +1,8 @@
 <div class="container mt-4">
-  <h1 class="mb-4">Actividades</h1><%= link_to "Add", new_location_schedule_path %>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Actividades</h1>
+    <%= link_to "Agregar", new_location_schedule_path, class: "btn btn-primary" %>
+  </div>
   <ul class="list-group">
     <% @schedules.each do |schedule| %>
       <li class="list-group-item d-flex flex-column align-items-start mb-3 shadow-sm rounded">
@@ -10,15 +13,23 @@
             <small class="text-muted"><i class="bi bi-calendar-event"></i> <%= schedule.start_date %> - <%= schedule.end_date %></small>
           </div>
           <p class="mb-1 text-success">Cultivo: <%= crop.kind %></p>
-          <%= link_to "Ver Cultivo", location_crop_path(crop.location_id, crop.id), class: "btn btn-outline-success btn-sm mt-2" %>
+          <div class="d-flex gap-2 mt-2">
+            <%= link_to "Ver Actividad", location_schedule_path(schedule.location_id, schedule.id), class: "btn btn-outline-secondary btn-sm" %>
+            <%= link_to "Ver Cultivo", location_crop_path(crop.location_id, crop.id), class: "btn btn-outline-success btn-sm" %>
+            <%= link_to "Eliminar Actividad", location_schedule_path(schedule.location_id, schedule.id), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" }, class: "btn btn-outline-danger btn-sm" %>
+          </div>
         <% elsif schedule.schedulable_type == "Animal" %>
           <% animal = Animal.find(schedule.schedulable_id) %>
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><strong><%= schedule.activity.name %></strong></h5>
             <small class="text-muted"><i class="bi bi-calendar-event"></i> <%= schedule.start_date %> - <%= schedule.end_date %></small>
           </div>
-          <p class="mb-1 text-primary">Animal: <%= animal.breed.breed_type %></p>
-          <%= link_to "Ver Animal", location_animal_path(animal.location_id, animal.id), class: "btn btn-outline-primary btn-sm mt-2" %>
+          <p class="mb-1 text-primary">Animal: <%= animal.alias %></p>
+          <div class="d-flex gap-2 mt-2">
+            <%= link_to "Ver Actividad", location_schedule_path(schedule.location_id, schedule.id), class: "btn btn-outline-secondary btn-sm" %>
+            <%= link_to "Ver Animal", location_animal_path(animal.location_id, animal.id), class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "Eliminar Actividad", location_schedule_path(schedule.location_id, schedule.id), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" }, class: "btn btn-outline-danger btn-sm" %>
+          </div>
         <% end %>
       </li>
     <% end %>
