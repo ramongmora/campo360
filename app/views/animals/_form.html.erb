@@ -1,54 +1,59 @@
-<%= form_with model: [@location, @animal], data: { turbo_frame: "dashboard-content" }, class: "animal-form d-flex flex-column align-items-center" do |f| %>
-  <% if @animal.errors.any? %>
-    <div class="alert alert-danger w-100">
-      <ul>
-        <% @animal.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= simple_form_for [@location, @animal], html: { class: "needs-validation", multipart: true } do |f| %>
+  <div class="row g-4">
 
-  <div class="form-card p-4 rounded shadow-sm" style="max-width: 400px; width: 100%; background-color: #f9f9f9;">
-    <div class="mb-3">
-      <%= f.label :alias, "Alias" %>
-      <%= f.text_field :alias, class: "form-control" %>
+    <div class="col-md-6">
+      <%= f.input :alias,
+        input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+        label_html: { class: "form-label fw-semibold text-success" },
+        label: raw('<i class="bi bi-tag me-2 text-success"></i>Nombre o Alias') %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :breed_id, "Raza" %>
-      <%= f.collection_select :breed_id, Breed.all, :id, :breed_type, { prompt: "Seleccionar raza" }, class: "form-control" %>
+    <div class="col-md-6">
+      <%= f.input :breed_id, collection: Breed.all.map { |b| [b.breed_type, b.id] }, prompt: "Selecciona una raza",
+        input_html: { class: "form-select border-success bg-white rounded-4 shadow-sm py-2" },
+        label_html: { class: "form-label fw-semibold text-success" },
+        label: raw('<i class="bi bi-diagram-3-fill me-2 text-success"></i>Raza') %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :birth_date, "Fecha de nacimiento" %>
-      <%= f.date_field :birth_date, class: "form-control" %>
+    <div class="col-md-6">
+      <%= f.input :gender, collection: ["Macho", "Hembra"], prompt: "Selecciona género",
+        input_html: { class: "form-select border-success bg-white rounded-4 shadow-sm py-2" },
+        label_html: { class: "form-label fw-semibold text-success" },
+        label: raw('<i class="bi bi-gender-ambiguous me-2 text-success"></i>Género') %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :gender, "Género" %>
-      <%= f.select :gender, [['Macho', 'Macho'], ['Hembra', 'Hembra']], {}, class: "form-control" %>
+    <div class="col-md-6">
+      <%= f.input :birth_date, as: :string,
+        input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @animal.birth_date&.strftime("%Y-%m-%d") },
+        label_html: { class: "form-label fw-semibold text-success" },
+        label: raw('<i class="bi bi-calendar-event me-2 text-success"></i>Fecha de Nacimiento') %>
     </div>
 
-    <div class="mb-3 form-check">
-      <%= f.hidden_field :follow, value: false %>
-      <%= f.check_box :follow, class: "form-check-input toggle-switch", id: "followToggle" %>
-      <%= f.label :follow, "En seguimiento", class: "form-check-label toggle-label" %>
+    <div class="col-12">
+      <%= f.input :photo, as: :file,
+        input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+        label_html: { class: "form-label fw-semibold text-success" },
+        label: raw('<i class="bi bi-image me-2 text-success"></i>Foto del Animal') %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :photo, "Foto del animal" %>
-      <%= f.file_field :photo, class: "form-control" %>
+    <div class="col-12 d-flex justify-content-end align-items-center mt-3 mb-4">
+      <div class="form-check form-switch ps-0">
+        <%= f.input :follow, as: :boolean,
+          label: raw('<i class="bi bi-eye-fill me-2 text-secondary"></i>Seguir'),
+          wrapper_html: { class: "form-check mb-0 d-flex align-items-center" },
+          input_html: { class: "form-check-input border-success shadow-sm", role: "switch" },
+          label_html: { class: "form-check-label fw-semibold text-secondary ms-3" } %>
+      </div>
     </div>
 
-    <!-- ✅ Botones -->
-    <div class="d-flex justify-content-center gap-2 mt-4">
-      <%= f.submit "💾 Guardar cambios", class: "btn btn-success" %>
-      <% if @animal.persisted? %>
-        <%= link_to "🔙 Cancelar", location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
-      <% else %>
-        <%= link_to "🔙 Cancelar", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
-      <% end %>
+    <div class="col-12 d-flex justify-content-between gap-3 mt-3">
+      <%= link_to raw('<i class="bi bi-arrow-left-circle-fill me-2"></i>Volver'), location_animals_path(@animal.location),
+        data: { turbo_frame: "dashboard-content" },
+        class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+
+      <%= f.button :submit, @animal.persisted? ? "Guardar Cambios" : "Crear Animal",
+        class: "btn btn-success px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
     </div>
+
   </div>
 <% end %>

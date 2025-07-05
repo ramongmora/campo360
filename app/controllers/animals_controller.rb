@@ -1,5 +1,5 @@
 class AnimalsController < ApplicationController
-  before_action :set_location, only: [:index]
+  before_action :set_location, only: [:index, :show, :edit, :update, :destroy]
   before_action :set_animal, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -11,10 +11,7 @@ class AnimalsController < ApplicationController
   end
 
   def show
-    # respond_to do |format|
-    #   format.html
-    #   format.turbo_stream { render partial: "show", locals: { animal: @animal, location: @location } }
-    # end
+    # Ya tienes acceso a @location y @animal
   end
 
   def new
@@ -22,9 +19,8 @@ class AnimalsController < ApplicationController
     @animal = @location.animals.new
   end
 
-
   def create
-    @location = Location.find(params[:location_id]) # ✅ Añadir esto
+    @location = Location.find(params[:location_id])
     @animal = @location.animals.new(animal_params)
 
     if @animal.save
@@ -53,11 +49,13 @@ class AnimalsController < ApplicationController
   private
 
   def set_location
-    @location = Location.find(params[:location_id])
+    @location = Animal.find(params[:id]).location if params[:id] && !params[:location_id]
+    @location ||= Location.find(params[:location_id])
   end
 
   def set_animal
     @animal = Animal.find(params[:id])
+    @location = @animal.location
   end
 
   def animal_params

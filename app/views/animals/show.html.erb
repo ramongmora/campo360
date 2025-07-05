@@ -1,37 +1,60 @@
 <turbo-frame id="dashboard-content">
-  <div class="container mt-4 d-flex justify-content-center mb-5">
-    <div class="animal-item animal-detail-card w-100" style="max-width: 450px;">
+  <div class="container py-4">
+    <div class="card shadow-lg border-success rounded-5 mx-auto" style="max-width: 600px;">
 
-      <!-- Foto del animal o ícono por defecto -->
-      <div class="animal-photo-placeholder mb-4 d-flex justify-content-center">
-        <% if @animal.photo.attached? %>
-          <%= cl_image_tag @animal.photo.key, size: "300x300", class: "img-fluid rounded-circle shadow" %>
-          <%#= cl_image_tag @animal.photo.key, size: "100x200" %>
-        <% else %>
-          <div class="text-center" style="font-size: 5rem;">🐄</div>
-        <% end %>
+      <!-- Imagen del animal -->
+      <% if @animal.photo.attached? %>
+        <%= cl_image_tag @animal.photo.key, class: "card-img-top img-fluid rounded-top-5", width: 600, height: 400, crop: :fill %>
+      <% else %>
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-image fs-1"></i><br>
+          Sin imagen
+        </div>
+      <% end %>
+
+      <!-- Contenido -->
+      <div class="card-body p-5 bg-light rounded-bottom-5">
+        <h2 class="card-title text-center fw-bold text-success mb-4">
+          🐄 <%= @animal.alias %>
+        </h2>
+
+        <ul class="list-group list-group-flush mb-4">
+          <li class="list-group-item">
+            <strong><i class="bi bi-diagram-3-fill text-success"></i> Raza:</strong>
+            <%= @animal.breed&.breed_type || "N/D" %>
+          </li>
+          <li class="list-group-item">
+            <strong><i class="bi bi-gender-ambiguous text-success"></i> Género:</strong>
+            <%= @animal.gender %>
+          </li>
+          <li class="list-group-item">
+            <strong><i class="bi bi-cake text-success"></i> Fecha de nacimiento:</strong>
+            <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %>
+          </li>
+          <li class="list-group-item">
+            <strong><i class="bi bi-eye-fill text-success"></i> Seguimiento:</strong>
+            <i class="bi <%= @animal.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
+          </li>
+        </ul>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-between mt-4">
+          <%= link_to edit_location_animal_path(@location, @animal), class: 'btn btn-success px-4 fw-semibold shadow-sm rounded-pill' do %>
+            <i class="bi bi-pencil-fill"></i> Editar
+          <% end %>
+
+          <%= link_to location_animals_path(@location), class: 'btn btn-outline-secondary px-4 fw-semibold shadow-sm rounded-pill' do %>
+            <i class="bi bi-arrow-left-circle-fill"></i> Volver
+          <% end %>
+
+          <%= button_to location_animal_path(@location, @animal),
+                        method: :delete,
+                        data: { turbo_confirm: "¿Estás seguro de eliminar este animal?" },
+                        class: "btn btn-outline-danger px-4 fw-semibold shadow-sm rounded-pill" do %>
+            <i class="bi bi-trash-fill"></i> Eliminar
+          <% end %>
+        </div>
       </div>
-
-      <!-- Alias del animal -->
-      <h2 class="animal-alias text-center"><%= @animal.alias %></h2>
-
-      <!-- Datos -->
-      <div class="animal-meta"><strong>Raza:</strong> <%= @animal.breed.breed_type %></div>
-      <div class="animal-meta"><strong>Género:</strong> <%= @animal.gender %></div>
-      <div class="animal-meta"><strong>Nacimiento:</strong> <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %></div>
-
-      <!-- Botones -->
-      <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
-        <%#= link_to "✏️ Editar", edit_location_animal_path(@location, @animal), data: { turbo_frame: "dashboard-content" }, class: "btn btn-warning" %>
-
-        <%#= button_to "🗑 Eliminar", location_animal_path(@location, @animal),
-            method: :delete,
-            data: { turbo_confirm: "¿Estás seguro de eliminar este animal?" },
-            class: "btn btn-danger" %>
-
-        <%#= link_to "🔙 Volver", location_animals_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-secondary" %>
-      </div>
-
     </div>
   </div>
 </turbo-frame>
