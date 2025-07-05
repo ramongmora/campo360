@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_27_014125) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_05_020620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -129,6 +129,26 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_27_014125) do
     t.index ["activity_id"], name: "index_schedules_on_activity_id"
     t.index ["location_id"], name: "index_schedules_on_location_id"
     t.index ["schedulable_type", "schedulable_id"], name: "index_schedules_on_schedulable"
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name"
+    t.string "contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.decimal "amount"
+    t.string "kind"
+    t.string "status"
+    t.date "date"
+    t.text "notes"
+    t.string "transactionable_type", null: false
+    t.bigint "transactionable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transactionable_type", "transactionable_id"], name: "index_transactions_on_transactionable"
   end
 
   create_table "users", force: :cascade do |t|

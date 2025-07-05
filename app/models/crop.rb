@@ -1,6 +1,7 @@
 class Crop < ApplicationRecord
   belongs_to :location
   has_many :schedules, as: :schedulable, dependent: :destroy
+  has_many :transactions, as: :transactionable
 
   has_one :user, through: :location
 
@@ -17,5 +18,9 @@ class Crop < ApplicationRecord
     if sowing_date.present? && harvest_date.present? && sowing_date > harvest_date
       errors.add(:sowing_date, "must be before the harvest date")
     end
+  end
+
+  def display_name
+    "Cosecha de #{kind} (#{sowing_date})"
   end
 end
