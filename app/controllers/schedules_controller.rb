@@ -8,8 +8,10 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @schedule = Schedule.new
     @location = Location.find(params[:location_id])
+    @schedule = @location.schedules.new
+    @animal_activities = Activity.where(category: 'animal')
+    @crop_activities = Activity.where(category: 'crop')
   end
 
   def create
@@ -17,7 +19,7 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.new(schedule_params)
     @schedule.location = @location
     if @schedule.save!
-      redirect_to root_path
+      redirect_to location_schedules_path
     else
       render :new, status: :unprocessable_entity
     end
