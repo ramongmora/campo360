@@ -1,4 +1,5 @@
 <h1 class="location-title"><%= location.name %></h1>
+
 <!-- Cards principales -->
 <div class="main-cards">
   <div class="card" onclick="window.location='<%= location_animals_path(location) %>'">
@@ -41,57 +42,48 @@
     </div>
   </div>
 </div>
-<div class="row mt-4">
-  <div class="col-md-4 mb-3">
-    <div class="card h-100">
-      <div class="card-header bg-primary text-white">
-        Próximas Actividades
-      </div>
-      <ul class="list-group list-group-flush">
-        <% location.upcoming_schedules.each do |schedule| %>
-          <li class="list-group-item">
-            <%= schedule.activity.name %>
-          </li>
-        <% end %>
-        <% if location.upcoming_schedules.empty? %>
-          <li class="list-group-item text-muted">Sin actividades próximas</li>
-        <% end %>
-      </ul>
+
+<!-- Widgets de Actividad y Empleados -->
+<div class="info-widgets">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <i class="fas fa-calendar-plus me-2"></i> Próximas Actividades
+    </div>
+    <div class="card-body">
+      <% location.upcoming_schedules.each do |schedule| %>
+        <div><%= schedule.activity.name %></div>
+      <% end %>
+      <% if location.upcoming_schedules.empty? %>
+        <div class="text-muted">Sin actividades próximas</div>
+      <% end %>
     </div>
   </div>
-  <div class="col-md-4 mb-3">
-    <div class="card h-100">
-      <div class="card-header bg-success text-white">
-        Últimas Actividades
-      </div>
-      <ul class="list-group list-group-flush">
-        <% location.last_schedules.each do |schedule| %>
-          <li class="list-group-item">
-            <%= schedule.activity.name %>
-          </li>
-        <% end %>
-        <% if location.last_schedules.empty? %>
-          <li class="list-group-item text-muted">Sin actividades recientes</li>
-        <% end %>
-      </ul>
+
+  <div class="card">
+    <div class="card-header bg-success text-white">
+      <i class="fas fa-history me-2"></i> Últimas Actividades
+    </div>
+    <div class="card-body">
+      <% location.last_schedules.each do |schedule| %>
+        <div><%= schedule.activity.name %></div>
+      <% end %>
+      <% if location.last_schedules.empty? %>
+        <div class="text-muted">Sin actividades recientes</div>
+      <% end %>
     </div>
   </div>
-  <div class="col-md-4 mb-3">
-    <div class="card h-100">
-      <div class="card-header bg-info text-white">
-        Empleados de Hoy
-      </div>
-      <ul class="list-group list-group-flush">
-        <% location.employees.each do |employee| %>
-          <li class="list-group-item">
-            <%= employee.first_name %> <%= employee.last_name %>
-          </li>
-        <% end %>
-        <% if location.employees.empty? %>
-          <li class="list-group-item text-muted">Sin empleados hoy</li>
-          <% end %>
-      </ul>
+
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      <i class="fas fa-users me-2"></i> Empleados de Hoy
+    </div>
+    <div class="card-body">
+      <% location.employees.each do |employee| %>
+        <div><%= employee.first_name %> <%= employee.last_name %></div>
+      <% end %>
+      <% if location.employees.empty? %>
+        <div class="text-muted">Sin empleados hoy</div>
+      <% end %>
     </div>
   </div>
-</div>
 </div>

@@ -1,25 +1,46 @@
+<div class="hero-cover">
+  <%= image_tag "covercampo360.jpg", alt: "Cover Campo360", class: "cover-bg" %>
+</div>
+
 <div class="landing-container">
-  <div class="text-center mb-5">
-    <h1 class="display-4">Bienvenido a Campo360 🌱</h1>
-    <p class="lead">La plataforma integral para gestionar tu producción agrícola con eficiencia e inteligencia.</p>
-  </div>
 
-  <hr class="my-5">
-
-  <section class="mb-5">
+  <!-- Cómo funciona -->
+  <section class="mb-5 text-center">
     <h2>🚜 ¿Cómo funciona?</h2>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">🔍 Visualiza todos tus animales, cultivos y personal desde un solo lugar.</li>
-      <li class="list-group-item">📅 Administra actividades y programaciones por ubicación.</li>
-      <li class="list-group-item">📊 Obtén reportes claros y toma decisiones con confianza.</li>
-    </ul>
+    <div class="row justify-content-center">
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm w-100 text-center">
+          <div class="card-body">
+            <h5 class="card-title">Visualiza fácilmente</h5>
+            <p class="card-text">Observa animales, cultivos y empleados desde una sola vista centralizada.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm w-100 text-center">
+          <div class="card-body">
+            <h5 class="card-title">Organiza actividades</h5>
+            <p class="card-text">Agenda baños, siembras, vacunas o pagos por fecha y por rancho.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm w-100 text-center">
+          <div class="card-body">
+            <h5 class="card-title">Toma mejores decisiones</h5>
+            <p class="card-text">Visualiza reportes y estadísticas para optimizar tu producción.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <hr class="my-5">
+  <hr class="my-4 mx-auto col-md-12" />
 
-  <section class="mb-5">
+  <!-- Beneficios -->
+  <section class="text-center mb-5">
     <h2>💡 Beneficios de usar Campo360</h2>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-md-4 d-flex">
         <div class="card shadow-sm w-100">
           <div class="card-body text-center">
@@ -47,11 +68,12 @@
     </div>
   </section>
 
-  <hr class="my-5">
+  <hr class="my-4 mx-auto col-md-12" />
 
-  <section class="mb-5">
+  <!-- Planes -->
+  <section class="text-center">
     <h2>📦 Planes</h2>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-md-4 d-flex">
         <div class="card border-primary w-100">
           <div class="card-header bg-primary text-white text-center">Básico</div>
@@ -82,7 +104,9 @@
     </div>
   </section>
 
-  <div class="text-center mt-5">
+  <!-- CTA -->
+  <div class="text-center mt-5 mb-5">
     <%= link_to "Empieza ahora", new_user_session_path, class: "btn btn-success btn-lg" %>
   </div>
+
 </div>
