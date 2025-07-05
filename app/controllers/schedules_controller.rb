@@ -10,6 +10,8 @@ class SchedulesController < ApplicationController
   def new
     @location = Location.find(params[:location_id])
     @schedule = @location.schedules.new
+    @animals = @location.animals
+    @crops = @location.crops
     @animal_activities = Activity.where(category: 'animal')
     @crop_activities = Activity.where(category: 'crop')
   end
@@ -17,8 +19,12 @@ class SchedulesController < ApplicationController
   def create
     @location = Location.find(params[:location_id])
     @schedule = Schedule.new(schedule_params)
+    @animals = @location.animals
+    @crops = @location.crops
+    @animal_activities = Activity.where(category: 'animal')
+    @crop_activities = Activity.where(category: 'crop')
     @schedule.location = @location
-    if @schedule.save!
+    if @schedule.save
       redirect_to location_schedules_path
     else
       render :new, status: :unprocessable_entity
