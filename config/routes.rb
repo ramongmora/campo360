@@ -11,8 +11,7 @@ Rails.application.routes.draw do
   get '/ajustes', to: 'users#settings', as: :ajustes
   get '/settings', to: 'users#settings', as: :settings
 
-  # Admin y crops externos
-  get '/crops', to: 'crops#index'
+  # Admin general
   get '/admin', to: 'admin#index'
 
   # Health check
@@ -24,5 +23,9 @@ Rails.application.routes.draw do
     resources :animals
     resources :crops
     resources :employees
+    resources :transactions, only: %i[index new create]
   end
+
+  # Rutas independientes para administrar transacciones desde /admin
+  resources :transactions, only: %i[edit update destroy]
 end

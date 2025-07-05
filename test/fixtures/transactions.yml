@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  kind: MyString
+  status: MyString
+  date: 2025-07-04
+  notes: MyText
+  transactionable: one
+  transactionable_type: Transactionable
+
+two:
+  amount: 9.99
+  kind: MyString
+  status: MyString
+  date: 2025-07-04
+  notes: MyText
+  transactionable: two
+  transactionable_type: Transactionable

@@ -8,8 +8,13 @@
 
   <!-- Imagen o ícono del animal -->
   <div class="animal-photo-placeholder">
-    <%= cl_image_tag animal.photo.key, class:'img-fluid'%>
+    <% if animal.photo.attached? %>
+      <%= cl_image_tag animal.photo.key, class: 'img-fluid' %>
+    <% else %>
+      <div class="text-center" style="font-size: 3rem;">🐄</div>
+    <% end %>
   </div>
+
   <!-- Información -->
   <div class="animal-info">
     <strong class="animal-alias"><%= animal.alias %></strong>
@@ -22,7 +27,8 @@
 
   <!-- Botón visual -->
   <div class="animal-button">
-    <%= link_to '👁 Más', location_animal_path(@location, animal)%>
+    <%= link_to '👁 Más', location_animal_path(@location, animal) %>
   </div>
+
   <%= link_to 'Agregar Actividad', new_location_schedule_path(@location, animal_id: animal.id) %>
 </div>
