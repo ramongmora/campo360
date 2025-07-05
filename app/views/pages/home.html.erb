@@ -1,5 +1,11 @@
-<div class="hero-cover">
+<div class="hero-cover position-relative">
   <%= image_tag "covercampo360.jpg", alt: "Cover Campo360", class: "cover-bg" %>
+
+  <div class="hero-content position-absolute top-50 start-50 translate-middle text-center text-white">
+    <h1 class="display-4 fw-bold">Gestiona tu rancho <br> desde un solo lugar</h1>
+    <p class="lead">Campo360 te permite llevar el control total de tus animales, <br> cultivos y personal desde tu celular.</p>
+    <%= link_to "Empieza ahora", new_user_session_path, class: "btn btn-success btn-lg mt-3 px-5 py-2" %>
+  </div>
 </div>
 
 <div class="landing-container">
