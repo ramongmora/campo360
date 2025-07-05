@@ -54,23 +54,29 @@ Crop.create!([
 ])
 
 puts "⚙️ Creating activities..."
-pasture = Activity.create!(name: "Pastoreo")
-vaccination = Activity.create!(name: "Vacunación")
-irrigation = Activity.create!(name: "Riego")
+Activity.create!([
+  { name: 'Riego', category: 'crop' },
+  { name: 'Siembra', category: 'crop' },
+  { name: 'Cosecha', category: 'crop' },
+  { name: 'Fetilización', category: 'crop' },
+  { name: 'Vacunación', category: 'animal' },
+  { name: 'Alimentación', category: 'animal' },
+  { name: 'Chequeo Veterinario', category: 'animal' }
+])
 
 puts "🗓️ Creating schedules..."
 Schedule.create!([
   {
     schedulable: Animal.first,
     location: location1,
-    activity: pasture,
+    activity: Activity.find_by(name:'Vacunación'),
     start_date: Date.today,
     end_date: Date.today + 7
   },
   {
     schedulable: Crop.first,
     location: location1,
-    activity: irrigation,
+    activity: Activity.find_by(name:'Riego'),
     start_date: Date.today,
     end_date: Date.today + 5
   }

@@ -1,51 +1,54 @@
+<h1 class="text-center mb-4">New Schedule</h1>
 
-  <h1 class="text-center mb-4">Nueva Actividad</h1>
-  <div class="card mx-auto" style="max-width: 500px;">
-    <div class="card-body">
-      <%= simple_form_for [@location, @schedule] do |f| %>
-        <%= f.input :activity_id, as: :select, collection: Activity.all.map { |a| [a.name, a.id] }, prompt: 'Selecciona una actividad' %>
-
-        <%= f.input :schedulable_type, as: :select, collection: ['Animal', 'Crop'], prompt: 'Selecciona tipo' %>
-
-        <%= f.input :schedulable_id, as: :select, collection: [], prompt: 'Selecciona uno' %>
-
-        <%= f.input :start_date, html5: true %>
-        <%= f.input :end_date, html5: true %>
-
-        <%= f.button :submit, 'Crear actividad', class: 'btn btn-primary w-100 mt-3' %>
-      <% end %>
-
-        <!-- ✅ Botones -->
-
-
-    </div>
+<div class="card mx-auto" style="max-width: 500px;">
+  <div class="card-body">
+    <%= simple_form_for [@location, @schedule] do |f| %>
+      <%= f.input :schedulable_type, as: :select, collection: ['Animal', 'Crop'], prompt: 'Select type' %>
+      <%= f.input :schedulable_id, as: :select, collection: [], prompt: 'Select one' %>
+      <%= f.input :activity_id, as: :select, collection: [], prompt: 'Select an activity' %>
+      <%= f.input :start_date, html5: true %>
+      <%= f.input :end_date, html5: true %>
+      <%= f.button :submit, 'Create Schedule', class: 'btn btn-primary w-100 mt-3' %>
+    <% end %>
   </div>
+</div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const typeSelect = document.querySelector("#schedule_schedulable_type");
-    const idSelect   = document.querySelector("#schedule_schedulable_id");
+  document.addEventListener("turbo:load", () => {
+    const typeSelect     = document.querySelector("#schedule_schedulable_type");
+    const idSelect       = document.querySelector("#schedule_schedulable_id");
+    const activitySelect = document.querySelector("#schedule_activity_id");
 
-    const data = {
-      Animal: <%= raw Animal.includes(breed: :animal_group).map { |a|
-        {
-          name: "#{a.breed.animal_group.name}",
-          id: a.id
-        }
-       }.to_json %>,
+    const schedulableData = {
+      Animal: <%= raw Animal.includes(breed: :animal_group).map { |a| { name: a.breed.animal_group.name, id: a.id } }.to_json %>,
       Crop: <%= raw Crop.all.map { |c| [c.kind, c.id] }.to_json %>
+    };
+
+    const activityData = {
+      Animal: <%= raw @animal_activities.map { |a| [a.name, a.id] }.to_json %>,
+      Crop: <%= raw @crop_activities.map { |a| [a.name, a.id] }.to_json %>
     };
 
     typeSelect.addEventListener("change", () => {
       const selectedType = typeSelect.value;
-      idSelect.innerHTML = "<option value=''>Selecciona uno</option>";
 
-      if (data[selectedType]) {
-        data[selectedType].forEach(([name, id]) => {
+      idSelect.innerHTML = "<option value=''>Select one</option>";
+      if (schedulableData[selectedType]) {
+        schedulableData[selectedType].forEach(item => {
+          const option = document.createElement("option");
+          option.value = item.id;
+          option.text  = item.name;
+          idSelect.appendChild(option);
+        });
+      }
+
+      activitySelect.innerHTML = "<option value=''>Select an activity</option>";
+      if (activityData[selectedType]) {
+        activityData[selectedType].forEach(([name, id]) => {
           const option = document.createElement("option");
           option.value = id;
           option.text  = name;
-          idSelect.appendChild(option);
+          activitySelect.appendChild(option);
         });
       }
     });
