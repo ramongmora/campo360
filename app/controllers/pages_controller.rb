@@ -19,4 +19,10 @@ class PagesController < ApplicationController
   def ajustes
     # Lógica opcional para ajustes de usuario
   end
+
+  class PagesController < ApplicationController
+    def support
+    end
+  end
+
 end

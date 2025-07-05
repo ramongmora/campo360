@@ -1,0 +1,68 @@
+.support-container {
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #333;
+
+  .card {
+    border-radius: 12px;
+    transition: transform 0.2s;
+    margin-bottom: 1.5rem;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .accordion-item {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .faq-section {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .row > div {
+    margin-bottom: 2rem;
+  }
+
+  hr {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .btn {
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+  }
+
+  .text-center p {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+  }
+}
