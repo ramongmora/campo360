@@ -6,6 +6,11 @@ class LocationsController < ApplicationController
   end
 
   def show
+    @markers =
+    [{
+      lat: @location.latitude,
+      lng: @location.longitude
+    }]
   end
 
   def new
