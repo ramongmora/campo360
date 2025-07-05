@@ -16,7 +16,7 @@
       <h2 class="animal-alias text-center"><%= @animal.alias %></h2>
 
       <!-- Datos -->
-      <div class="animal-meta"><strong>Raza:</strong> <%= @animal.breed %></div>
+      <div class="animal-meta"><strong>Raza:</strong> <%= @animal.breed.breed_type %></div>
       <div class="animal-meta"><strong>Género:</strong> <%= @animal.gender %></div>
       <div class="animal-meta"><strong>Nacimiento:</strong> <%= @animal.birth_date.strftime("%Y-%m-%d") if @animal.birth_date %></div>
 
