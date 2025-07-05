@@ -1,8 +1,8 @@
 /* === COVER === */
 .hero-cover {
-  width: 55%;
+  position: relative;
+  width: 100%;
   max-height: 1080px;
-  padding-top: 10px;
   overflow: hidden;
   object-fit: cover;
   margin: 0 auto;
@@ -12,8 +12,29 @@
   display: block;
   margin: 0 auto;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
+}
+
+/* Contenido centrado sobre la imagen */
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  padding: 1rem;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón CTA sobre imagen */
+.hero-content .btn {
+  padding: 0.75rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
 }
 
 /* === LANDING CONTAINER === */
@@ -94,7 +115,7 @@
   font-weight: 600;
 }
 
-/* RESPONSIVE LANDING */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   .landing-container {
     text-align: center;
@@ -102,5 +123,18 @@
 
   .landing-container .card {
     margin-bottom: 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-content .btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
   }
 }
