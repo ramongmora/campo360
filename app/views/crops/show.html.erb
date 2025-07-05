@@ -1,6 +1,13 @@
 <div class="container mt-5 pt-4">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
+      <!-- Imagen del cultivo -->
+      <% if @crop.photo.attached? %>
+        <div class="text-center mb-4">
+          <%= cl_image_tag @crop.photo.key, class: "img-fluid rounded-4 shadow-sm", width: 600, height: 400, crop: :fill %>
+        </div>
+      <% end %>
+
       <div class="card shadow-lg mb-5 border-success rounded-4">
         <div class="card-header bg-success text-white bg-gradient rounded-top-4 d-flex align-items-center">
           <h4 class="mb-0 fw-bold"><i class="bi bi-flower2 me-2"></i>Detalles del Cultivo</h4>

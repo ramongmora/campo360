@@ -1,4 +1,11 @@
 <div class="container py-4">
+  <!-- Botón de volver al dashboard -->
+  <div class="mb-3">
+    <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
+      <i class="bi bi-arrow-left-circle"></i> Volver a la pagina principal
+    <% end %>
+  </div>
+
   <h1 class="mb-4 text-center display-4 fw-bold">🌱Cultivos</h1>
 
   <% if @crops.any? %>
@@ -6,6 +13,15 @@
       <% @crops.each do |crop| %>
         <div class="col">
           <div class="card h-100 shadow border-success">
+            <% if crop.photo.attached? %>
+              <%= cl_image_tag crop.photo.key, class: "card-img-top img-fluid", width: 600, height: 300, crop: :fill %>
+            <% else %>
+              <div class="text-center py-5 text-muted">
+                <i class="bi bi-image fs-1"></i><br>
+                Sin imagen
+              </div>
+            <% end %>
+
             <div class="card-body">
               <h5 class="card-title fw-bold text-success">
                 <i class="bi bi-leaf text-success"></i> <%= crop.kind %>
@@ -29,14 +45,14 @@
                 </li>
                 <li class="list-group-item">
                   <strong><i class="bi bi-eye-fill text-success"></i> Seguimiento:</strong>
-                    <i class="bi <%= crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
+                  <i class="bi <%= crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
                 </li>
               </ul>
               <div class="d-grid gap-2">
                 <%= link_to location_crop_path(crop.location, crop), class: 'btn btn-success btn-sm mb-2' do %>
                   <i class="bi bi-eye"></i> Ver cultivo
                 <% end %>
-                <%= link_to edit_location_crop_path(crop.location, crop), class: 'btn btn-primary btn-sm' do %>
+                <%= link_to edit_location_crop_path(crop.location, crop), class: 'btn btn-outline-success btn-sm' do %>
                   <i class="bi bi-pencil"></i> Editar cultivo
                 <% end %>
               </div>

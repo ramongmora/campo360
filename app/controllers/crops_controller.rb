@@ -49,6 +49,7 @@ class CropsController < ApplicationController
     end
 
     def crop_params
-      params.require(:crop).permit(:kind, :harvest_date, :sowing_date, :surface, :follow)
+      params.require(:crop).permit(:kind, :harvest_date, :sowing_date, :surface, :follow, :photo)
     end
+
 end

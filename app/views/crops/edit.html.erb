@@ -1,7 +1,7 @@
 <div class="container py-4">
-      <h1 class="mb-4 text-center display-4 fw-bold">
-        <i class="bi bi-pencil-square me-2"></i>Editar Cultivo
-      </h1>
+  <h1 class="mb-4 text-center display-4 fw-bold">
+    <i class="bi bi-pencil-square me-2"></i>Editar Cultivo
+  </h1>
   <div class="row justify-content-center">
     <div class="col-md-10 col-lg-8">
       <div class="card shadow-lg mb-5 border-0 rounded-5">
@@ -11,32 +11,58 @@
           </h5>
         </div>
         <div class="card-body p-5 bg-light rounded-bottom-5">
-          <%= simple_form_for [@location, @crop], html: { class: "needs-validation" }, method: :patch do |f| %>
+          <%= simple_form_for [@location, @crop], html: { class: "needs-validation", multipart: true }, method: :patch do |f| %>
             <div class="row g-4">
+
+              <!-- Tipo de cultivo -->
               <div class="col-md-6">
                 <%= f.input :kind,
                   input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
                   label_html: { class: "form-label fw-semibold text-success" },
                   label: raw('<i class="bi bi-flower2 me-2 text-success"></i>Tipo de Cultivo') %>
               </div>
+
+              <!-- Superficie -->
               <div class="col-md-6">
                 <%= f.input :surface,
                   input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
                   label_html: { class: "form-label fw-semibold text-success" },
                   label: raw('<i class="bi bi-aspect-ratio me-2 text-success"></i>Superficie') %>
               </div>
+
+              <!-- Fecha de siembra -->
               <div class="col-md-6">
                 <%= f.input :sowing_date, as: :string,
                   input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.sowing_date&.strftime("%Y-%m-%d") },
                   label_html: { class: "form-label fw-semibold text-success" },
                   label: raw('<i class="bi bi-calendar-plus me-2 text-success"></i>Fecha de Siembra') %>
               </div>
+
+              <!-- Fecha de cosecha -->
               <div class="col-md-6">
                 <%= f.input :harvest_date, as: :string,
                   input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.harvest_date&.strftime("%Y-%m-%d") },
                   label_html: { class: "form-label fw-semibold text-success" },
                   label: raw('<i class="bi bi-calendar-check me-2 text-success"></i>Fecha de Cosecha') %>
               </div>
+
+              <!-- Imagen actual si existe -->
+              <% if @crop.photo.attached? %>
+                <div class="col-md-12 text-center">
+                  <p class="fw-semibold text-success mb-2">Imagen actual del cultivo:</p>
+                  <%= cl_image_tag @crop.photo.key, class: "img-fluid rounded shadow-sm", width: 600, height: 300, crop: :fill %>
+                </div>
+              <% end %>
+
+              <!-- Subir nueva imagen -->
+              <div class="col-12">
+                <%= f.input :photo, as: :file,
+                  label: raw('<i class="bi bi-upload me-2 text-success"></i>Subir nueva imagen'),
+                  input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+                  label_html: { class: "form-label fw-semibold text-success" } %>
+              </div>
+
+              <!-- Toggle seguimiento -->
               <div class="col-12 d-flex justify-content-end align-items-center mt-3 mb-4">
                 <div class="form-check form-switch ps-0">
                   <%= f.input :follow, as: :boolean,
@@ -47,6 +73,8 @@
                   %>
                 </div>
               </div>
+
+              <!-- Acciones -->
               <div class="col-12 d-flex justify-content-between gap-3 mt-3">
                 <div class="d-flex gap-2">
                   <%= link_to raw('<i class="bi bi-trash-fill me-2"></i>Eliminar'), [@location, @crop],
