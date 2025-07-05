@@ -4,7 +4,7 @@ class SchedulesController < ApplicationController
   end
 
   def show
-    @schedules = Schedule.find(params[:schedulable_id])
+    @schedule = Schedule.find(params[:id])
   end
 
   def new
@@ -17,12 +17,8 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    @location = Location.find(params[:location_id])
+    set_location_and_resources
     @schedule = Schedule.new(schedule_params)
-    @animals = @location.animals
-    @crops = @location.crops
-    @animal_activities = Activity.where(category: 'animal')
-    @crop_activities = Activity.where(category: 'crop')
     @schedule.location = @location
     if @schedule.save
       redirect_to location_schedules_path
@@ -42,13 +38,23 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    # Schedule.find(params[:schedulable_id])
-    # @schedule.destroy {turbo_method, "delete"},
+    @schedule = Schedule.find(params[:id])
+    @schedule.destroy
+    redirect_to location_schedules_path(params[:location_id]), notice: 'Schedule was successfully deleted.'
   end
 
   private
 
+  def set_location_and_resources
+    @location = Location.find(params[:location_id])
+    @animals = @location.animals
+    @crops = @location.crops
+    @animal_activities = Activity.where(category: 'animal')
+    @crop_activities = Activity.where(category: 'crop')
+  end
+
   def schedule_params
     params.require(:schedule).permit(:start_date, :end_date, :schedulable_type, :activity_id, :schedulable_id)
   end
+
 end

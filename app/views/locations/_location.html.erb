@@ -44,46 +44,86 @@
 </div>
 
 <!-- Widgets de Actividad y Empleados -->
-<div class="info-widgets">
-  <div class="card">
-    <div class="card-header bg-primary text-white">
-      <i class="fas fa-calendar-plus me-2"></i> Próximas Actividades
-    </div>
-    <div class="card-body">
-      <% location.upcoming_schedules.each do |schedule| %>
-        <div><%= schedule.activity.name %></div>
-      <% end %>
-      <% if location.upcoming_schedules.empty? %>
-        <div class="text-muted">Sin actividades próximas</div>
-      <% end %>
+<div class="row g-4 mt-4">
+  <!-- Próximas Actividades -->
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-header bg-primary text-white d-flex align-items-center">
+        <i class="fas fa-calendar-plus me-2"></i>
+        <span>Próximas Actividades</span>
+      </div>
+      <div class="card-body p-3">
+        <% upcoming = location.upcoming_schedules.sort_by(&:start_date) %>
+        <% if upcoming.any? %>
+          <ul class="list-group list-group-flush">
+            <% upcoming.each do |schedule| %>
+              <li class="list-group-item border-0 px-0 py-2">
+                <strong><%= schedule.activity.name %></strong><br>
+                <small class="text-muted">
+                  <i class="far fa-calendar-alt"></i>
+                  <%= l(schedule.start_date, format: :short) %> - <%= l(schedule.end_date, format: :short) %>
+                </small>
+              </li>
+              <%= link_to "Ver", location_schedule_path(location.id, schedule.id)  %>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="text-muted text-center">Sin actividades próximas</div>
+        <% end %>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-header bg-success text-white">
-      <i class="fas fa-history me-2"></i> Últimas Actividades
-    </div>
-    <div class="card-body">
-      <% location.last_schedules.each do |schedule| %>
-        <div><%= schedule.activity.name %></div>
-      <% end %>
-      <% if location.last_schedules.empty? %>
-        <div class="text-muted">Sin actividades recientes</div>
-      <% end %>
+  <!-- Últimas Actividades -->
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-header bg-success text-white d-flex align-items-center">
+        <i class="fas fa-history me-2"></i>
+        <span>Últimas Actividades</span>
+      </div>
+      <div class="card-body p-3">
+        <% last = location.last_schedules.select { |s| s.end_date < Date.today }.sort_by(&:start_date).reverse %>
+        <% if last.any? %>
+          <ul class="list-group list-group-flush">
+            <% last.each do |schedule| %>
+              <li class="list-group-item border-0 px-0 py-2">
+                <strong><%= schedule.activity.name %></strong><br>
+                <small class="text-muted">
+                  <i class="far fa-calendar-alt"></i>
+                  <%= l(schedule.start_date, format: :short) %> - <%= l(schedule.end_date, format: :short) %>
+                </small>
+              </li>
+              <%= link_to "Ver", location_schedule_path(location.id, schedule.id)  %>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="text-muted text-center">Sin actividades recientes</div>
+        <% end %>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-header bg-info text-white">
-      <i class="fas fa-users me-2"></i> Empleados de Hoy
-    </div>
-    <div class="card-body">
-      <% location.employees.each do |employee| %>
-        <div><%= employee.first_name %> <%= employee.last_name %></div>
-      <% end %>
-      <% if location.employees.empty? %>
-        <div class="text-muted">Sin empleados hoy</div>
-      <% end %>
+  <!-- Empleados de Hoy -->
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-header bg-info text-white d-flex align-items-center">
+        <i class="fas fa-users me-2"></i>
+        <span>Empleados de Hoy</span>
+      </div>
+      <div class="card-body p-3">
+        <% if location.employees.any? %>
+          <ul class="list-group list-group-flush">
+            <% location.employees.each do |employee| %>
+              <li class="list-group-item border-0 px-0 py-2 d-flex align-items-center">
+                <i class="fas fa-user me-2 text-secondary"></i>
+                <span><%= employee.first_name %> <%= employee.last_name %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="text-muted text-center">Sin empleados hoy</div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
