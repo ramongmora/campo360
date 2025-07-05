@@ -4,4 +4,5 @@
 //= link_tree ../../../vendor/javascript .js
 //= link popper.js
 //= link bootstrap.min.js
-
+//= link pages/home.css
+//= link pages/dashboard.css
