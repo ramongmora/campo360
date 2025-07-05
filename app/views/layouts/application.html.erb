@@ -13,7 +13,10 @@
       <%= stylesheet_link_tag "pages/home", media: "all", "data-turbo-track": "reload" %>
     <% elsif controller_name == 'pages' && action_name == 'dashboard' %>
       <%= stylesheet_link_tag "pages/dashboard", media: "all", "data-turbo-track": "reload" %>
+    <% elsif controller_name == 'pages' && action_name == 'support' %>
+      <%= stylesheet_link_tag "pages/support", media: "all", "data-turbo-track": "reload" %>
     <% end %>
+
 
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">

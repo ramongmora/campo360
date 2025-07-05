@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get '/ajustes', to: 'users#settings', as: :ajustes
   get '/settings', to: 'users#settings', as: :settings
 
+  # Area de soporte
+  get 'soporte', to: 'pages#support', as: :support
+
   # Admin general
   get '/admin', to: 'admin#index'
 

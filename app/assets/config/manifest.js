@@ -6,3 +6,4 @@
 //= link bootstrap.min.js
 //= link pages/home.css
 //= link pages/dashboard.css
+//= link pages/support.css

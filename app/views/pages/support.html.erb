@@ -1,0 +1,107 @@
+<div class="landing-container mt-5 mb-5 py-5">
+  <h1 class="text-center mb-4 fw-bold display-4">Soporte Campo360</h1>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="mb-5 text-center">
+    <h3 class="mb-3">📬 Contacto</h3>
+    <p class="mb-4">¿Tienes dudas o necesitas ayuda? Escríbenos a <a href="mailto:soporte@campo360.com">soporte@campo360.com</a></p>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-4">Envíanos un mensaje</h5>
+            <%= form_with url: "#", method: :post, local: true do %>
+              <div class="mb-3">
+                <%= label_tag :name, "Nombre completo", class: "form-label" %>
+                <%= text_field_tag :name, nil, class: "form-control", required: true %>
+              </div>
+              <div class="mb-3">
+                <%= label_tag :email, "Correo electrónico", class: "form-label" %>
+                <%= email_field_tag :email, nil, class: "form-control", required: true %>
+              </div>
+              <div class="mb-3">
+                <%= label_tag :message, "Mensaje", class: "form-label" %>
+                <%= text_area_tag :message, nil, class: "form-control", rows: 5, required: true %>
+              </div>
+              <div class="text-center">
+                <%= submit_tag "Enviar mensaje", class: "btn btn-success" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-5 col-md-12 mx-auto" />
+
+  <section class="faq-section">
+    <div class="container">
+      <h4 class="text-center mb-4">Preguntas Frecuentes</h4>
+
+      <div class="accordion" id="faqAccordion">
+        <% [["¿Qué es Campo360 y para qué sirve?", "Campo360 es una plataforma digital para llevar el control completo de tu rancho: animales, cultivos, empleados y tareas. Todo desde un solo lugar y accesible desde cualquier dispositivo."],
+            ["¿Necesito tener experiencia en tecnología para usar Campo360?", "No. La app está diseñada para ser intuitiva y fácil de usar, incluso para personas con poca experiencia en tecnología. En pocos pasos podrás registrar y visualizar toda tu operación."],
+            ["¿Puedo gestionar más de una finca o rancho?", "Sí. Con el plan Profesional o Empresarial puedes registrar múltiples ubicaciones y llevar un control independiente de cada una."],
+            ["¿Qué pasa si pierdo conexión a internet en el campo?", "Campo360 funciona en la nube, por lo que necesitas conexión a internet. Sin embargo, puedes consultar tu información desde cualquier lugar en cuanto tengas acceso nuevamente."],
+            ["¿Cómo obtengo soporte si tengo un problema?", "Puedes contactarnos desde la sección Contacto de esta página o escribirnos por WhatsApp. Nuestro equipo de soporte está disponible para ayudarte de lunes a viernes."]].each_with_index do |(question, answer), index| %>
+          <div class="accordion-item mb-3">
+            <h2 class="accordion-header" id="faq<%= index + 1 %>-heading">
+              <button class="accordion-button <%= "collapsed" unless index == 0 %>" type="button" data-bs-toggle="collapse" data-bs-target="#faq<%= index + 1 %>" aria-expanded="<%= index == 0 %>" aria-controls="faq<%= index + 1 %>">
+                <%= "#{index + 1}. #{question}" %>
+              </button>
+            </h2>
+            <div id="faq<%= index + 1 %>" class="accordion-collapse collapse <%= "show" if index == 0 %>" aria-labelledby="faq<%= index + 1 %>-heading" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <%= answer %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <hr class="my-5 col-md-12 mx-auto" />
+
+      <!-- Guía rápida -->
+      <div class="mt-5">
+        <h4 class="text-center mb-4">📘 Guía rápida para empezar</h4>
+        <div class="row text-center">
+          <div class="col-md-4 mb-4">
+            <i class="bi bi-person-check fs-1 text-success"></i>
+            <h5 class="mt-3">1. Regístrate</h5>
+            <p>Crea tu cuenta con tu correo electrónico y accede al panel de control.</p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <i class="bi bi-geo-alt fs-1 text-primary"></i>
+            <h5 class="mt-3">2. Registra tu rancho</h5>
+            <p>Agrega tus ubicaciones, animales, siembras y empleados en minutos.</p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <i class="bi bi-calendar2-check fs-1 text-dark"></i>
+            <h5 class="mt-3">3. Programa actividades</h5>
+            <p>Organiza tareas como baños, vacunas o pagos de forma visual y simple.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-5 col-md-12 mx-auto" />
+
+  <!-- TÉRMINOS -->
+  <section id="terminos" class="mb-5 text-start">
+    <h3 class="text-center mb-4">📜 Términos y condiciones</h3>
+    <div class="col-md-10 mx-auto">
+      <p>Al utilizar Campo360, aceptas los siguientes términos:</p>
+      <ul>
+        <li><strong>Uso personal:</strong> Esta plataforma está diseñada para uso personal o empresarial legítimo dentro del ámbito agropecuario.</li>
+        <li><strong>Privacidad:</strong> Tu información se almacena de forma segura. No compartimos datos sin tu consentimiento.</li>
+        <li><strong>Acceso:</strong> Necesitas conexión a internet para usar las funciones de Campo360 en tiempo real.</li>
+        <li><strong>Contenido:</strong> No está permitido subir contenido ofensivo, ilegal o inapropiado.</li>
+        <li><strong>Responsabilidad:</strong> Campo360 no se hace responsable por errores humanos o decisiones basadas únicamente en la plataforma.</li>
+      </ul>
+      <p>Para más detalles o dudas, contáctanos a <a href="mailto:soporte@campo360.com">soporte@campo360.com</a>.</p>
+    </div>
+  </section>
+</div>
