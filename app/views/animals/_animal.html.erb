@@ -11,11 +11,11 @@
     <% if animal.photo.attached? %>
       <%= cl_image_tag animal.photo.key, class: 'img-fluid' %>
     <% else %>
-      <div class="text-center" style="font-size: 3rem;">🐄</div>
+      🐄
     <% end %>
   </div>
 
-  <!-- Información -->
+  <!-- Información del animal -->
   <div class="animal-info">
     <strong class="animal-alias"><%= animal.alias %></strong>
     <p class="animal-breed"><%= animal.breed.breed_type %></p>
@@ -25,10 +25,11 @@
     <% end %>
   </div>
 
-  <!-- Botón visual -->
+  <!-- Botón y actividad -->
   <div class="animal-button">
-    <%= link_to '👁 Más', location_animal_path(@location, animal) %>
+    <%= link_to 'Ver', location_animal_path(@location, animal) %>
   </div>
-
-  <%= link_to 'Agregar Actividad', new_location_schedule_path(@location, animal_id: animal.id) %>
+  <div class="animal-button-secondary">
+     <%= link_to 'Agregar Actividad', new_location_schedule_path(@location, animal_id: animal.id), class: 'btn-secondary-animal' %>
+  </div>
 </div>
