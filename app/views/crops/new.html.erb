@@ -11,52 +11,69 @@
           </h5>
         </div>
         <div class="card-body p-5 bg-light rounded-bottom-5">
-          <%= simple_form_for [@location, @crop], html: { class: "needs-validation" }, method: :post do |f| %>
+          <%= simple_form_for [@location, @crop], html: { class: "needs-validation", multipart: true }, method: :post do |f| %>
             <div class="row g-4">
+
               <div class="col-md-6">
-              <%= f.input :kind, as: :string,
-                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
-                label_html: { class: "form-label fw-semibold text-success" },
-                label: raw('<i class="bi bi-flower2 me-2 text-success"></i>Tipo de Cultivo') %>
+                <%= f.input :kind, as: :string,
+                  input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+                  label_html: { class: "form-label fw-semibold text-success" },
+                  label: raw('<i class="bi bi-flower2 me-2 text-success"></i>Tipo de Cultivo') %>
               </div>
+
               <div class="col-md-6">
-              <%= f.input :surface, as: :float,
-                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
-                label_html: { class: "form-label fw-semibold text-success" },
-                label: raw('<i class="bi bi-aspect-ratio me-2 text-success"></i>Superficie') %>
+                <%= f.input :surface, as: :float,
+                  input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+                  label_html: { class: "form-label fw-semibold text-success" },
+                  label: raw('<i class="bi bi-aspect-ratio me-2 text-success"></i>Superficie') %>
               </div>
+
               <div class="col-md-6">
-              <%= f.input :sowing_date, as: :string,
-                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.sowing_date&.strftime("%Y-%m-%d") },
-                label_html: { class: "form-label fw-semibold text-success" },
-                label: raw('<i class="bi bi-calendar-plus me-2 text-success"></i>Fecha de Siembra') %>
+                <%= f.input :sowing_date, as: :string,
+                  input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.sowing_date&.strftime("%Y-%m-%d") },
+                  label_html: { class: "form-label fw-semibold text-success" },
+                  label: raw('<i class="bi bi-calendar-plus me-2 text-success"></i>Fecha de Siembra') %>
               </div>
+
               <div class="col-md-6">
-              <%= f.input :harvest_date, as: :string,
-                input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.harvest_date&.strftime("%Y-%m-%d") },
-                label_html: { class: "form-label fw-semibold text-success" },
-                label: raw('<i class="bi bi-calendar-check me-2 text-success"></i>Fecha de Cosecha') %>
+                <%= f.input :harvest_date, as: :string,
+                  input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2", type: "date", value: @crop.harvest_date&.strftime("%Y-%m-%d") },
+                  label_html: { class: "form-label fw-semibold text-success" },
+                  label: raw('<i class="bi bi-calendar-check me-2 text-success"></i>Fecha de Cosecha') %>
               </div>
+
+              <div class="col-12">
+                <%= f.input :photo, as: :file,
+                  input_html: { class: "form-control border-success bg-white rounded-4 shadow-sm py-2" },
+                  label_html: { class: "form-label fw-semibold text-success" },
+                  label: raw('<i class="bi bi-image me-2 text-success"></i>Foto del Cultivo') %>
+              </div>
+
               <div class="col-12 d-flex justify-content-end align-items-center mt-3 mb-4">
-              <div class="form-check form-switch ps-0">
-                <%= f.input :follow, as: :boolean,
-                label: raw('<i class="bi bi-eye-fill me-2 text-secondary"></i>Seguir'),
-                wrapper_html: { class: "form-check mb-0 d-flex align-items-center" },
-                input_html: { class: "form-check-input border-success shadow-sm", role: "switch" },
-                label_html: { class: "form-check-label fw-semibold text-secondary ms-3" }
-                %>
+                <div class="form-check form-switch ps-0">
+                  <%= f.input :follow, as: :boolean,
+                    label: raw('<i class="bi bi-eye-fill me-2 text-secondary"></i>Seguir'),
+                    wrapper_html: { class: "form-check mb-0 d-flex align-items-center" },
+                    input_html: { class: "form-check-input border-success shadow-sm", role: "switch" },
+                    label_html: { class: "form-check-label fw-semibold text-secondary ms-3" } %>
+                </div>
               </div>
-              </div>
+
               <div class="col-12 d-flex justify-content-between gap-3 mt-3">
                 <div class="d-flex gap-2">
                   <%= link_to raw('<i class="bi bi-trash-fill me-2"></i>Eliminar'), [@location, @crop],
                     method: :delete,
                     data: { turbo_confirm: "¿Estás seguro de que deseas eliminar este cultivo?" },
                     class: "btn btn-outline-danger px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
-                  <%= link_to raw('<i class="bi bi-arrow-left-circle-fill me-2"></i>Volver'), location_crops_path(@location), class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+
+                  <%= link_to raw('<i class="bi bi-arrow-left-circle-fill me-2"></i>Volver'), location_crops_path(@location),
+                    class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
                 </div>
-                <%= f.button :submit, "Crear Cultivo", class: "btn btn-success px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+
+                <%= f.button :submit, "Crear Cultivo",
+                  class: "btn btn-success px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
               </div>
+
             </div>
           <% end %>
         </div>
@@ -64,4 +81,5 @@
     </div>
   </div>
 </div>
+
 <%= console %>

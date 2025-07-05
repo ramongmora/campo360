@@ -18,7 +18,7 @@
 
       <turbo-frame id="animals_list">
         <!-- Cambio: de list-group a grid de tarjetas -->
-        <div class="animal-cards-grid">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           <% @animals.each do |animal| %>
             <%= render partial: "animal", locals: { animal: animal, location: @location } %>
           <% end %>

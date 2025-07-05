@@ -1,35 +1,49 @@
-<div
-  id="<%= dom_id(animal) %>"
-  class="animal-item"
-  role="button"
-  tabindex="0"
-  data-controller="animal-line"
-  data-animal-line-url-value="<%= location_animal_path(location, animal) %>">
-
-  <!-- Imagen o ícono del animal -->
-  <div class="animal-photo-placeholder">
+<div class="col">
+  <div class="card h-100 shadow border-success">
     <% if animal.photo.attached? %>
-      <%= cl_image_tag animal.photo.key, class: 'img-fluid' %>
+      <%= cl_image_tag animal.photo.key, class: "card-img-top img-fluid", width: 600, height: 300, crop: :fill %>
     <% else %>
-      🐄
+      <div class="text-center py-5 text-muted">
+        <i class="bi bi-image fs-1"></i><br>
+        Sin imagen
+      </div>
     <% end %>
-  </div>
 
-  <!-- Información del animal -->
-  <div class="animal-info">
-    <strong class="animal-alias"><%= animal.alias %></strong>
-    <p class="animal-breed"><%= animal.breed.breed_type %></p>
-    <div class="animal-meta"><%= "🚨" if animal.follow %> - <%= animal.gender %></div>
-    <% if animal.birth_date %>
-      <div class="animal-meta"><small>Nacido: <%= animal.birth_date.strftime("%Y-%m-%d") %></small></div>
-    <% end %>
-  </div>
+    <div class="card-body">
+      <h5 class="card-title fw-bold text-success">
+        <i class="bi bi-cow-front text-success"></i> <%= animal.alias %>
+      </h5>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">
+          <strong><i class="bi bi-geo-alt-fill text-success"></i> Ubicación:</strong>
+          <%= animal.location&.name || "N/D" %>
+        </li>
+        <li class="list-group-item">
+          <strong><i class="bi bi-gender-ambiguous text-success"></i> Sexo:</strong>
+          <%= animal.gender %>
+        </li>
+        <li class="list-group-item">
+          <strong><i class="bi bi-calendar-heart text-success"></i> Fecha de nacimiento:</strong>
+          <%= animal.birth_date&.strftime("%Y-%m-%d") %>
+        </li>
+        <li class="list-group-item">
+          <strong><i class="bi bi-diagram-3 text-success"></i> Raza:</strong>
+          <%= animal.breed&.breed_type || "N/D" %>
+        </li>
+        <li class="list-group-item">
+          <strong><i class="bi bi-eye-fill text-success"></i> Seguimiento:</strong>
+          <i class="bi <%= animal.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
+        </li>
+      </ul>
+      <div class="d-grid gap-2">
+        <%= link_to location_animal_path(location, animal), class: 'btn btn-success btn-sm mb-2', data: { turbo_frame: "dashboard-content" } do %>
+          <i class="bi bi-eye"></i> Ver animal
+        <% end %>
 
-  <!-- Botón y actividad -->
-  <div class="animal-button">
-    <%= link_to 'Ver', location_animal_path(@location, animal) %>
-  </div>
-  <div class="animal-button-secondary">
-     <%= link_to 'Agregar Actividad', new_location_schedule_path(@location, animal_id: animal.id), class: 'btn-secondary-animal' %>
+        <%= link_to edit_location_animal_path(location, animal), class: 'btn btn-outline-success btn-sm', data: { turbo_frame: "dashboard-content" } do %>
+          <i class="bi bi-pencil"></i> Editar animal
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

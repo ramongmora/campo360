@@ -6,6 +6,16 @@
       <% @crops.each do |crop| %>
         <div class="col">
           <div class="card h-100 shadow border-success">
+            <!-- Imagen miniatura -->
+            <% if crop.photo.attached? %>
+              <%= cl_image_tag crop.photo.key, class: "card-img-top img-fluid", width: 600, height: 300, crop: :fill %>
+            <% else %>
+              <div class="text-center py-5 text-muted">
+                <i class="bi bi-image fs-1"></i><br>
+                Sin imagen
+              </div>
+            <% end %>
+
             <div class="card-body">
               <h5 class="card-title fw-bold text-success">
                 <i class="bi bi-leaf text-success"></i> <%= crop.kind %>
@@ -29,7 +39,7 @@
                 </li>
                 <li class="list-group-item">
                   <strong><i class="bi bi-eye-fill text-success"></i> Seguimiento:</strong>
-                    <i class="bi <%= crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
+                  <i class="bi <%= crop.follow ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger' %>"></i>
                 </li>
               </ul>
               <div class="d-grid gap-2">

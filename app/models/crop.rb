@@ -5,6 +5,8 @@ class Crop < ApplicationRecord
 
   has_one :user, through: :location
 
+  has_one_attached :photo
+
   validates :location, presence: true
   validates :sowing_date, :harvest_date, :surface, :kind, presence: true
   validates :surface, numericality: { greater_than: 0 }
