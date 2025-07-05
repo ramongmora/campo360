@@ -1,20 +1,38 @@
 <div class="container mt-5">
-  <div class="justify-content-between d-flex align-items-center mb-4">
-    <h1 class="employee-header mb-3">Empleados en <%= @location.name %></h1>
-    <%= link_to "➕ Agregar empleado", new_location_employee_path(@location), class: "btn btn-success mb-3" %>
+  <!-- Encabezado -->
+  <div class="mb-3">
+    <h1 class="fw-bold text-success mb-0">👷‍♂️ Empleados en <%= @location.name %></h1>
   </div>
+
+  <!-- Botón de volver al dashboard -->
+  <div class="mb-4">
+    <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
+      <i class="bi bi-arrow-left-circle"></i> Volver al dashboard
+    <% end %>
+  </div>
+
+  <!-- Botón para agregar empleado -->
+  <div class="mb-4">
+    <%= link_to "➕ Agregar empleado", new_location_employee_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-success shadow-sm fw-semibold rounded-pill" %>
+  </div>
+
+  <!-- Tarjetas de empleados -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% @employees.each do |employee| %>
-    <%= link_to location_employee_path(@location, employee), class: "text-decoration-none text-dark" do %>
-      <div class="employee-card">
-        <h2><%= employee.first_name %> <%= employee.last_name %></h2>
-        <p>📄 CURP: <%= employee.citizen_register %></p>
-        <p>📧 Correo electrónico: <%= employee.email %></p>
-        <p>💵 Sueldo: $<%= number_with_precision(employee.salary, precision: 2) %></p>
-        <div class="employee-actions">
-          <%= link_to "Editar", edit_location_employee_path(@location, employee), class: "btn btn-outline-primary btn-sm" %>
-          <%= link_to "Eliminar", location_employee_path(@location, employee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
+      <div class="col">
+        <div class="card shadow-sm h-100 border-success text-start">
+          <div class="card-body">
+            <h5 class="card-title fw-bold text-success"><%= employee.first_name %> <%= employee.last_name %></h5>
+            <p class="card-text"><strong>📄 CURP:</strong> <%= employee.citizen_register %></p>
+            <p class="card-text"><strong>📧 Correo:</strong> <%= employee.email %></p>
+            <p class="card-text"><strong>💵 Sueldo:</strong> $<%= number_with_precision(employee.salary, precision: 2) %></p>
+          </div>
+          <div class="card-footer bg-white border-top-0 d-flex gap-2">
+            <%= link_to "Editar", edit_location_employee_path(@location, employee), data: { turbo_frame: "dashboard-content" }, class: "btn btn-outline-success btn-sm fw-semibold" %>
+            <%= link_to "Eliminar", location_employee_path(@location, employee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm fw-semibold" %>
+          </div>
         </div>
       </div>
-      <% end %>
     <% end %>
+  </div>
 </div>
