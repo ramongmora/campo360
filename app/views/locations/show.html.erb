@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="card mb-4 mt-4 shadow-sm">
     <h1 class="m-4 text-center fw-bold text-success">
@@ -34,7 +33,6 @@
         <p>Controla baños, vacunas, pesos y salud.</p>
       </div>
     </div>
-
     <div class="card" onclick="window.location='<%= location_crops_path(@location) %>'">
       <div class="card-content">
         <%= image_tag("iconos/crops_icon.png", alt: "Siembra", class: "icono-section") %>
@@ -42,7 +40,6 @@
         <p>Gestiona tus cultivos, riegos y fumigaciones.</p>
       </div>
     </div>
-
     <div class="card" onclick="window.location='/admin'">
       <div class="card-content">
         <%= image_tag("iconos/admins_icon.png", alt: "Admin", class: "icono-section") %>
@@ -50,7 +47,6 @@
         <p>Control de finanzas y pagos de empleados.</p>
       </div>
     </div>
-
     <div class="card" onclick="window.location='<%= location_employees_path(@location) %>'">
       <div class="card-content">
         <%= image_tag("iconos/employees_icon.png", alt: "Empleados", class: "icono-section") %>
@@ -58,7 +54,6 @@
         <p>Gestiona los empleados de la ubicación.</p>
       </div>
     </div>
-
     <div class="card" onclick="window.location='<%= location_schedules_path(@location) %>'">
       <div class="card-content">
         <%= image_tag("iconos/activities_icon.png", alt: "Actividades", class: "icono-section") %>

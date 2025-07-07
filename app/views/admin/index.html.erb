@@ -1,46 +1,78 @@
-<h1 class="mb-4">Panel de Administración</h1>
+<% flash.each do |key, message| %>
+  <% alert_class = {
+    notice: "alert-success",
+    alert: "alert-danger",
+    error: "alert-danger"
+  }[key.to_sym] || "alert-info" %>
 
-<div class="d-flex justify-content-between mb-3">
-  <%= link_to "➕ Nueva Transacción", new_location_transaction_path(@locations.first), class: "btn btn-success" %>
-</div>
+  <div class="alert <%= alert_class %> alert-dismissible fade show shadow-sm rounded-3 mt-3 mx-auto w-75 text-center" role="alert">
+    <i class="bi <%= key == "notice" ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill" %> me-2"></i>
+    <%= message %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+  </div>
+<% end %>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th>Monto</th>
-      <th>Tipo</th>
-      <th>Estado</th>
-      <th>Asociado a</th>
-      <th>Notas</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @transactions.each do |t| %>
-      <tr>
-        <td><%= t.date.strftime("%d/%m/%Y") %></td>
-        <td><%= number_to_currency(t.amount, unit: "$") %></td>
-        <td><span class="badge bg-primary"><%= t.kind.humanize %></span></td>
-        <td>
-          <% if t.status == "pendiente" %>
-            <%= form_with url: transaction_path(t), method: :patch, local: true do |f| %>
-              <%= f.hidden_field :status, value: "completado" %>
-              <%= f.submit "Marcar como completado", class: "btn btn-sm btn-outline-success" %>
-            <% end %>
-          <% else %>
-            <span class="badge bg-success">Completado</span>
-          <% end %>
-        </td>
-        <td>
-          <%= t.transactionable_type %> — <%= t.transactionable.try(:display_name) || "N/A" %>
-        </td>
-        <td><%= t.notes.presence || "—" %></td>
-        <td class="d-flex gap-2">
-          <%= link_to "✏️ Editar", edit_transaction_path(t), class: "btn btn-sm btn-warning" %>
-          <%= button_to "🗑 Eliminar", transaction_path(t), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-sm btn-danger" %>
-        </td>
-      </tr>
+<div class="container-lg my-5">
+  <h1 class="mb-5 text-center display-4 fw-bold text-success">
+    <i class="bi bi-folder2-open me-2"></i>Administración
+  </h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" },
+        class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill px-4" do %>
+      <i class="bi bi-arrow-left-circle me-2"></i>Volver a la página principal
     <% end %>
-  </tbody>
-</table>
+
+    <%= link_to "➕ Nueva Transacción", new_location_transaction_path(@locations.first),
+        class: "btn btn-success fw-semibold shadow-sm rounded-pill px-4" %>
+  </div>
+
+  <div class="table-responsive shadow-sm rounded-4 border">
+    <table class="table table-hover align-middle mb-0 text-center">
+      <thead class="table-success">
+        <tr>
+          <th class="text-nowrap">📅 Fecha</th>
+          <th class="text-nowrap">💵 Monto</th>
+          <th class="text-nowrap">📂 Tipo</th>
+          <th class="text-nowrap">⏳ Estado</th>
+          <th class="text-nowrap text-start">🔗 Asociado a</th>
+          <th class="text-nowrap text-start">📝 Notas</th>
+          <th class="text-nowrap">⚙️ Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |t| %>
+          <tr>
+            <td class="text-nowrap"><%= t.date.strftime("%d/%m/%Y") %></td>
+            <td class="text-nowrap"><%= number_to_currency(t.amount, unit: "$") %></td>
+            <td><span class="badge bg-primary"><%= t.kind.humanize %></span></td>
+            <td>
+              <% if t.status == "pendiente" %>
+                <%= form_with model: t, url: transaction_path(t), method: :patch, local: true do |f| %>
+                  <%= f.hidden_field :status, value: "completado" %>
+                  <%= f.submit "Completar", class: "btn btn-sm btn-outline-success rounded-pill px-3" %>
+                <% end %>
+              <% else %>
+                <span class="badge bg-success px-3 py-2">Completado</span>
+              <% end %>
+            </td>
+            <td class="text-start"><%= t.transactionable_type %> — <%= t.transactionable.try(:display_name) || "N/A" %></td>
+            <td class="text-start"><%= t.notes.presence || "—" %></td>
+            <td>
+              <div class="d-flex flex-wrap justify-content-center gap-2">
+                <%= link_to edit_transaction_path(t), class: "btn btn-sm btn-outline-warning rounded-pill px-3" do %>
+                  ✏️ Editar
+                <% end %>
+                <%= button_to transaction_path(t), method: :delete,
+                    data: { confirm: "¿Estás seguro?" },
+                    class: "btn btn-sm btn-outline-danger rounded-pill px-3" do %>
+                  🗑 Eliminar
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
