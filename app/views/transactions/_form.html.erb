@@ -1,0 +1,82 @@
+<% route_scope = form_model.persisted? ? form_model : [form_location, form_model] %>
+
+<%= form_with model: route_scope, local: true do |f| %>
+  <% if form_model.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% form_model.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <%= f.label :kind, raw('<i class="bi bi-tags me-2 text-success"></i>Tipo de Transacción'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.select :kind, Transaction.kinds.keys.map { |k| [k.humanize, k] },
+                  {}, class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :amount, raw('<i class="bi bi-cash-coin me-2 text-success"></i>Monto'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.number_field :amount, step: 0.01,
+                  class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :date, raw('<i class="bi bi-calendar-event me-2 text-success"></i>Fecha'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.date_field :date,
+                  class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :status, raw('<i class="bi bi-check2-circle me-2 text-success"></i>Estado'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.select :status, Transaction.statuses.keys.map { |s| [s.humanize, s] },
+                  {}, class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-12">
+      <%= f.label :notes, raw('<i class="bi bi-card-text me-2 text-success"></i>Notas'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.text_area :notes, rows: 3,
+                  class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :transactionable_type, raw('<i class="bi bi-person-lines-fill me-2 text-success"></i>Tipo de Recurso Asociado'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.select :transactionable_type, [
+        ["Empleado", "Employee"],
+        ["Animal", "Animal"],
+        ["Cosecha", "Crop"],
+        ["Proveedor", "Supplier"]
+      ], {}, class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :transactionable_id, raw('<i class="bi bi-link-45deg me-2 text-success"></i>Recurso Asociado'),
+                  class: "form-label fw-semibold text-success" %>
+      <%= f.select :transactionable_id,
+        (@employees.map { |e| ["Empleado: #{e.display_name}", e.id] } +
+         @animals.map   { |a| ["Animal: #{a.display_name}", a.id] } +
+         @crops.map     { |c| ["Cosecha: #{c.display_name}", c.id] } +
+         @suppliers.map { |s| ["Proveedor: #{s.display_name}", s.id] }),
+        { prompt: "Selecciona un recurso" },
+        class: "form-control border-success bg-white rounded-4 shadow-sm py-2" %>
+    </div>
+
+    <div class="col-12 d-flex justify-content-between gap-3 mt-4">
+      <%= link_to raw('<i class="bi bi-arrow-left-circle me-2"></i>Cancelar'),
+        admin_path,
+        class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+
+      <%= f.submit submit_label,
+        class: "btn btn-success px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+    </div>
+  </div>
+<% end %>

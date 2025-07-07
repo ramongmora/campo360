@@ -14,15 +14,15 @@ class Crop < ApplicationRecord
 
   validate :sowing_date_before_harvest_date
 
+  def display_name
+    "Cosecha de #{kind} (#{sowing_date})"
+  end
+
   private
 
   def sowing_date_before_harvest_date
     if sowing_date.present? && harvest_date.present? && sowing_date > harvest_date
       errors.add(:sowing_date, "must be before the harvest date")
     end
-  end
-
-  def display_name
-    "Cosecha de #{kind} (#{sowing_date})"
   end
 end

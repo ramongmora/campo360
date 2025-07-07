@@ -1,1 +1,19 @@
-<h2>Edit</h2>
+<div class="container py-4">
+  <h1 class="mb-4 text-center display-4 fw-bold">
+    <i class="bi bi-pencil-square me-2"></i>Editar Transacción
+  </h1>
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-lg mb-5 border-0 rounded-5">
+        <div class="card-header bg-success bg-gradient text-white rounded-top-5 py-3">
+          <h5 class="mb-0 fw-bold">
+            <i class="bi bi-journal-text me-2"></i>Modificar Detalles de la Transacción
+          </h5>
+        </div>
+        <div class="card-body p-5 bg-light rounded-bottom-5">
+          <%= render "form", form_model: @transaction, form_location: @location, submit_label: "Actualizar Transacción" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

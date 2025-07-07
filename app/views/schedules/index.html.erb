@@ -1,37 +1,76 @@
-<div class="container mt-4">
+<div class="container py-4">
+  <h1 class="mb-5 text-center display-5 fw-bold text-success">
+    <i class="bi bi-calendar-check me-2"></i>Actividades
+  </h1>
+
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">Actividades</h1>
-    <%= link_to "Agregar", new_location_schedule_path, class: "btn btn-primary" %>
-  </div>
-  <ul class="list-group">
-    <% @schedules.each do |schedule| %>
-      <li class="list-group-item d-flex flex-column align-items-start mb-3 shadow-sm rounded">
-        <% if schedule.schedulable_type == "Crop" %>
-          <% crop = Crop.find(schedule.schedulable_id) %>
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"><strong><%= schedule.activity.name %></strong></h5>
-            <small class="text-muted"><i class="bi bi-calendar-event"></i> <%= schedule.start_date %> - <%= schedule.end_date %></small>
-          </div>
-          <p class="mb-1 text-success">Cultivo: <%= crop.kind %></p>
-          <div class="d-flex gap-2 mt-2">
-            <%= link_to "Ver Actividad", location_schedule_path(schedule.location_id, schedule.id), class: "btn btn-outline-secondary btn-sm" %>
-            <%= link_to "Ver Cultivo", location_crop_path(crop.location_id, crop.id), class: "btn btn-outline-success btn-sm" %>
-            <%= link_to "Eliminar Actividad", location_schedule_path(schedule.location_id, schedule.id), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" }, class: "btn btn-outline-danger btn-sm" %>
-          </div>
-        <% elsif schedule.schedulable_type == "Animal" %>
-          <% animal = Animal.find(schedule.schedulable_id) %>
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"><strong><%= schedule.activity.name %></strong></h5>
-            <small class="text-muted"><i class="bi bi-calendar-event"></i> <%= schedule.start_date %> - <%= schedule.end_date %></small>
-          </div>
-          <p class="mb-1 text-primary">Animal: <%= animal.alias %></p>
-          <div class="d-flex gap-2 mt-2">
-            <%= link_to "Ver Actividad", location_schedule_path(schedule.location_id, schedule.id), class: "btn btn-outline-secondary btn-sm" %>
-            <%= link_to "Ver Animal", location_animal_path(animal.location_id, animal.id), class: "btn btn-outline-primary btn-sm" %>
-            <%= link_to "Eliminar Actividad", location_schedule_path(schedule.location_id, schedule.id), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" }, class: "btn btn-outline-danger btn-sm" %>
-          </div>
-        <% end %>
-      </li>
+    <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" },
+        class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
+      <i class="bi bi-arrow-left-circle me-2"></i>Volver a la página principal
     <% end %>
-  </ul>
+
+    <%= link_to "➕ Nueva Actividad", new_location_schedule_path,
+        class: "btn btn-success fw-semibold shadow-sm rounded-pill" %>
+  </div>
+
+  <div class="row g-4">
+    <% @schedules.each do |schedule| %>
+      <% if schedule.schedulable_type == "Crop" %>
+        <% crop = Crop.find(schedule.schedulable_id) %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card border-success shadow-sm rounded-4 h-100">
+            <div class="card-header bg-success bg-gradient text-white rounded-top-4">
+              <strong><i class="bi bi-seedling me-2"></i><%= schedule.activity.name %></strong>
+            </div>
+            <div class="card-body bg-light">
+              <p class="mb-2 text-success">
+                <i class="bi bi-flower2 me-2"></i><strong>Cultivo:</strong> <%= crop.kind %>
+              </p>
+              <p class="mb-3 text-muted">
+                <i class="bi bi-calendar-event me-2"></i>
+                <%= schedule.start_date.strftime("%d/%m/%Y") %> – <%= schedule.end_date.strftime("%d/%m/%Y") %>
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <%= link_to "📋 Ver Actividad", location_schedule_path(schedule.location_id, schedule),
+                    class: "btn btn-outline-secondary btn-sm rounded-pill" %>
+                <%= link_to "🌱 Ver Cultivo", location_crop_path(crop.location_id, crop),
+                    class: "btn btn-outline-success btn-sm rounded-pill" %>
+                <%= link_to "🗑 Eliminar", location_schedule_path(schedule.location_id, schedule),
+                    data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" },
+                    class: "btn btn-outline-danger btn-sm rounded-pill" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <% elsif schedule.schedulable_type == "Animal" %>
+        <% animal = Animal.find(schedule.schedulable_id) %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card border-primary shadow-sm rounded-4 h-100">
+            <div class="card-header bg-primary bg-gradient text-white rounded-top-4">
+              <strong><i class="bi bi-activity me-2"></i><%= schedule.activity.name %></strong>
+            </div>
+            <div class="card-body bg-light">
+              <p class="mb-2 text-primary">
+                <i class="bi bi-cow me-2"></i><strong>Animal:</strong> <%= animal.alias %>
+              </p>
+              <p class="mb-3 text-muted">
+                <i class="bi bi-calendar-event me-2"></i>
+                <%= schedule.start_date.strftime("%d/%m/%Y") %> – <%= schedule.end_date.strftime("%d/%m/%Y") %>
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <%= link_to "📋 Ver Actividad", location_schedule_path(schedule.location_id, schedule),
+                    class: "btn btn-outline-secondary btn-sm rounded-pill" %>
+                <%= link_to "🐄 Ver Animal", location_animal_path(animal.location_id, animal),
+                    class: "btn btn-outline-primary btn-sm rounded-pill" %>
+                <%= link_to "🗑 Eliminar", location_schedule_path(schedule.location_id, schedule),
+                    data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" },
+                    class: "btn btn-outline-danger btn-sm rounded-pill" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
