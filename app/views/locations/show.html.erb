@@ -25,6 +25,7 @@
       </div>
     </div>
   </div>
+
   <div class="main-cards">
     <div class="card" onclick="window.location='<%= location_animals_path(@location) %>'">
       <div class="card-content">
@@ -33,6 +34,7 @@
         <p>Controla baños, vacunas, pesos y salud.</p>
       </div>
     </div>
+
     <div class="card" onclick="window.location='<%= location_crops_path(@location) %>'">
       <div class="card-content">
         <%= image_tag("iconos/crops_icon.png", alt: "Siembra", class: "icono-section") %>
@@ -40,6 +42,7 @@
         <p>Gestiona tus cultivos, riegos y fumigaciones.</p>
       </div>
     </div>
+
     <div class="card" onclick="window.location='/admin'">
       <div class="card-content">
         <%= image_tag("iconos/admins_icon.png", alt: "Admin", class: "icono-section") %>
@@ -47,6 +50,7 @@
         <p>Control de finanzas y pagos de empleados.</p>
       </div>
     </div>
+
     <div class="card" onclick="window.location='<%= location_employees_path(@location) %>'">
       <div class="card-content">
         <%= image_tag("iconos/employees_icon.png", alt: "Empleados", class: "icono-section") %>
@@ -54,6 +58,15 @@
         <p>Gestiona los empleados de la ubicación.</p>
       </div>
     </div>
+
+    <div class="card" onclick="window.location='<%= location_agrobot_path(@location) %>'">
+      <div class="card-content">
+        <%= image_tag("iconos/agrobot_icon.png", alt: "Agrobot", class: "icono-section") %>
+        <h3 class="text-success">Agrobot IA</h3>
+        <p>Haz preguntas sobre tu rancho y recibe ayuda inteligente.</p>
+      </div>
+    </div>
+
     <div class="card" onclick="window.location='<%= location_schedules_path(@location) %>'">
       <div class="card-content">
         <%= image_tag("iconos/activities_icon.png", alt: "Actividades", class: "icono-section") %>

@@ -1,0 +1,24 @@
+<div class="container my-4">
+  <%= link_to "← Volver", location_path(@location), class: "btn btn-outline-success mb-3" %>
+
+  <h2>🤖 Agrobot IA</h2>
+  <p class="text-muted">Haz preguntas sobre tu rancho, animales o siembras y Agrobot te responderá de forma inteligente.</p>
+
+  <div id="chat-box" class="border rounded p-3 mb-4" style="height: 400px; overflow-y: auto; background-color: #f9f9f9;">
+    <% @messages.each do |message| %>
+      <div class="mb-3">
+        <strong class="<%= message.role == 'user' ? 'text-primary' : 'text-success' %>">
+          <%= message.role == 'user' ? '👤 Tú:' : '🤖 Agrobot:' %>
+        </strong>
+        <div><%= simple_format(message.content) %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form_with url: location_agrobot_ask_path(@location), method: :post, local: true do |f| %>
+    <div class="input-group">
+      <%= f.text_field :question, placeholder: "Escribe tu pregunta...", class: "form-control", required: true %>
+      <button type="submit" class="btn btn-success">Preguntar</button>
+    </div>
+  <% end %>
+</div>

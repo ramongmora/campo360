@@ -34,6 +34,15 @@
     </div>
   </div>
 
+  
+  <div class="card" onclick="window.location='<%= location_agrobot_path(location) %>'">
+    <div class="card-content">
+      <%= image_tag("iconos/agrobot_icon.png", alt: "Agrobot", class: "icono-section") %>
+      <h3>Agrobot IA</h3>
+      <p>Haz preguntas sobre tu rancho y recibe ayuda inteligente.</p>
+    </div>
+  </div>
+
   <div class="card" onclick="window.location='<%= location_schedules_path(location) %>'">
     <div class="card-content">
       <%= image_tag("iconos/activities_icon.png", alt: "Actividades", class: "icono-section") %>

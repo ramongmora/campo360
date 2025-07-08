@@ -8,6 +8,7 @@ class Location < ApplicationRecord
   has_many :crops, dependent: :destroy
   has_many :animals, dependent: :destroy
   has_many :schedules, dependent: :destroy
+  has_many :agrobot_messages, dependent: :destroy
 
   validates :user, presence: true
   validates :name, presence: true

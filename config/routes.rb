@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/ajustes', to: 'users#settings', as: :ajustes
   get '/settings', to: 'users#settings', as: :settings
 
-  # Area de soporte
+  # Área de soporte
   get 'soporte', to: 'pages#support', as: :support
 
   # Admin general
@@ -27,8 +27,12 @@ Rails.application.routes.draw do
     resources :crops
     resources :employees
     resources :transactions, only: %i[index new create]
+
+    # Agrobot IA
+    get "agrobot", to: "ai#agrobot", as: :agrobot
+    post "agrobot/ask", to: "ai#ask"
   end
 
-  # Rutas independientes para administrar transacciones desde /admin
+  # Rutas independientes para transacciones desde /admin
   resources :transactions, only: %i[edit update destroy]
 end
