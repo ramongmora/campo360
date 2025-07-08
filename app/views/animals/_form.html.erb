@@ -48,8 +48,7 @@
 
     <div class="col-12 d-flex justify-content-between gap-3 mt-3">
       <%= link_to raw('<i class="bi bi-arrow-left-circle-fill me-2"></i>Volver'), location_animals_path(@animal.location),
-        data: { turbo_frame: "dashboard-content" },
-        class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
+      class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" %>
 
       <%= f.button :submit, @animal.persisted? ? "Guardar Cambios" : "Crear Animal",
         class: "btn btn-success px-4 fw-semibold shadow-sm border-2 rounded-pill" %>

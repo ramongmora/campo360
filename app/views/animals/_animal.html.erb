@@ -36,14 +36,14 @@
         </li>
       </ul>
       <div class="d-grid gap-2">
-        <%= link_to location_animal_path(location, animal), class: 'btn btn-success btn-sm mb-2', data: { turbo_frame: "dashboard-content" } do %>
+        <%= link_to location_animal_path(location, animal), class: 'btn btn-success btn-sm mb-2' do %>
           <i class="bi bi-eye"></i> Ver animal
         <% end %>
 
-        <%= link_to edit_location_animal_path(location, animal), class: 'btn btn-outline-success btn-sm', data: { turbo_frame: "dashboard-content" } do %>
+        <%= link_to edit_location_animal_path(location, animal), class: 'btn btn-outline-success btn-sm' do %>
           <i class="bi bi-pencil"></i> Editar animal
         <% end %>
       </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
