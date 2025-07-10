@@ -13,18 +13,18 @@
 <% end %>
 
 <div class="container-lg my-5">
-  <h1 class="mb-5 text-center display-4 fw-bold text-success">
-    <i class="bi bi-folder2-open me-2"></i>Administración
-  </h1>
-
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" },
         class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill px-4" do %>
       <i class="bi bi-arrow-left-circle me-2"></i>Volver a la página principal
     <% end %>
+  <h1 class="mb-5 text-center display-4 fw-bold text-success">
+    <i class="bi bi-folder2-open me-2"></i>Administración
+  </h1>
+
 
     <%= link_to "➕ Nueva Transacción", new_location_transaction_path(@locations.first),
-        class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill px-4" %>
+        class: "btn btn-success fw-semibold shadow-sm rounded-pill px-4" %>
   </div>
 
   <div class="table-responsive shadow-sm rounded-4 border">
