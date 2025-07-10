@@ -1,5 +1,5 @@
-<div class="container">
-  <h1 class="mb-4 text-success"><i class="bi bi-geo-alt-fill me-2"></i>Tus Campos</h1>
+<div class="container mt-5">
+  <h1 class="mb-4 text-success"><i class="bi bi-geo-alt-fill me-2"></i>Tus Ranchos</h1>
   <% if @locations.present? %>
     <div class="row">
       <% @locations.each do |location| %>
@@ -34,7 +34,7 @@
     </div>
   <% else %>
     <div class="alert alert-info d-flex flex-column align-items-start">
-      <p class="mb-2">No se encontraron campos.</p>
+      <p class="mb-2">No se encontraron ranchos.</p>
       <%= link_to 'Agregar nuevo campo', new_location_path, class: 'btn btn-success m-2' %>
     </div>
   <% end %>
