@@ -1,4 +1,6 @@
 class SchedulesController < ApplicationController
+  before_action :set_location_and_resources, only: [:new, :edit, :create, :update]
+
   def index
     @schedules = Location.find(params[:location_id]).schedules
   end
@@ -8,16 +10,10 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @location = Location.find(params[:location_id])
     @schedule = @location.schedules.new
-    @animals = @location.animals
-    @crops = @location.crops
-    @animal_activities = Activity.where(category: 'animal')
-    @crop_activities = Activity.where(category: 'crop')
   end
 
   def create
-    set_location_and_resources
     @schedule = Schedule.new(schedule_params)
     @schedule.location = @location
     if @schedule.save
@@ -28,13 +24,17 @@ class SchedulesController < ApplicationController
   end
 
   def edit
-    # @schedule = Schedule.find(params[:schedulable_id])
-
+    @schedule = Schedule.find(params[:id])
   end
 
   def update
-    # @schedule Schedule.find(params[:schedulable_id])
-
+    @schedule = Schedule.find(params[:id])
+    @location = Location.find(params[:location_id])
+    if @schedule.update(schedule_params)
+      redirect_to dashboard_path, notice: 'Actividad actualizada con éxito.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -56,5 +56,4 @@ class SchedulesController < ApplicationController
   def schedule_params
     params.require(:schedule).permit(:start_date, :end_date, :schedulable_type, :activity_id, :schedulable_id)
   end
-
 end

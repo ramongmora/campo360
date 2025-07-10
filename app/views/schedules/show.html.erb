@@ -28,6 +28,7 @@
           </div>
           <div class="card-footer bg-light text-center">
             <%= link_to 'Volver a Actividades', location_schedules_path(@schedule.location), class: 'btn btn-outline-primary' %>
+            <%= link_to 'Editar', edit_location_schedule_path(@schedule.location, @schedule), class: 'btn btn-outline-success'  %>
           </div>
         </div>
       </div>
@@ -66,6 +67,7 @@
           </div>
           <div class="card-footer bg-light text-center">
             <%= link_to 'Volver a Actividades', location_schedules_path(@schedule.location), class: 'btn btn-outline-primary' %>
+            <%= link_to 'Editar', edit_location_schedule_path(@schedule.location, @schedule), class: 'btn btn-outline-success'  %>
           </div>
         </div>
       </div>
