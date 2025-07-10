@@ -1,5 +1,5 @@
 <div class="container m-5">
-  <h1 class="text-center mb-4">Nueva Actividad</h1>
+  <h1 class="text-center mb-4"><%= @schedule.persisted? ? 'Editar Actividad' : 'Nueva Actividad' %></h1>
   <div class="card mx-auto shadow" style="max-width: 500px;">
     <div class="card-body">
       <% if @schedule.errors.any? %>
@@ -35,10 +35,10 @@
         <div class="mb-3">
           <%= f.input :end_date, html5: true, label: 'Fecha de fin', input_html: { class: 'form-control' } %>
         </div>
-        <%= f.button :submit, 'Crear Actividad', class: 'btn btn-primary w-100 mt-3' %>
+        <%= f.button :submit, @schedule.persisted? ? 'Actualizar Actividad' : 'Crear Actividad', class: 'btn btn-primary w-100 mt-3' %>
       <% end %>
       <div class="text-center mt-3">
-        <%= link_to 'Volver al Dashboard', dashboard_path(@user), class: 'btn btn-secondary' %>
+        <%= link_to 'Volver al Dashboard', dashboard_path, class: 'btn btn-secondary' %>
       </div>
     </div>
   </div>
