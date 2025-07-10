@@ -6,9 +6,9 @@
 
   <div class="container">
     <div class="card shadow-sm mb-5 border-0">
-      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-        <h2 class="mb-0 h5 fw-semibold">My Locations</h2>
-        <%= link_to "New", new_location_path, class: "btn btn-light btn-sm fw-bold shadow-sm" %>
+      <div class="card-header bg-gradient bg-success text-white d-flex justify-content-between align-items-center rounded-top-3 shadow-sm px-4 py-3">
+        <h2 class="mb-0 h5 fw-semibold letter-spacing-1"> Mis Ranchos</h2>
+        <%= link_to "Ver todos los ranchos", locations_path, class: "btn btn-light btn-sm fw-bold shadow-sm border-0 px-3 py-2" %>
       </div>
       <div class="card-body bg-light">
         <%= form_with url: dashboard_path, method: :get, local: true do %>
