@@ -4,7 +4,7 @@
   </h1>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" },
+    <%= link_to dashboard_path,
         class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
       <i class="bi bi-arrow-left-circle me-2"></i>Volver a la página principal
     <% end %>
@@ -18,23 +18,23 @@
       <% if schedule.schedulable_type == "Crop" %>
         <% crop = Crop.find(schedule.schedulable_id) %>
         <div class="col-md-6 col-lg-4">
-          <div class="card border-success shadow-sm rounded-4 h-100">
+          <div class="card shadow-sm rounded-4 h-100 border">
             <div class="card-header bg-success bg-gradient text-white rounded-top-4">
-              <strong><i class="bi bi-seedling me-2"></i><%= schedule.activity.name %></strong>
+              <strong><%= schedule.activity.name %></strong>
             </div>
-            <div class="card-body bg-light">
+            <div class="card-body">
               <p class="mb-2 text-success">
-                <i class="bi bi-flower2 me-2"></i><strong>Cultivo:</strong> <%= crop.kind %>
+                <i class="fa-solid fa-seedling"></i> <strong>Cultivo:</strong> <%= crop.kind %>
               </p>
               <p class="mb-3 text-muted">
-                <i class="bi bi-calendar-event me-2"></i>
+                <i class="fa-solid fa-calendar-days"></i>
                 <%= schedule.start_date.strftime("%d/%m/%Y") %> – <%= schedule.end_date.strftime("%d/%m/%Y") %>
               </p>
               <div class="d-flex flex-wrap gap-2">
                 <%= link_to "📋 Ver Actividad", location_schedule_path(schedule.location_id, schedule),
                     class: "btn btn-outline-secondary btn-sm rounded-pill" %>
                 <%= link_to "🌱 Ver Cultivo", location_crop_path(crop.location_id, crop),
-                    class: "btn btn-outline-success btn-sm rounded-pill" %>
+                    class: "btn btn-outline-primary btn-sm rounded-pill" %>
                 <%= link_to "🗑 Eliminar", location_schedule_path(schedule.location_id, schedule),
                     data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar esta actividad?" },
                     class: "btn btn-outline-danger btn-sm rounded-pill" %>
@@ -46,16 +46,16 @@
       <% elsif schedule.schedulable_type == "Animal" %>
         <% animal = Animal.find(schedule.schedulable_id) %>
         <div class="col-md-6 col-lg-4">
-          <div class="card border-primary shadow-sm rounded-4 h-100">
+          <div class="card shadow-sm rounded-4 h-100 border">
             <div class="card-header bg-primary bg-gradient text-white rounded-top-4">
-              <strong><i class="bi bi-activity me-2"></i><%= schedule.activity.name %></strong>
+              <strong><%= schedule.activity.name %></strong>
             </div>
-            <div class="card-body bg-light">
+            <div class="card-body">
               <p class="mb-2 text-primary">
-                <i class="bi bi-cow me-2"></i><strong>Animal:</strong> <%= animal.alias %>
+                <i class="fas fa-paw"></i> <strong>Animal:</strong> <%= animal.alias %>
               </p>
               <p class="mb-3 text-muted">
-                <i class="bi bi-calendar-event me-2"></i>
+                <i class="fa-solid fa-calendar-days"></i>
                 <%= schedule.start_date.strftime("%d/%m/%Y") %> – <%= schedule.end_date.strftime("%d/%m/%Y") %>
               </p>
               <div class="d-flex flex-wrap gap-2">
