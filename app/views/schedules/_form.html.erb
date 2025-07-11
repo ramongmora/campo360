@@ -1,16 +1,7 @@
-<div class="container m-5">
+<div class="container mt-5 mb-5">
   <h1 class="text-center mb-4"><%= @schedule.persisted? ? 'Editar Actividad' : 'Nueva Actividad' %></h1>
   <div class="card mx-auto shadow" style="max-width: 500px;">
     <div class="card-body">
-      <% if @schedule.errors.any? %>
-  <div class="alert alert-danger">
-    <ul>
-      <% @schedule.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
       <%= simple_form_for [@location, @schedule] do |f| %>
         <div class="mb-3">
           <%= f.input :schedulable_type, as: :select, collection: ['Animal', 'Crop'], prompt: 'Selecciona el tipo', label: 'Tipo', input_html: { class: 'form-select' } %>
@@ -35,10 +26,10 @@
         <div class="mb-3">
           <%= f.input :end_date, html5: true, label: 'Fecha de fin', input_html: { class: 'form-control' } %>
         </div>
-        <%= f.button :submit, @schedule.persisted? ? 'Actualizar Actividad' : 'Crear Actividad', class: 'btn btn-primary w-100 mt-3' %>
+        <%= f.button :submit, @schedule.persisted? ? 'Actualizar Actividad' : 'Crear Actividad', class: 'btn btn-success w-100 mt-3' %>
       <% end %>
       <div class="text-center mt-3">
-        <%= link_to 'Volver al Dashboard', dashboard_path, class: 'btn btn-secondary' %>
+        <%= link_to 'Volver al Dashboard', dashboard_path, class: 'btn btn-secondary w-100' %>
       </div>
     </div>
   </div>
