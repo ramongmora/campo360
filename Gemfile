@@ -81,3 +81,4 @@ gem 'image_processing', '~> 1.2'
 gem "geocoder"
 gem "importmap-rails", "~> 1.2.3"
 gem "ruby-openai"
+

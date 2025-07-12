@@ -1,35 +1,70 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="mb-4 text-center">Editar Usuario</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, class: "needs-validation" }) do |f| %>
+            <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+            <div class="form-inputs p-2">
+              <%= f.input :email, required: true, autofocus: true, label: "Correo electrónico", input_html: { class: "form-control mb-2" } %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div class="alert alert-info mt-2">
+                  Actualmente esperando confirmación para: <%= resource.unconfirmed_email %>
+                </div>
+              <% end %>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+              <%= f.input :password,
+                          label: "Nueva contraseña",
+                          required: false,
+                          input_html: { autocomplete: "new-password", class: "form-control mb-2", placeholder: "Déjalo en blanco si no quieres cambiarla" } %>
+
+              <%= f.input :password_confirmation,
+                          label: "Confirmar nueva contraseña",
+                          required: false,
+                          input_html: { autocomplete: "new-password", class: "form-control mb-2", placeholder: "Déjalo en blanco si no quieres cambiarla" } %>
+
+
+              <!-- Avatar upload section -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Avatar</label>
+                <% if resource.avatar.attached? %>
+                  <div class="mb-2 text-center">
+                    <%= cl_image_tag resource.avatar.key, width: 100, height: 100, crop: :fill, class: "rounded-circle border" %>
+                  </div>
+                <% end %>
+                <%= f.input :avatar, as: :file, label: "Subir nuevo avatar", input_html: { accept: "image/*", class: "form-control mb-2" } %>
+                <small class="form-text text-muted">Formatos soportados: JPG, PNG, GIF</small>
+              </div>
+              <!-- End avatar upload section -->
+              <%= f.input :current_password,
+                          label: "Contraseña actual",
+                          hint: "Necesitamos tu contraseña actual para confirmar los cambios",
+                          required: true,
+                          input_html: { autocomplete: "current-password", class: "form-control mb-2" } %>
+            </div>
+
+            <div class="form-actions mt-4 text-center">
+              <%= f.button :submit, "Actualizar", class: "btn btn-primary px-4" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card mt-5 shadow-sm">
+        <div class="card-body text-center">
+          <h3 class="mb-3 text-danger">Cancelar mi cuenta</h3>
+          <p>¿No estás satisfecho?</p>
+          <%= button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "¿Estás seguro?", turbo_confirm: "¿Estás seguro?" }, method: :delete, class: "btn btn-danger mb-2" %>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <%= link_to "Volver", :back, class: "btn btn-secondary" %>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>

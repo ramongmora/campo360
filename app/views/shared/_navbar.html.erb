@@ -19,7 +19,7 @@
             <% avatar_url = current_user.avatar.attached? ? url_for(current_user.avatar) : asset_path("iconos/employees_icon.png") %>
             <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><%= link_to "⚙️ Ajustes", ajustes_path, class: "dropdown-item" %></li>
+              <li><%= link_to "⚙️ Ajustes", edit_user_registration_path, class: "dropdown-item" %></li>
               <li><hr class="dropdown-divider"></li>
               <li><%= link_to "🚪 Cerrar sesión", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "dropdown-item" %></li>
             </ul>
@@ -33,4 +33,3 @@
     </div>
   </div>
 </nav>
- 
