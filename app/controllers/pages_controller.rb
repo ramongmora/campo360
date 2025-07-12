@@ -8,15 +8,18 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-  @locations = current_user.locations
+    @locations = current_user.locations
 
-  # Guardar nueva selección si viene en params
-  if params[:location_id].present?
-    session[:selected_location_id] = params[:location_id]
-  end
+    # Guardar nueva selección si viene en params
+    if params[:location_id].present?
+      session[:selected_location_id] = params[:location_id]
+    end
 
-    # Usar la selección guardada en sesión o default
-    @location = @locations.find_by(id: session[:selected_location_id]) || @locations.first
+    # Usar la selección guardada, luego el principal, luego el primero
+    @location =
+      @locations.find_by(id: session[:selected_location_id]) ||
+      current_user.main_location ||
+      @locations.first
   end
 
   def actividad
