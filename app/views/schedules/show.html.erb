@@ -33,10 +33,10 @@
             </dl>
           </div>
           <div class="card-footer bg-light text-center">
-            <%= link_to location_schedules_path(@schedule.location), class: 'btn btn-outline-primary' do %>
-              <i class="fas fa-arrow-left"></i> Volver a Actividades
+            <%= link_to request.referer || dashboard_path, class: 'btn btn-outline-success' do %>
+              <i class="fas fa-arrow-left"></i> Volver a Atras
             <% end %>
-            <%= link_to edit_location_schedule_path(@schedule.location, @schedule), class: 'btn btn-outline-success' do %>
+            <%= link_to edit_location_schedule_path(@schedule.location, @schedule), class: 'btn btn-outline-primary' do %>
               <i class="fas fa-edit"></i> Editar
             <% end %>
           </div>

@@ -1,35 +1,56 @@
-<div class="container mt-5">
+<div class="container mt-4">
   <!-- Encabezado -->
-  <div class="mb-3">
+  <div class="mb-5">
     <h1 class="fw-bold text-success mb-0">👷‍♂️ Empleados en <%= @location.name %></h1>
   </div>
 
   <!-- Botón de volver al dashboard -->
-  <div class="mb-4">
-    <%= link_to dashboard_path, data: { turbo_frame: "dashboard-content" }, class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
+  <div class="mb-5 d-flex justify-content-between align-items-center">
+    <%= link_to dashboard_path, class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
       <i class="bi bi-arrow-left-circle"></i> Volver a la página principal
     <% end %>
+    <%= link_to "➕ Agregar empleado", new_location_employee_path(@location), class: "btn btn-success shadow-sm fw-semibold rounded-pill" %>
   </div>
 
-  <!-- Botón para agregar empleado -->
-  <div class="mb-4">
-    <%= link_to "➕ Agregar empleado", new_location_employee_path(@location), data: { turbo_frame: "dashboard-content" }, class: "btn btn-success shadow-sm fw-semibold rounded-pill" %>
-  </div>
+
+
+
 
   <!-- Tarjetas de empleados -->
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% @employees.each do |employee| %>
       <div class="col">
-        <div class="card shadow-sm h-100 border-success text-start">
-          <div class="card-body">
-            <h5 class="card-title fw-bold text-success"><%= employee.first_name %> <%= employee.last_name %></h5>
-            <p class="card-text"><strong>📄 CURP:</strong> <%= employee.citizen_register %></p>
-            <p class="card-text"><strong>📧 Correo:</strong> <%= employee.email %></p>
-            <p class="card-text"><strong>💵 Sueldo:</strong> $<%= number_with_precision(employee.salary, precision: 2) %></p>
+        <div class="card h-100 border-0 shadow-lg">
+          <div class="card-header bg-success text-white d-flex align-items-center">
+            <i class="bi bi-person-badge-fill me-2"></i>
+            <h5 class="mb-0 fw-bold"><%= employee.first_name %> <%= employee.last_name %></h5>
           </div>
-          <div class="card-footer bg-white border-top-0 d-flex gap-2">
-            <%= link_to "Editar", edit_location_employee_path(@location, employee), data: { turbo_frame: "dashboard-content" }, class: "btn btn-outline-success btn-sm fw-semibold" %>
-            <%= link_to "Eliminar", location_employee_path(@location, employee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm fw-semibold" %>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <span class="fw-semibold text-secondary"><i class="bi bi-card-list me-1"></i>CURP:</span>
+                <span class="text-dark"><%= employee.citizen_register %></span>
+              </li>
+              <li class="mb-2">
+                <span class="fw-semibold text-secondary"><i class="bi bi-envelope-at me-1"></i>Correo:</span>
+                <span class="text-dark"><%= employee.email %></span>
+              </li>
+              <li>
+                <span class="fw-semibold text-secondary"><i class="bi bi-cash-coin me-1"></i>Sueldo:</span>
+                <span class="text-dark">$<%= number_with_precision(employee.salary, precision: 2) %></span>
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2">
+            <%= link_to location_employee_path(@location, employee), class: "btn btn-outline-primary btn-sm fw-semibold px-3" do %>
+              <i class="bi bi-eye"></i> Ver
+            <% end %>
+            <%= link_to edit_location_employee_path(@location, employee), class: "btn btn-outline-success btn-sm fw-semibold px-3" do %>
+              <i class="bi bi-pencil"></i> Editar
+            <% end %>
+            <%= link_to location_employee_path(@location, employee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm fw-semibold px-3" do %>
+              <i class="bi bi-trash"></i> Eliminar
+            <% end %>
           </div>
         </div>
       </div>
