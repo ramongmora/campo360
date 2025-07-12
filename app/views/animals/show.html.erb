@@ -43,7 +43,7 @@
             <i class="bi bi-pencil-fill"></i> Editar
           <% end %>
 
-          <%= link_to location_animals_path(@location), class: 'btn btn-outline-secondary px-4 fw-semibold shadow-sm rounded-pill' do %>
+          <%= link_to request.referer || dashboard_path, class: 'btn btn-outline-secondary px-4 fw-semibold shadow-sm rounded-pill' do %>
             <i class="bi bi-arrow-left-circle-fill"></i> Volver
           <% end %>
 

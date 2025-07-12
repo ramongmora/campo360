@@ -44,8 +44,9 @@
         <%= link_to edit_location_crop_path(@location, @crop), class: "btn btn-outline-success px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
           <i class="bi bi-pencil-square me-2"></i>Editar
         <% end %>
-        <%= link_to location_crops_path, class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
-          <i class="bi bi-arrow-left me-2"></i>Volver
+        <%= link_to request.referer || dashboard_path, class: "btn btn-outline-secondary px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
+          <i class="bi bi-arrow-left me-2"></i>
+          Volver
         <% end %>
         <%= link_to [@location, @crop], data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de que deseas eliminar este cultivo?" }, class: "btn btn-outline-danger px-4 fw-semibold shadow-sm border-2 rounded-pill" do %>
           <i class="bi bi-trash3 me-2"></i>Eliminar Cultivo
