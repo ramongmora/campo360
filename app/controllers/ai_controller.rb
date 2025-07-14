@@ -37,6 +37,12 @@ class AiController < ApplicationController
     redirect_to location_agrobot_path(@location)
   end
 
+  def clear
+    @location.agrobot_messages.destroy_all
+    flash[:notice] = "El historial del chat ha sido reiniciado."
+    redirect_to location_agrobot_path(@location)
+  end
+
   private
 
   def set_location

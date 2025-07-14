@@ -5,37 +5,56 @@
   <p class="text-muted">Haz preguntas sobre tu rancho, animales, siembras y Agrobot te responderá de forma inteligente.</p>
 
   <div id="chat-box" class="chat-window">
-    <% @messages.each do |message| %>
-      <div class="chat-message <%= message.role == 'user' ? 'user' : 'bot' %>">
-        <% if message.role == "user" %>
-          <div class="d-flex justify-content-end align-items-start gap-2">
-            <div class="bubble bubble-user"><%= simple_format(message.content) %></div>
-            <% if current_user.avatar.attached? %>
-            <%= image_tag current_user.avatar.variant(resize_to_fill: [36, 36]), class: "avatar avatar-user" %>
-            <% else %>
-          <div class="avatar avatar-user"><%= current_user.email.first.upcase %></div>
-          <% end %>
-          </div>
-        <% else %>
-          <div class="d-flex justify-content-start align-items-start gap-2">
-            <%= image_tag "iconos/agrobot_icon.png", class: "avatar avatar-bot" %>
-            <div class="bubble bubble-bot"><%= simple_format(message.content) %></div>
-          </div>
-        <% end %>
+    <% if @messages.empty? %>
+      <div class="text-center text-muted my-5">
+        💬 <em>¿En qué puedo ayudarte hoy?</em>
       </div>
+    <% else %>
+      <% @messages.each do |message| %>
+        <div class="chat-message <%= message.role == 'user' ? 'user' : 'bot' %>">
+          <% if message.role == "user" %>
+            <div class="d-flex justify-content-end align-items-start gap-2">
+              <div class="bubble bubble-user"><%= simple_format(message.content) %></div>
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar.variant(resize_to_fill: [36, 36]), class: "avatar avatar-user" %>
+              <% else %>
+                <div class="avatar avatar-user"><%= current_user.email.first.upcase %></div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="d-flex justify-content-start align-items-start gap-2">
+              <%= image_tag "iconos/agrobot_icon.png", class: "avatar avatar-bot" %>
+              <div class="bubble bubble-bot"><%= simple_format(message.content) %></div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 
+  <!-- Formulario de envío de preguntas -->
   <%= form_with url: location_agrobot_ask_path(@location), method: :post, local: true do |f| %>
     <div class="input-group mt-3" style="max-width: 700px; margin: 0 auto;">
-        <%= f.text_field :question, placeholder: "Escribe tu pregunta...", class: "form-control", required: true %>
-        <button type="submit" class="btn d-flex align-items-center gap-2">
-            Preguntar
-            <i class="bi bi-send-fill"></i>
-        </button>
+      <%= f.text_field :question, placeholder: "Escribe tu pregunta...", class: "form-control", required: true %>
+      <button type="submit" class="btn d-flex align-items-center gap-2">
+        Preguntar
+        <i class="bi bi-send-fill"></i>
+      </button>
     </div>
   <% end %>
+
+  <!-- Botón para reiniciar el chat -->
+  <div class="text-center mt-4">
+    <%= button_to location_clear_agrobot_path(@location),
+                  method: :delete,
+                  data: { confirm: "¿Estás seguro de reiniciar el chat?" },
+                  class: "btn btn-outline-secondary d-inline-flex align-items-center gap-2" do %>
+      <i class="fas fa-rotate-left"></i>
+      Reiniciar Chat
+    <% end %>
+  </div>
 </div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");

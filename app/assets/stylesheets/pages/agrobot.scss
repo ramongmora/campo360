@@ -10,16 +10,27 @@
   border: 1px solid #dee2e6;
 }
 
-
 .chat-message {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
 
+/* Usuario: derecha */
+.user-message-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* Bot: izquierda */
+.bot-message-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
 .bubble {
-  display: inline-block;
   padding: 0.8rem 1.1rem;
   border-radius: 1rem;
   max-width: 75%;
@@ -34,7 +45,7 @@
   background-color: #dcf8c6;
   color: #1a1a1a;
   border-top-right-radius: 0.4rem;
-  margin-left: auto;
+  text-align: left;
 }
 
 .bubble-bot {
@@ -68,50 +79,37 @@
   padding: 0;
 }
 
-
-/* Animación de entrada suave */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Botón "Reiniciar Chat" */
+.chat-page .btn-outline-danger {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 2px solid #adb5bd;
+  color: #495057;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 8px rgba(173, 181, 189, 0.15);
 }
 
-/* Responsividad */
-@media (max-width: 576px) {
-  .chat-window {
-    padding: 1rem;
-  }
-
-  .bubble {
-    max-width: 100%;
-    font-size: 0.9rem;
-  }
-
-  .avatar {
-    width: 32px;
-    height: 32px;
-  }
+.chat-page .btn-outline-danger:hover {
+  background-color: #adb5bd;
+  color: white;
+  box-shadow: 0 4px 12px rgba(173, 181, 189, 0.25);
 }
 
-.container.chat-page {
-  background-color: #fefefe;
-  border: 1px solid #e1e1e1;
-  border-radius: 1rem;
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+.chat-page .btn-outline-danger i {
+  font-size: 1.1rem;
 }
 
+/* Entrada y botón */
 .input-group {
   border: 1px solid #ced4da;
   border-radius: 999px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .input-group input[type="text"],
@@ -142,4 +140,30 @@
 .input-group .btn i {
   font-size: 1rem;
   margin-left: 4px;
+}
+
+/* Responsividad */
+@media (max-width: 576px) {
+  .chat-window {
+    padding: 1rem;
+  }
+
+  .bubble {
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.container.chat-page {
+  background-color: #fefefe;
+  border: 1px solid #e1e1e1;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
