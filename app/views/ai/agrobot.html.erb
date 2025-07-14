@@ -1,22 +1,24 @@
-<div class="container my-4">
+<div class="container chat-page my-4">
   <%= link_to "← Volver", dashboard_path, class: "btn btn-outline-success mb-3" %>
 
   <h2>🤖 Agrobot IA</h2>
-  <p class="text-muted">Haz preguntas sobre tu rancho, animales o siembras y Agrobot te responderá de forma inteligente.</p>
+  <p class="text-muted">Haz preguntas sobre tu rancho, animales, siembras y Agrobot te responderá de forma inteligente.</p>
 
   <div id="chat-box" class="chat-window">
     <% @messages.each do |message| %>
       <div class="chat-message <%= message.role == 'user' ? 'user' : 'bot' %>">
         <% if message.role == "user" %>
-          <div class="text-end small text-muted mb-1">👤 Tú</div>
           <div class="d-flex justify-content-end align-items-start gap-2">
             <div class="bubble bubble-user"><%= simple_format(message.content) %></div>
-            <div class="avatar avatar-user">T</div>
+            <% if current_user.avatar.attached? %>
+            <%= image_tag current_user.avatar.variant(resize_to_fill: [36, 36]), class: "avatar avatar-user" %>
+            <% else %>
+          <div class="avatar avatar-user"><%= current_user.email.first.upcase %></div>
+          <% end %>
           </div>
         <% else %>
-          <div class="text-start small text-muted mb-1">🤖 Agrobot</div>
           <div class="d-flex justify-content-start align-items-start gap-2">
-            <div class="avatar avatar-bot">A</div>
+            <%= image_tag "iconos/agrobot_icon.png", class: "avatar avatar-bot" %>
             <div class="bubble bubble-bot"><%= simple_format(message.content) %></div>
           </div>
         <% end %>
@@ -25,9 +27,20 @@
   </div>
 
   <%= form_with url: location_agrobot_ask_path(@location), method: :post, local: true do |f| %>
-    <div class="input-group mt-3">
-      <%= f.text_field :question, placeholder: "Escribe tu pregunta...", class: "form-control", required: true %>
-      <button type="submit" class="btn btn-success">Preguntar</button>
+    <div class="input-group mt-3" style="max-width: 700px; margin: 0 auto;">
+        <%= f.text_field :question, placeholder: "Escribe tu pregunta...", class: "form-control", required: true %>
+        <button type="submit" class="btn d-flex align-items-center gap-2">
+            Preguntar
+            <i class="bi bi-send-fill"></i>
+        </button>
     </div>
   <% end %>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const chatBox = document.getElementById("chat-box");
+    if (chatBox) {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  });
+</script>
