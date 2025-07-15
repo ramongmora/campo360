@@ -1,27 +1,30 @@
-<div class="dashboard-container">
+<div class="animals-container">
   <div class="container">
 
     <!-- Botón de volver al dashboard -->
     <div class="mb-3">
       <%= link_to dashboard_path, class: "btn btn-outline-success fw-semibold shadow-sm rounded-pill" do %>
-        <i class="bi bi-arrow-left-circle"></i> Volver a la pagina principal
+        <i class="bi bi-arrow-left-circle"></i> Volver a la página principal
       <% end %>
     </div>
 
-    <h1 class="mb-4">Animales en <%= @location.name %></h1>
+    <h1><i class="bi bi-cow-front"></i> Animales en <%= @location.name %></h1>
 
-    <%= form_with url: location_animals_path(@location), method: :get, local: false do |f| %>
-      <div class="mb-3">
+    <!-- Buscador -->
+    <div class="search-wrapper">
+      <%= form_with url: location_animals_path(@location), method: :get, local: false do |f| %>
         <%= f.text_field :query, placeholder: "Buscar por alias...", class: "form-control" %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
-    <div class="mb-3">
+    <!-- Botón de agregar -->
+    <div class="mb-4 text-end">
       <%= link_to "➕ Agregar Animal",
                   new_location_animal_path(@location),
                   class: "btn btn-success" %>
     </div>
 
+    <!-- Lista de animales -->
     <div id="animals_list">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <% @animals.each do |animal| %>
