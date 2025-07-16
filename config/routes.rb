@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     # Agrobot IA
     get "agrobot", to: "ai#agrobot", as: :agrobot
     post "agrobot/ask", to: "ai#ask"
+    delete "agrobot/clear", to: "ai#clear", as: :clear_agrobot
   end
 
   # Rutas independientes para transacciones desde /admin

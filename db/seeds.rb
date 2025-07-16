@@ -39,8 +39,15 @@ sheep = AnimalGroup.create!(name: "Ovino")
 breed1 = Breed.create!(breed_type: "Aberdeen Angus", animal_group: cattle)
 breed2 = Breed.create!(breed_type: "Hereford", animal_group: cattle)
 breed3 = Breed.create!(breed_type: "Merino", animal_group: sheep)
+breed4 = Breed.create!(breed_type: "Holstein", animal_group: cattle)
+breed5 = Breed.create!(breed_type: "Brahman", animal_group: cattle)
+breed6 = Breed.create!(breed_type: "Brangus", animal_group: cattle)
+breed7 = Breed.create!(breed_type: "Belgain Blue", animal_group: cattle)
+breed8 = Breed.create!(breed_type: "Gyr", animal_group: cattle)
+breed9 = Breed.create!(breed_type: "Jersey", animal_group: cattle)
 
 puts "🐮 Creating animals..."
+
 Animal.create!([
   { alias: "Toro Negro", birth_date: "2021-04-10", gender: "Macho", follow: true, location: location1, breed: breed1 },
   { alias: "Vaca Blanca", birth_date: "2020-09-23", gender: "Hembra", follow: false, location: location1, breed: breed2 },
@@ -103,4 +110,17 @@ Employee.create!([
     location: location2
   }
 ])
+
+
+puts "🌱 Creando proveedores..."
+
+10.times do |i|
+  Supplier.create!(
+    name: Faker::Company.name,
+    contact: Faker::PhoneNumber.phone_number
+  )
+end
+
+puts "✅ 10 proveedores creados exitosamente"
+
 puts "¡Seeds completados con datos consistentes!"

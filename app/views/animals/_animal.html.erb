@@ -1,7 +1,9 @@
 <div class="col">
   <div class="card h-100 shadow border-success">
     <% if animal.photo.attached? %>
-      <%= cl_image_tag animal.photo.key, class: "card-img-top img-fluid", width: 600, height: 300, crop: :fill %>
+      <div class="image-wrapper">
+        <%= cl_image_tag animal.photo.key, class: "card-img-top img-fluid object-cover", crop: :fill, width: 600, height: 300 %>
+      </div>
     <% else %>
       <div class="text-center py-5 text-muted">
         <i class="bi bi-image fs-1"></i><br>
@@ -44,6 +46,6 @@
           <i class="bi bi-pencil"></i> Editar animal
         <% end %>
       </div>
-        </div>
-      </div>
     </div>
+  </div>
+</div>

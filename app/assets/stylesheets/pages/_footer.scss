@@ -84,3 +84,29 @@
     color: #888;
   }
 }
+
+.footer-campo360 {
+  padding: 1.2rem 1rem;
+  font-size: 0.92rem;
+
+  .footer-bottom {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-campo360 .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer-social .social-icons {
+    justify-content: center;
+  }
+}
